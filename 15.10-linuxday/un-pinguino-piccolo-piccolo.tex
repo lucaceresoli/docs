@@ -5,6 +5,9 @@
 \usepackage{hyperref}
 \usepackage{color}
 
+\usetheme{Pittsburgh}
+\usecolortheme{beaver}
+
 \title{Un Pinguino piccolo piccolo}
 \subtitle{Linux nei sistemi embedded}
 \author{Luca Ceresoli}
@@ -12,9 +15,11 @@
 
 \AtBeginSection[]
 {
-  \begin{frame}
-    \frametitle{Table of Contents}
-    \tableofcontents[currentsection]
+  \begin{frame}{}
+    \huge
+    \begin{center}
+      \insertsection
+    \end{center}
   \end{frame}
 }
 
