@@ -5,3 +5,5 @@
 *.snm
 *.toc
 *~
+*.log
+*.eps
