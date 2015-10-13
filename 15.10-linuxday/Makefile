@@ -11,7 +11,9 @@ images/%.eps: images/%.dia
 	@printf "%-15s %s\n" DIA $(notdir $@)
 	dia -e $@ -t eps $^
 
-un-pinguino-piccolo-piccolo.pdf: images/embedded-systems-range.pdf
+un-pinguino-piccolo-piccolo.pdf: \
+	images/embedded-systems-range.pdf \
+	images/system-architecture.pdf
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
