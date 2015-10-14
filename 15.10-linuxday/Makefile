@@ -13,7 +13,10 @@ images/%.eps: images/%.dia
 
 un-pinguino-piccolo-piccolo.pdf: \
 	images/embedded-systems-range.pdf \
-	images/system-architecture.pdf
+	images/system-architecture.pdf \
+	images/system-architecture-kernel.pdf \
+	images/system-architecture-libc.pdf \
+	images/system-architecture-busybox.pdf
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
