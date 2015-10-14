@@ -262,6 +262,60 @@
 
 \section{Sfida \#2: Cross-compilazione}
 
+\begin{frame}
+\frametitle{Architettura delle CPU}
+  \begin{center}
+    \includegraphics[height=0.6\textheight]{images/mips-architecture.png}\\
+    \includegraphics[height=0.2\textheight]{images/mips32-instruction.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Host VS Target}
+  \begin{center}
+    \includegraphics[height=0.6\textheight]{images/global-architecture.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Toolchain}
+  \begin{itemize}
+  \item Toolchain = strumenti per tradurre i sorgenti in eseguibili e
+    librerie = compilatore + linker + altri strumenti
+  \item Il compilatore standard del PC è una {\bf toolchain nativa}
+    \begin{itemize}
+    \item è un programma x86 che gira sul PC
+    \item produce un programma x86 che gira sul PC
+    \end{itemize}
+  \item Per un sistema embedded (non x86) serve una {\bf cross
+    toolchain}
+    \begin{itemize}
+    \item è un programma x86 che gira sul PC (``host'')
+    \item produce un programma ARM, MIPS... che gira sul sistema
+      embedded (``target'')
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Come mi procuro una cross-toolchain?}
+  \begin{itemize}
+  \item Fai da te (e buona fortuna!)
+  \item crosstool-NG
+  \item Openembedded
+  \item Buildroot
+  \item Toolchain già pronta
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle[Demo! Cross-compilazione]{Demo}
+  \begin{center}
+    \LARGE
+    Cross-compilazione
+  \end{center}
+\end{frame}
+
 \section{Sfida \#3: Nessuno standard}
 
 \section{Sfida \#4: Comporre un puzzle}

@@ -16,7 +16,8 @@ un-pinguino-piccolo-piccolo.pdf: \
 	images/system-architecture.pdf \
 	images/system-architecture-kernel.pdf \
 	images/system-architecture-libc.pdf \
-	images/system-architecture-busybox.pdf
+	images/system-architecture-busybox.pdf \
+	images/global-architecture.pdf
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
