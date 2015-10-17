@@ -1,0 +1,43 @@
+KERNEL
+======
+
+$ ls -l /boot
+$ uname -r
+$ du -hs  /lib/modules/3.13.0-66-generic/
+
+$ tar xaf ~/src/linux-4.0.5.tar.xz
+$ cd linux-4.0.5/
+$ make allnoconfig
+$ make menuconfig
+$ make -j4
+$ ls -lh
+
+CROSS-COMPILAZIONE
+==================
+
+$ gcc hello.c -o hello
+$ file hello
+$ ./hello
+
+$ tar xaf ~/src/arm-2014.05-29-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2
+$ file hello
+$ ./hello
+
+BUILDROOT
+=========
+
+$ tar xaf ~/Scaricati/buildroot-2015.08.1.tar.gz
+$ cd buildroot-2015.08.1/
+$ ls configs/*olimex*
+$ make olimex_a20_olinuxino_micro_defconfig
+$ make menuconfig
+   # set ccache ON
+   # set download dir ~/src
+   # set externel toolchain
+   # mostrare parametri CPU
+   # mostrare menu toolchain
+   # mostrare qualche pacchetto (audio, networking)
+$ make
+   # ~3 min
+$ less board/olimex/a20_olinuxino/readme.txt
+$
