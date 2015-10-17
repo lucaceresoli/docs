@@ -316,9 +316,134 @@
   \end{center}
 \end{frame}
 
-\section{Sfida \#3: Nessuno standard}
+\section{Sfida \#3: Comporre un puzzle}
 
-\section{Sfida \#4: Comporre un puzzle}
+\begin{frame}
+\frametitle{Sistemi operativi standardizzati}
+  \begin{itemize}
+  \item Distribuzioni Linux, Windows, Android...
+  \item Hanno una struttura sempre uguale
+  \item Molte librerie e servizi di base sempre presenti
+  \item Le applicazioni possono contare su un ambiente sempre uguale
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sistemi embedded Linux}
+  \begin{itemize}
+  \item Probabilmente c'è dell'hardware in meno
+    \begin{itemize}
+    \item Non è detto che ci siano schermo, tartiera, mouse,
+      touchscreen
+    \end{itemize}
+  \item Probabilmente c'è dell'hardware in più
+    \begin{itemize}
+    \item Controllo motori, lettore di carte magnetiche,
+      telecomando, pannelli LED a scritta variabile\ldots
+    \end{itemize}
+  \item Non si può dar per scontato di avere librerie e servizi di
+    base come su PC
+  \item Le risorse possono essere molto limitate (CPU, RAM, storage)
+  \item Spesso vanno realizzati in modo sartoriale
+  \item A volte bisogna ``smussare qualche angolo''
+  \item Bisogna trovare i pezzi, sceglierli, assemblarli\ldots
+    \begin{itemize}
+    \item Possono essere molti
+    \item Può essere difficile farli cooperare correttamente
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Come assemblare i pezzi}
+  \begin{itemize}
+  \item Fai da te (e buona fortuna!)
+  \item Build system
+    \begin{itemize}
+    \item Buildroot
+    \item Openembedded
+    \item OpenWRT
+    \item \ldots
+    \end{itemize}
+  \item Distribuzioni embedded pronte
+    \begin{itemize}
+    \item Utilizzabile solo con hardware relativamente potente
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Buildroot}
+  \begin{itemize}
+  \item Buildroot --- Making Embedded Linux Easy
+  \item Strumento per generare tutti i componenti
+    \begin{itemize}
+    \item Cross-toolchain
+    \item Bootloader
+    \item Kernel
+    \item Root filesystem: librerie, applicativi\ldots
+      \begin{itemize}
+      \item Contiene le ``ricette'' per compilare oltre 1700 pacchetti
+      \end{itemize}
+    \item File ``immagine'' scrivere in flash, SD\ldots
+    \end{itemize}
+  \item \url{http://buildroot.net/}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Buildroot: configurazione}
+  \begin{columns}
+    \column{0.6\textwidth}
+    \begin{itemize}
+    \item Si configura con \path{kconfig} come il kernel:\\
+      \path{make menuconfig}
+    \item Permette di definire
+      \begin{itemize}
+      \item L'architettura della CPU
+      \item Le caratteristiche della toolchain
+      \item Le applicazioni e librerie includere
+      \item I tipi di file immagine da generare
+      \item La configurazione del kernel
+      \item La configurazione del bootloader
+      \end{itemize}
+    \end{itemize}
+    \column{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/buildroot.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Buildroot: esecuzione}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+    \item Per compilare il tutto:\\
+      \path{make}
+    \item Per ciascun pacchetto esegue diversi passi:
+      \begin{itemize}
+      \item Download dei sorgenti
+      \item Extract
+      \item Patch
+      \item Configure
+      \item Build
+      \item Install
+      \end{itemize}
+    \item Alle fine genera l'immagine di root filesystem, kernel e
+      quant'altro necessario
+    \end{itemize}
+    \column{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/graph-depends.pdf}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle[Demo! Da zero a login con Buildroot]{Demo}
+  \begin{center}
+    \LARGE
+    Da zero a login con Buildroot
+  \end{center}
+\end{frame}
 
 \begin{frame}
 \frametitle{Fine}
