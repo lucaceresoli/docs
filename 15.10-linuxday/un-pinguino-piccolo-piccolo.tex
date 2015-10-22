@@ -147,7 +147,6 @@
     \hline
      & PC & Android & Embedded \\
     \hline
-    Architettura & x86            & ARM        & varie            \\
     CPU cores    & 2..8           & 1..4       & 1..8             \\
     CPU clock    & 2..3 GHz       & 1..2 GHz   & 100 MHz .. 3 GHz \\
     RAM          & 4..16 GB       & 1..4 GB    & 8 MB .. 16 GB    \\
@@ -209,10 +208,11 @@
           testo, programmi per manipolare files, esaminare lo stato
           del sistema, configurare la rete\ldots
       \end{itemize}
-    \item In una distribuzione sono forniti da diversi progetti
+    \item In una distribuzione sono tanti eseguibili
       \begin{itemize}
-        \item Diverse fonti, vanno gestiti in modi diversi
         \item Non pensati per un sistema embedded
+        \item Occupano spazio
+        \item Diverse fonti, vanno gestiti in modi diversi
       \end{itemize}
     \item Soluzione: Busybox!
       \begin{itemize}
@@ -236,7 +236,6 @@
       \item {\bf Gestisce tutte le risorse hardware}: CPU, memoria, I/O\ldots
       \item Fornisce un'interfaccia {\bf portabile} all'hardware per le
         librerie ed applicazioni
-      \item {\bf Gestisce accessi concorrenti} alle risorse hardware
       \item È mostruosamente configurabile
     \end{itemize}
     \column{0.3\textwidth}
@@ -314,7 +313,6 @@
 \frametitle{Sistemi operativi standardizzati}
   \begin{itemize}
   \item Distribuzioni Linux, Windows, Android...
-  \item Hanno una struttura sempre uguale
   \item Molte librerie e servizi di base sempre presenti
   \item Le applicazioni possono contare su un ambiente sempre uguale
   \end{itemize}
@@ -335,9 +333,7 @@
     \end{itemize}
   \item Non si può dar per scontato di avere librerie e servizi di
     base come su PC
-  \item Le risorse possono essere molto limitate (CPU, RAM, storage)
   \item Spesso vanno realizzati in modo sartoriale
-  \item A volte bisogna ``smussare qualche angolo''
   \item Bisogna trovare i pezzi, sceglierli, assemblarli\ldots
     \begin{itemize}
     \item Possono essere molti
