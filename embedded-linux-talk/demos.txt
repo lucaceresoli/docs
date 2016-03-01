@@ -42,3 +42,15 @@ $ make
    # ~3 min
 $ less board/olimex/a20_olinuxino/readme.txt
 $
+
+LIVE DEMO
+=========
+
+cd /sys/class/gpio
+echo 67 >export
+echo 71 >export
+echo out >gpio67/direction
+echo out >gpio71/direction
+echo 1 >gpio67/value
+echo 1 >gpio71/value
+while true; do echo 1 >gpio67/value; sleep 1; echo 0 >gpio67/value; echo 1 >gpio71/value; sleep 1; echo 0 >gpio71/value; sleep 1; done
