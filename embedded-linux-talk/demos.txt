@@ -7,6 +7,7 @@ $ du -hs  /lib/modules/3.13.0-66-generic/
 
 $ tar xaf ~/src/linux-4.0.5.tar.xz
 $ cd linux-4.0.5/
+$ make help
 $ make allnoconfig
 $ make menuconfig
 $ make -j4
