@@ -33,11 +33,10 @@ $ cd buildroot-2015.08.1/
 $ ls configs/*olimex*
 $ make olimex_a20_olinuxino_micro_defconfig
 $ make menuconfig
-   # set ccache ON
-   # set download dir ~/src
-   # set externel toolchain
    # mostrare parametri CPU
+   # set ccache ON
    # mostrare menu toolchain
+   # set external toolchain
    # mostrare qualche pacchetto (audio, networking)
 $ make
    # ~3 min
