@@ -46,6 +46,9 @@ $
 LIVE DEMO
 =========
 
+Olimex A20-OLinuXino-MICRO
+--------------------------
+
 cd /sys/class/gpio
 echo 67 >export
 echo 71 >export
@@ -54,3 +57,18 @@ echo out >gpio71/direction
 echo 1 >gpio67/value
 echo 1 >gpio71/value
 while true; do echo 1 >gpio67/value; sleep 1; echo 0 >gpio67/value; echo 1 >gpio71/value; sleep 1; echo 0 >gpio71/value; sleep 1; done
+
+Raspberry Pi model B
+--------------------
+
+P1 header pin 11 = GPIO17
+P1 header pin 15 = GPIO22
+
+cd /sys/class/gpio
+echo 17 >export
+echo 22 >export
+echo out >gpio17/direction
+echo out >gpio22/direction
+echo 1 >gpio17/value
+echo 1 >gpio22/value
+while true; do echo 1 >gpio17/value; sleep 1; echo 0 >gpio17/value; echo 1 >gpio22/value; sleep 1; echo 0 >gpio22/value; sleep 1; done
