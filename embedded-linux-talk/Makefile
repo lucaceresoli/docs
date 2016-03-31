@@ -1,4 +1,4 @@
-all: un-pinguino-piccolo-piccolo.pdf
+all: embedded-linux-talk.pdf
 
 XELATEX = xelatex
 XELATEX_OPTS = -shell-escape -file-line-error -halt-on-error
@@ -11,7 +11,7 @@ images/%.eps: images/%.dia
 	@printf "%-15s %s\n" DIA $(notdir $@)
 	dia -e $@ -t eps $^
 
-un-pinguino-piccolo-piccolo.pdf: \
+embedded-linux-talk.pdf: \
 	images/embedded-systems-range.pdf \
 	images/system-architecture.pdf \
 	images/system-architecture-kernel.pdf \
