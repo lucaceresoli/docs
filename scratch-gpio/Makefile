@@ -15,6 +15,11 @@ images/%.eps: images/%.dia
 	@printf "%-15s %s\n" DIA $(notdir $@)
 	dia -e $@ -t eps $^
 
+scratch-gpio.pdf: \
+	images/hydraulic-circuit.pdf \
+	images/led-circuit.pdf \
+	images/semaphore-manual.pdf \
+
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
 
