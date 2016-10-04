@@ -19,6 +19,7 @@ scratch-gpio.pdf: \
 	images/hydraulic-circuit.pdf \
 	images/led-circuit.pdf \
 	images/semaphore-manual.pdf \
+	images/computer-model.pdf \
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
