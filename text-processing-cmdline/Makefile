@@ -15,7 +15,9 @@ images/%.eps: images/%.dia
 	@printf "%-15s %s\n" DIA $(notdir $@)
 	dia -e $@ -t eps $^
 
-text-processing-cmdline.pdf:
+text-processing-cmdline.pdf: \
+	images/process.pdf \
+	images/pipeline.pdf
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
