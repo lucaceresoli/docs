@@ -21,6 +21,7 @@ scratch-gpio.pdf: \
 	images/semaphore-manual.pdf \
 	images/computer-model.pdf \
 	images/semaphore-gpio.pdf \
+	images/semaphore-gpio-pir.pdf \
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
