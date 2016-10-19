@@ -152,6 +152,49 @@
   \end{itemize}
 \end{frame}
 
+\section{Classi e oggetti in C}
+
+\begin{frame}
+  \frametitle{Classi e oggetti in C}
+  \begin{itemize}
+  \item In C si possono creare delle ``classi'' usando le \texttt{struct}
+    \begin{itemize}
+    \item Contengono le proprietà (dati), non i metodi
+    \item Per ricreare i metodi usiamo normali funzioni
+      \begin{itemize}
+      \item Che come primo parametro ricevono un puntatore alla struct
+      \end{itemize}
+    \end{itemize}
+    \item Proprietà e metodi non sono legati dal linguaggio, ma da una
+      convenzione
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Esempio ad oggetti in C}
+  \begin{minted}[fontsize=\scriptsize]{c}
+    struct ShoppingCart {
+      Item items[100];
+    };
+
+    int main()
+    {
+      ShoppingCart cart1, cart2;
+      shoppingcart_initialize(&cart1);
+      shoppingcart_initialize(&cart2);
+      Item kr = {"The C Programming Language", 53};
+      Item bs = {"The C++ Programming Language", 56};
+      Item bc = {"Understanding the Linux Kernel", 45};
+      shoppingcart_add(&cart1, &kr);
+      shoppingcart_add(&cart1, &bs);
+      shoppingcart_add(&cart2, &kr);
+      shoppingcart_add(&cart2, &bc);
+      cout << "Cart1 total: " << shoppingcart_get_total(&cart1) << endl;
+      cout << "Cart2 total: " << shoppingcart_get_total(&cart2) << endl;
+    }
+  \end{minted}
+\end{frame}
+
 \begin{frame}
   \frametitle{Grazie per l'attenzione!}
 
