@@ -16,7 +16,8 @@ images/%.eps: images/%.dia
 	dia -e $@ -t eps $^
 
 oop-c-kernel.pdf: \
-	images/inheritance.pdf
+	images/inheritance.pdf \
+	images/device-model.pdf
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*

@@ -224,6 +224,71 @@
   \end{itemize}
 \end{frame}
 
+\section{Il kernel di Linux}
+
+\begin{frame}
+  \frametitle{Il kernel}
+  \begin{itemize}
+  \item È il ``nocciolo'' del sistema operativo
+  \item Gestisce tutte le risorse hardware, i processi, la memoria e
+    molto altro
+  \item Scritto in C
+  \item Fortemente strutturato ad oggetti
+    \begin{itemize}
+    \item Il {\em device model}: struttura dei device e dei device drivers
+    \item Il {\em Virtual Filesystem}: gestione uniforme di diversi filesystem
+    \item \dots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Il device model}
+  \begin{itemize}
+  \item Modello a oggetti di tutte le periferiche del computer
+  \item Introdotto in Linux 2.6 (2003)
+  \item Permette:
+    \begin{itemize}
+    \item Power management
+    \item Visibilità all'utente delle periferiche connesse
+      \begin{itemize}
+      \item \texttt{sysfs}
+      \item \texttt{lshw}
+      \end{itemize}
+    \item Hotplug
+    \item Object lifecycle
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Il device model --- class diagram}
+  \begin{center}
+    \includegraphics[height=0.6\textheight]{images/device-model.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\texttt{struct kobject}}
+  \begin{itemize}
+  \item Classe base da cui derivano le altre
+    \begin{itemize}
+    \item Collegamenti tra oggetti
+      \begin{itemize}
+      \item Esempio: un device USB punta all'hub USB cui è connesso
+      \end{itemize}
+    \item Rappresentazione in sysfs
+      \begin{itemize}
+      \item Attributi del kobject diventano file in \texttt{/sys}
+      \item Collegamenti (puntatori) tra kobject diventano link in
+        \texttt{/sys}
+      \end{itemize}
+    \item Generazione eventi hotplug
+    \item Reference counting
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \frametitle{Grazie per l'attenzione!}
 
