@@ -289,6 +289,143 @@
   \end{itemize}
 \end{frame}
 
+\section{Ereditarietà dei dati}
+
+\begin{frame}[fragile]
+  \frametitle{Ereditarierà dei dati in C++}
+  \begin{minted}[fontsize=\scriptsize]{c++}
+    class Shape
+    {
+     private:
+      float x, y;
+    }
+
+    class Circle : public Shape
+    {
+     public:
+      float left() {
+        return (x - radius);
+      }
+      float right() {
+        return (x + radius);
+      }
+     private:
+      float radius;
+    }
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Ereditarierà dei dati in C nel kernel}
+  \begin{itemize}
+  \item Realizzata con diverse tecniche
+    \begin{itemize}
+    \item Embedded structures (il più utilizzato)
+    \item Unions
+    \item Void pointers
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Embedded structures /1}
+  \texttt{struct kobject}
+
+  \begin{minted}[fontsize=\scriptsize]{c}
+    struct kobject {
+      const char          *name;
+
+      struct kobject      *parent;
+      struct kernfs_node  *sd; /* sysfs directory entry */
+
+      struct kref          kref;
+
+      /* ... */
+    };
+  \end{minted}
+  {\tiny Source:
+    \url{http://lxr.free-electrons.com/source/include/linux/kobject.h?v=4.8#L63}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Embedded structures /2}
+  \texttt{struct device} eredita da \texttt{struct kobject}
+
+  \begin{minted}[fontsize=\scriptsize]{c}
+    struct device {
+      struct kobject        kobj;
+
+      struct dev_pm_info    power;
+      struct dev_pm_domain *pm_domain;
+
+      dev_t                 devt;    /* dev_t, creates the sysfs "dev" */
+
+      /* ... */
+    };
+  \end{minted}
+  {\tiny Source:
+    \url{http://lxr.free-electrons.com/source/include/linux/device.h?v=4.8#L780}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Embedded structures /3}
+  \texttt{struct input\_dev} eredita da \texttt{struct device}
+
+  \begin{minted}[fontsize=\scriptsize]{c}
+    struct input_dev {
+      const char *name;
+
+      unsigned long evbit[BITS_TO_LONGS(EV_CNT)];
+      unsigned long keybit[BITS_TO_LONGS(KEY_CNT)];
+
+      struct device dev;
+
+      /* ... */
+    };
+  \end{minted}
+  {\tiny Source:
+    \url{http://lxr.free-electrons.com/source/include/linux/input.h?v=4.8#L121}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Accesso ai dati}
+  \begin{itemize}
+  \item Dalla classe derivata alla classe base:
+    \begin{minted}[fontsize=\scriptsize]{c}
+      my_input_device.dev.power
+      my_input_device.dev.kobj.name
+    \end{minted}
+  \item Dalla classe base alla classe derivata:
+    \begin{itemize}
+    \item \mint{c}|container_of()|
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{La macro \texttt{container\_of()}}
+    \begin{itemize}
+    \item \mint{c}|container_of(ptr, type, member)|
+      {\tiny\url{http://lxr.free-electrons.com/source/include/linux/kernel.h?v=4.8#L830}}
+    \item Esempio: \texttt{to\_input\_dev()} dato un puntatore a
+      \texttt{struct device} restituisce un puntatore alla
+      \texttt{struct input\_device} che lo contiene
+    \end{itemize}
+  \begin{minted}[fontsize=\scriptsize]{c}
+    struct input_dev {
+      unsigned long evbit[BITS_TO_LONGS(EV_CNT)];
+      unsigned long keybit[BITS_TO_LONGS(KEY_CNT)];
+
+      struct device dev;
+
+      /* .. */
+    };
+    #define to_input_dev(d) container_of(d, struct input_dev, dev)
+  \end{minted}
+  {\tiny Source:
+    \url{http://lxr.free-electrons.com/source/include/linux/input.h?v=4.8#L121}}
+\end{frame}
+
 \begin{frame}
   \frametitle{Grazie per l'attenzione!}
 
