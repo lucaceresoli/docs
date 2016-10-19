@@ -426,6 +426,96 @@
     \url{http://lxr.free-electrons.com/source/include/linux/input.h?v=4.8#L121}}
 \end{frame}
 
+\section{Ereditarietà dei metodi}
+
+\begin{frame}[fragile]
+  \frametitle{vtable}
+  \begin{itemize}
+  \item Virtual Method Table (o vtable)
+    \begin{itemize}
+    \item Un insieme di puntatori a funzione
+    \item Ciascuno implementa un ``metodo'' della classe
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{vtable /1}
+  \texttt{struct device\_driver}: un generico driver HID (Human Interface Device)
+
+  \begin{minted}[fontsize=\scriptsize]{c}
+    struct hid_driver {
+      char *name;
+
+      int (*event)(struct hid_device *hdev, struct hid_field *field,
+                   struct hid_usage *usage, __s32 value);
+
+      /* private: */
+      struct device_driver driver;
+
+      /*  ... */
+    };
+  \end{minted}
+  {\tiny Source:
+    \url{http://lxr.free-electrons.com/source/include/linux/hid.h?v=4.8#L679}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{vtable /2}
+  \texttt{struct mt\_driver}: un driver HID multitouch
+
+  \begin{minted}[fontsize=\scriptsize]{c}
+    static int mt_event(struct hid_device *hid, struct hid_field *field,
+                        struct hid_usage *usage, __s32 value)
+    {
+      /* ... */
+    }
+
+    static struct hid_driver mt_driver = {
+      .name = "hid-multitouch",
+      .id_table = mt_devices,
+
+      /* ... */
+
+      .event = mt_event,
+
+      /* ... */
+    };
+  \end{minted}
+  {\tiny Source:
+    \url{http://lxr.free-electrons.com/source/drivers/hid/hid-multitouch.c?v=4.8#L1520}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{vtable /3}
+  \texttt{hid-core.c}: implementazione della ``classe''
+  \texttt{hid\_driver}
+
+  \begin{minted}[fontsize=\scriptsize]{c}
+    static void hid_process_event(struct hid_device *hid,
+                                  struct hid_field *field,
+                                  struct hid_usage *usage,
+                                  __s32 value, int interrupt)
+    {
+      struct hid_driver *hdrv = hid->driver;
+      /* ... */
+
+      if (hdrv && hdrv->event && hid_match_usage(hid, usage)) {
+        ret = hdrv->event(hid, field, usage, value);
+        if (ret != 0) {
+          if (ret < 0)
+          hid_err(hid, "%s's event failed with %d\n",
+          hdrv->name, ret);
+          return;
+        }
+      }
+      /* ... */
+    }
+  \end{minted}
+  {\tiny Source:
+    \url{http://lxr.free-electrons.com/source/drivers/hid/hid-core.c?v=4.8#L1237}}
+\end{frame}
+
 \begin{frame}
   \frametitle{Grazie per l'attenzione!}
 
