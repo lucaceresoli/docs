@@ -195,6 +195,35 @@
   \end{minted}
 \end{frame}
 
+\section{Ereditarietà e polimorfismo}
+
+\begin{frame}
+  \frametitle{Ereditarietà}
+  \begin{itemize}
+  \item Da una classe base, se ne crea un'altra (sottoclasse)
+    \begin{itemize}
+    \item che ne eredità proprietà e metodi
+    \item e ne aggiunge di nuovi
+    \item o modifica il comportamento di quelli esistenti
+    \end{itemize}
+  \item Si crea una gerarchia di classi
+  \end{itemize}
+  \begin{center}
+    \includegraphics[height=0.6\textheight]{images/inheritance.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Polimorfismo}
+  \begin{itemize}
+  \item Lo stesso metodo può agire su oggetti di classi diverse
+  \item Ogni sottoclasse può aumentare o sostituire il metodo della
+    classe base
+  \item Esempio: \texttt{Shape::draw()} può essere chiamato su oggetti
+    \texttt{Rectangle} o \texttt{Circle}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \frametitle{Grazie per l'attenzione!}
 

@@ -15,7 +15,8 @@ images/%.eps: images/%.dia
 	@printf "%-15s %s\n" DIA $(notdir $@)
 	dia -e $@ -t eps $^
 
-oop-c-kernel.pdf:
+oop-c-kernel.pdf: \
+	images/inheritance.pdf
 
 %.pdf: %.tex
 	$(XELATEX) $(XELATEX_OPTS) $*
