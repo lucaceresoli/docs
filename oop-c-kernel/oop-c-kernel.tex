@@ -29,6 +29,129 @@
 
 \maketitle
 
+\section{Introduzione}
+
+\begin{frame}
+  \frametitle{Programmazione non orientata agli oggetti}
+  \begin{itemize}
+  \item Il software è un insieme di procedure che manipolano dati
+  \item Le procedure accedono ai dati direttamente
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Esempio: shopping cart}
+  \begin{minted}[fontsize=\scriptsize]{c++}
+    struct Item {
+      string name;
+      int    price;
+    };
+
+    int main() {
+      list<Item> cart1, cart2;
+      Item kr = {"The C Programming Language", 53};
+      Item bs = {"The C++ Programming Language", 56};
+      Item bc = {"Understanding the Linux Kernel", 45};
+      cart1.push_back(kr);
+      cart1.push_back(bs);
+      cart2.push_back(kr);
+      cart2.push_back(bc);
+      int total1 = 0, total2 = 0;
+      for (Item &i: cart1)
+        total1 += i.price;
+      for (Item &i: cart2)
+        total2 += i.price;
+      cout << "Cart1 total: " << total1 << endl;
+      cout << "Cart2 total: " << total2 << endl;
+    }
+  \end{minted}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Programmazione orientata agli oggetti}
+  \begin{itemize}
+  \item Ogni entità logica è rappresentata da un oggetto
+  \item Un oggetto contiene:
+    \begin{itemize}
+    \item {\em proprietà}: i dati che la definiscono
+    \item {\em metodi}: possibili azioni che agiscono sui dati
+  \end{itemize}
+  \item Classe:
+    \begin{itemize}
+    \item descrizione astratta di oggetti dello stesso tipo
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Esempio ad oggetti /1}
+  \begin{minted}[fontsize=\scriptsize]{c++}
+    struct Item {
+      string name;
+      int    price;
+    };
+
+    class ShoppingCart {
+      public:
+        void   add(Item &item);
+        int    getTotal();
+      private:
+        list<Item> items;
+    };
+
+    void ShoppingCart::add(Item &item) {
+      items.push_back(item);
+    }
+
+    int ShoppingCart::getTotal() {
+      int total = 0;
+      for (Item &i: items)
+        total += i.price;
+      return total;
+    }
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Esempio ad oggetti /2}
+  \begin{minted}[fontsize=\scriptsize]{c++}
+    int main()
+    {
+      ShoppingCart cart1, cart2;
+      Item kr = {"The C Programming Language", 53};
+      Item bs = {"The C++ Programming Language", 56};
+      Item bc = {"Understanding the Linux Kernel", 45};
+      cart1.add(kr);
+      cart1.add(bs);
+      cart2.add(kr);
+      cart2.add(bc);
+      cout << "Cart1 total: " << cart1.getTotal() << endl;
+      cout << "Cart2 total: " << cart2.getTotal() << endl;
+    }
+  \end{minted}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Linguaggio C}
+  \begin{itemize}
+  \item Un linguaggio a oggetti (C++) offre molti vantaggi
+  \item Ma molti software sono tuttora scritti in C
+    \begin{itemize}
+    \item Software semplici
+      \begin{itemize}
+      \item Firmware per microcontrollori
+      \item Utility di dimensioni contenute
+      \end{itemize}
+    \item Ma anche software molto complessi (e strutturati a oggetti)
+      \begin{itemize}
+      \item Linux kernel
+      \item GTK+
+      \item EFL
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \frametitle{Grazie per l'attenzione!}
 
