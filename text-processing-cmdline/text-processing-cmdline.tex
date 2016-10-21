@@ -41,22 +41,57 @@
   \end{itemize}
 \end{frame}
 
-\section{Riga di comando e pipeline}
+\section{La riga di comando}
 
 \begin{frame}
   \frametitle{La riga di comando}
   \begin{itemize}
   \item Strumento classico, nato ai tempi dai "terminali"
+  \item Prompt: richiede un "comando", lo esegue, torna al prompt
+  \item Esistono migliaia di possibili comandi
   \item Molto spartana, molto potente
     \begin{itemize}
     \item Presente su praticamente ogni sistema UNIX-like
     \item Utilizzabile su sistemi poco carrozzati...
     \item ...o remoti, con connessioni lentissime
     \end{itemize}
-  \item Prompt: richiede un "comando", lo esegue, torna al prompt
-  \item Esistono migliaia di possibili comandi
   \end{itemize}
 \end{frame}
+
+\section{Usiamo la riga di comando}
+
+\begin{frame}
+  \frametitle{Visualizzare i dati}
+  \begin{itemize}
+  \item \texttt{cat}
+  \item \texttt{less}
+  \item \texttt{wc}
+  \item \texttt{head}, \texttt{tail}
+  \item Demo!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Semplici elaborazioni}
+  \begin{itemize}
+  \item \texttt{sort}
+  \item \texttt{cut}
+  \item Demo!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{grep}
+  \begin{itemize}
+  \item Filtra le righe, lasciando passare solo le linee che
+    corrispondono a un criterio (pattern)
+  \item \texttt{grep {\bf -F} \emph{PATTERN}} --- Ricerca esatta
+  \item \texttt{grep {\bf -E} \emph{PATTERN}} --- Ricerca con espressioni regolari
+  \item Demo!
+  \end{itemize}
+\end{frame}
+
+\section{La pipeline}
 
 \begin{frame}
   \frametitle{Standard input, standard output, standard error}
@@ -86,37 +121,13 @@
   \end{center}
 \end{frame}
 
-\section{Alcuni esempi}
-
-\begin{frame}
-  \frametitle{Visualizzare i dati}
-  \begin{itemize}
-  \item \texttt{cat}
-  \item \texttt{less}
-  \item \texttt{wc}
-  \item \texttt{head}, \texttt{tail}
-  \item Demo!
-  \end{itemize}
-\end{frame}
+\section{Usiamo la pipeline}
 
 \begin{frame}
   \frametitle{Semplici elaborazioni}
   \begin{itemize}
-  \item \texttt{sort}
   \item \texttt{uniq}
-  \item \texttt{cut}
   \item \texttt{tr}
-  \item Demo!
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{grep}
-  \begin{itemize}
-  \item Lascia passare da \texttt{stdin} a \texttt{stdout} solo le
-    linee che corrispondono a un criterio (pattern)
-  \item \texttt{grep {\bf -F} \emph{PATTERN}} --- Ricerca esatta
-  \item \texttt{grep {\bf -E} \emph{PATTERN}} --- Ricerca con espressioni regolari
   \item Demo!
   \end{itemize}
 \end{frame}
