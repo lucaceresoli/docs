@@ -50,6 +50,69 @@
 
 \section{Introduction}
 
+\begin{frame}{Typical embedded Linux system}
+  \begin{itemize}
+  \item A physical product
+    \begin{itemize}
+    \item based on an ad-hoc electronic board
+    \item Built around a System-on-Chip (SoC)
+    \end{itemize}
+  \item Software
+    \begin{itemize}
+    \item Toolchain
+    \item Open Source components
+    \item Proprietary components
+    \item A build system
+    \item Board Support Package (BSP) from the SoC vendor
+    \end{itemize}
+  \item Most software runs equally on all SoCs (and the developer's PC)
+    \begin{itemize}
+    \item Except for hardware-specific code
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The System on Chip}
+  \begin{itemize}
+  \item Nuvoton N32926
+    \begin{itemize}
+    \item Cheap
+    \item ARM926EJ-S @ 240 MHz
+    \item Peripherals: H.264 en/decoder, Ethernet MAC, USB, CMOS
+      sensor interface, video out, LCD controller, sound, \dots
+    \item 64 MB DDR2 {\em on package}
+    \item LQFP package
+    \end{itemize}
+  \item{\tiny Source:
+    \url{https://www.nuvoton.com/hq/products/microprocessors/arm9-mpus/n3292-h.264-codec-series/n32926u1dn}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The ideal BSP}
+  \begin{itemize}
+  \item BSP = Board Support Package
+  \item The ideal BSP
+    \begin{itemize}
+    \item Mainline kernel
+    \item Mainline U-Boot or Barebox
+    \item Good hardware documentation
+    \end{itemize}
+  \item Why?
+    \begin{itemize}
+    \item All standard, open-source components
+      \begin{itemize}
+      \item Well known quality
+      \item Community and commercial support
+      \item Maintained (bugfixes!)
+      \end{itemize}
+    \item Reuse the infrastructure from other products
+      \begin{itemize}
+      \item Based on the same standard components
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \section{The Quest}
 
 \section{Concluding remarks}
