@@ -44,8 +44,11 @@ oop-c-kernel/oop-c-kernel.pdf: \
 	oop-c-kernel/images/inheritance.pdf \
 	oop-c-kernel/images/device-model.pdf
 
+terrible-bsp/terrible-bsp.pdf:
+
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
 	scratch-gpio/scratch-gpio.pdf \
 	text-processing-cmdline/text-processing-cmdline.pdf \
 	oop-c-kernel/oop-c-kernel.pdf \
+	terrible-bsp/terrible-bsp.pdf \

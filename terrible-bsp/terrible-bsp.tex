@@ -1,0 +1,81 @@
+\documentclass[xetex,table]{beamer}
+
+\usepackage{fontspec}
+\usepackage[autostyle]{csquotes}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{minted}
+
+\usetheme{Pittsburgh}
+\usecolortheme{beaver}
+
+\title{How I survived to a SoC with a terrible Linux BSP}
+\subtitle{Jurassic vendor kernels, missing pieces and buggy code}
+\author{Luca Ceresoli\\
+  \href{mailto:luca@lucaceresoli.net}{luca@lucaceresoli.net}\\
+  \url{http://lucaceresoli.net}
+}
+\date{FOSDEM 2017}
+
+\AtBeginSection[]
+{
+  \begin{frame}{}
+    \huge
+    \begin{center}
+      \insertsection
+    \end{center}
+  \end{frame}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{About me}
+  \begin{itemize}
+  \item Open source enthusiast
+    \begin{itemize}
+    \item Contributor to Buildroot and a few other projects
+    \end{itemize}
+  \item Embedded Linux engineer
+    \begin{itemize}
+    \item Develop real products on custom hardware
+    \item Kernel, bootloader, drivers
+    \item Integration, build system
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Introduction}
+
+\section{The Quest}
+
+\section{Concluding remarks}
+
+\begin{frame}
+  \begin{center}
+    Thank you for your attention
+
+    \vspace{0.15\textheight}
+
+    {\Huge Questions?}
+
+    \vspace{0.15\textheight}
+
+    \href{mailto:luca@lucaceresoli.net}{luca@lucaceresoli.net}\\
+    \url{http://lucaceresoli.net}
+
+    \textcopyright{} Copyright 2017, Luca Ceresoli\\
+
+    \vspace{0.05\textheight}
+
+    \tiny
+    Slides released under\\
+    Creative Commons Attribution - Share Alike 3.0 License \\
+    \url{https://creativecommons.org/licenses/by-sa/3.0/} \\
+\end{center}
+\end{frame}
+
+\end{document}
