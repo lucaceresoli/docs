@@ -403,6 +403,65 @@ void __init reserve_node_zero(pg_data_t *pgdat)
   \end{minted}
 \end{frame}
 
+\section{Toolchain}
+
+\begin{frame}{Vendor toolchain}
+  \begin{itemize}
+  \item The BSP provides a toolchain.
+    \begin{itemize}
+    \item Why?
+    \end{itemize}
+  \item What's inside
+    \begin{itemize}
+    \item gcc 4.2.1 (July 2007)
+      \begin{itemize}
+      \item No C++11 support
+      \item gcc 4.2.x got fixes until 4.2.4 (May 2008)
+      \end{itemize}
+    \item uClibc 0.9.29 (2007)
+      \begin{itemize}
+      \item What if I need glibc or musl?
+      \item Bugfixes and improvements in later versions?
+      \end{itemize}
+    \item A few other libraries (libcurl, libpng \dots)
+    \item A hand-crafted script to install it at a hard-coded location
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Using an old gcc --- an example}
+  A C++ program using libconfuse 3.0
+
+  \begin{minted}[fontsize=\scriptsize]{c++}
+    #include <confuse.h>
+    //...
+    cfg_opt_t opts[] =
+    {
+      CFG_STR("my-param", "defval", CFGF_NONE),
+      CFG_END()
+    };
+  \end{minted}
+
+  With gcc <= 4.8 fails building due to designated initializers not being implemented:
+
+  \texttt{ error: expected primary-expression before '.' token}
+\end{frame}
+
+\begin{frame}{Toolchain selection}
+  \begin{itemize}
+  \item Don't use the provided toolchain
+  \item You could use a pre-built toolchain
+    \begin{itemize}
+    \item If it has been built with kernel headers <= 2.6.35
+    \item So it's probably quite old itself
+    \end{itemize}
+  \item Build you own
+    \begin{itemize}
+    \item crosstool-NG, Buildroot, Openembedded\dots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \section{Concluding remarks}
 
 \begin{frame}
