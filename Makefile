@@ -44,7 +44,11 @@ oop-c-kernel/oop-c-kernel.pdf: \
 	oop-c-kernel/images/inheritance.pdf \
 	oop-c-kernel/images/device-model.pdf
 
-terrible-bsp/terrible-bsp.pdf:
+terrible-bsp/terrible-bsp.pdf: \
+	terrible-bsp/images/booting.pdf \
+	terrible-bsp/images/booting-on-fat.pdf \
+	terrible-bsp/images/booting-fat-ubi.pdf \
+	terrible-bsp/images/booting-no-nvt-loader.pdf
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \

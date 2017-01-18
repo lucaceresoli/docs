@@ -462,6 +462,145 @@ void __init reserve_node_zero(pg_data_t *pgdat)
   \end{itemize}
 \end{frame}
 
+\section{Booting}
+
+\begin{frame}{Bootloaders in the BSP}
+  \begin{itemize}
+  \item No U-Boot
+  \item No Barebox
+  \item Some proprietary bootloaders
+    \begin{itemize}
+    \item Sources provided
+    \item Not open source
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vendor booting scheme (NAND)}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{images/booting.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Vendor booting scheme pros}
+  \begin{itemize}
+  \item Easy deployment of demos provided by vendor
+    \begin{enumerate}
+    \item Press  a button during boot
+    \item Mount mass storage on PC
+    \item Replace files
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vendor booting scheme issues /1}
+  \begin{itemize}
+  \item FAT
+    \begin{itemize}
+    \item Unreliable on power loss
+    \item It just cannot contain a UNIX-like rootfs (no users, groups,
+      permissions, symlinks...)
+    \end{itemize}
+  \item NAND FTL
+    \begin{itemize}
+    \item FAT-on-NAND emulation (with FTL) is in a binary module
+    \item NVT Loader cannot mount UBIFS
+  \end{itemize}
+  \item No provision for redundancy: one copy of each component
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vendor booting scheme issues /2}
+  \begin{itemize}
+  \item Root filesystem is an initramfs
+    \begin{itemize}
+    \item Changes are volatile
+    \item Limited size, everything in RAM
+    \item Persistent changes stay in FAT
+    \end{itemize}
+  \item Nobody passes cmdline to kernel
+    \begin{itemize}
+    \item it must be hard-coded in the kernel (\texttt{CONFIG\_CMDLINE})
+    \end{itemize}
+  \item NFS booting
+    \begin{itemize}
+    \item Needs cmdline parameters \textrightarrow{} must rebuild and
+      reflash the kernel
+    \end{itemize}
+  \item Cannot load kernel via TFTP
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Alternative booting options?
+  \end{center}
+\end{frame}
+
+\begin{frame}{Option 1: add a SquashFS layer on top of FAT}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{images/booting-on-fat.pdf}
+  \end{center}
+  \begin{itemize}
+  \item Keep the existing structure untouched
+  \item Remove FAT space constraint and RAM usage
+  \item Still read-only
+    \begin{itemize}
+    \item ext2 or any other rw filesystem over FAT over NAND is crazy
+    \end{itemize}
+  \item The device cannot atomically upgrade itself
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Option 2: jump from FAT to UBIFS}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{images/booting-fat-ubi.pdf}
+  \end{center}
+  \begin{itemize}
+  \item UBI and UBIFS are designed for NAND! (efficient, reliable, quite scalable)
+  \item Tweaks needed
+    \begin{itemize}
+    \item Change the initramfs \texttt{/init} to mount UBIFS and \texttt{switch\_root}
+    \item Tweak NVT Loader not to use all space for FAT
+    \end{itemize}
+  \item USB mass storage can only update kernel
+  \item FAT area atrophied, NVT Loader almost useless
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Option 3: skip NVT Loader}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{images/booting-no-nvt-loader.pdf}
+  \end{center}
+  \begin{itemize}
+  \item NAND Loader loads kernel \texttt{Image} to address \texttt{0} and jump there
+  \item No more NVT Loader and FAT
+    \begin{itemize}
+    \item Less code, less bugs, faster boot, more free space
+    \end{itemize}
+  \item Kernel still on bare NAND and without cmdline
+  \item Safe kernel upgrade?
+    \begin{itemize}
+    \item kexec
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Option 4: Port U-Boot}
+  \begin{itemize}
+  \item Port U-Boot or Barebox to the SoC
+    \begin{itemize}
+    \item Maybe keeping the vendor NAND Loader (SPL)
+    \end{itemize}
+  \item Unleashes all the known advantages
+    \begin{itemize}
+    \item Environment, boot-time scripting, prompt, cmdline, TFTP boot\dots
+    \item Redundancy for all/most components on bare NAND
+    \end{itemize}
+  \item Time to market?
+  \end{itemize}
+\end{frame}
+
 \section{Concluding remarks}
 
 \begin{frame}
