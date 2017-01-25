@@ -694,6 +694,67 @@ void __init reserve_node_zero(pg_data_t *pgdat)
 
 \section{Concluding remarks}
 
+\begin{frame}{The result}
+  Comparison with a well-supported SoC
+  \begin{itemize}
+  \item The product works
+    \begin{itemize}
+    \item Final quality is lower
+    \item The hardware would allow to do better
+    \end{itemize}
+  \item Extra time spent
+    \begin{itemize}
+    \item Sometimes we supported ourselves
+    \item Look for stuff in the BSP
+    \item Fix bugs
+    \item Reinvent booting
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{What can I do to improve things?}
+  What can I do to make a better world?
+  \begin{itemize}
+  \item As an embedded Linux engineer
+    \begin{itemize}
+    \item Assess potential problem early while evaluating a SoC
+      \begin{itemize}
+      \item Especially booting and hardware support
+      \end{itemize}
+    \end{itemize}
+  \item As a hobbyist or a hacker
+    \begin{itemize}
+    \item Pick boards with good mainline support, or\dots
+    \item Improve existing support and mainline it
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{What can vendors do to ship better BSPs?}
+  \begin{itemize}
+  \item Happy engineer = good product = more sales
+  \item Don't reinvent the wheel
+  \item Write good docs, no NDA, no registration
+    \begin{itemize}
+    \item Including yout Boot ROM protocol
+      \begin{itemize}
+      \item And let people write the tools they want
+      \end{itemize}
+    \end{itemize}
+  \item Push your code to mainline\\
+    {\small (or outsource this to a specialized company)}
+    \begin{itemize}
+    \item Expensive, but rewarding
+    \item Somebody else will update, fix, improve and support it
+    \end{itemize}
+  \item Leverage the community
+    \begin{itemize}
+    \item Let your engineers use mailing-lists, IRC etc
+    \item Make cheap, hacker-friendly boards
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \begin{center}
     Thank you for your attention
