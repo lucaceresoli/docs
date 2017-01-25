@@ -601,6 +601,54 @@ void __init reserve_node_zero(pg_data_t *pgdat)
   \end{itemize}
 \end{frame}
 
+\section{Tools}
+
+\begin{frame}{Tools}
+  \begin{itemize}
+  \item Which tools do I need?
+    \begin{itemize}
+    \item Ideally, none
+    \end{itemize}
+  \item Flashing an empty memory is different
+    \begin{itemize}
+    \item Some vendors have proprietary tools
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Flashing tools}
+  \begin{itemize}
+  \item Tool provided to write memory
+  \item Quite flexible
+    \begin{itemize}
+    \item Can write NAND, SPI, SD, SDRAM (and execute)
+    \item Over USB
+    \end{itemize}
+  \item For Windows only
+  \item Proprietary
+  \item GUI, not scriptable
+  \item Protocol to Boot ROM not documented
+  \item[\textrightarrow] You're locked to it
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{NAND partition table}
+  \begin{columns}
+    \column{0.6\textwidth}
+    \begin{itemize}
+    \item Proprietary partition table in the NAND Loader area
+    \item The proprietary tool writes only this format
+    \item Not a bad idea
+      \begin{itemize}
+        \item but standard tools work differently
+    \end{itemize}
+    \item[\textrightarrow] You can't get rid of the table
+    \end{itemize}
+    \column{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/pseudo-partition-table.pdf}
+  \end{columns}
+\end{frame}
+
 \section{Concluding remarks}
 
 \begin{frame}
