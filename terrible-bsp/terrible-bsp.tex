@@ -440,24 +440,6 @@ void __init reserve_node_zero(pg_data_t *pgdat)
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Using an old gcc --- an example}
-  A C++ program using libconfuse 3.0
-
-  \begin{minted}[fontsize=\scriptsize]{c++}
-    #include <confuse.h>
-    //...
-    cfg_opt_t opts[] =
-    {
-      CFG_STR("my-param", "defval", CFGF_NONE),
-      CFG_END()
-    };
-  \end{minted}
-
-  With gcc <= 4.8 fails building due to designated initializers not being implemented:
-
-  \texttt{ error: expected primary-expression before '.' token}
-\end{frame}
-
 \begin{frame}{Toolchain selection}
   \begin{itemize}
   \item Don't use the provided toolchain
@@ -788,6 +770,26 @@ void __init reserve_node_zero(pg_data_t *pgdat)
     Creative Commons Attribution - Share Alike 3.0 License \\
     \url{https://creativecommons.org/licenses/by-sa/3.0/} \\
 \end{center}
+\end{frame}
+
+\section{Extra Slides}
+
+\begin{frame}[fragile]{Using an old gcc --- an example}
+  A C++ program using libconfuse 3.0
+
+  \begin{minted}[fontsize=\scriptsize]{c++}
+    #include <confuse.h>
+    //...
+    cfg_opt_t opts[] =
+    {
+      CFG_STR("my-param", "defval", CFGF_NONE),
+      CFG_END()
+    };
+  \end{minted}
+
+  With gcc <= 4.8 fails building due to designated initializers not being implemented:
+
+  \texttt{ error: expected primary-expression before '.' token}
 \end{frame}
 
 \end{document}
