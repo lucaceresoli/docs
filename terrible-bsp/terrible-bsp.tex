@@ -155,20 +155,31 @@
 \section{Linux kernel}
 
 \begin{frame}{Vendor kernel VS mainline kernel}
-  \begin{itemize}
-  \item Linux 2.6.35.4 (2010)
-  \item Delta from the latest 2.6.35.y (v2.6.35.14)
+  \begin{center}
+  Base kernel: Linux 2.6.35.4 (2010)
+  \end{center}
+
+  \vspace{0.1\textheight}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+    2.6.35.4 \textrightarrow{} 2.6.35.14\\
+    (latest stable)
     \begin{itemize}
-    \item 11 months, 1382 bugfix commits
-    \item Merging them has minimal conflicts
+    \item 11 months
+    \item 1382 bugfix commits
+    \item Merged with minimal conflicts
     \end{itemize}
-  \item Delta from the latest mainline release
+
+    \column{0.5\textwidth}
+    2.6.35.14 \textrightarrow{} 4.9\\
+    (latest mainline)
     \begin{itemize}
     \item A countless number of bugfixes, performance improvements, new features
     \item Security
     \item Device Tree
     \end{itemize}
-  \end{itemize}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Vendor kernel additions}
