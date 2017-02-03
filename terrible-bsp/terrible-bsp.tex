@@ -8,8 +8,7 @@
 \usepackage{listings}
 \usepackage{minted}
 
-\usetheme{Pittsburgh}
-\usecolortheme{beaver}
+\usetheme{metropolis}
 
 \usemintedstyle{perldoc}
 
@@ -298,6 +297,7 @@
 \begin{frame}[fragile]{Code quality /4}
   \texttt{sound/soc/w55fa92/w55fa92\_spu.c}:
 
+  \linespread{0.5}
   \begin{minted}[fontsize=\scriptsize]{c}
 static int DrvSPU_EnableInt(u32 u32Channel, u32 u32InterruptFlag)
 {
@@ -326,6 +326,7 @@ static int DrvSPU_EnableInt(u32 u32Channel, u32 u32InterruptFlag)
 \begin{frame}[fragile]{Code quality /5}
   \texttt{arch/arm/mach-w55fa92/include/mach/w55fa92\_gpio.h}:
 
+  \linespread{1}
   \begin{minted}[fontsize=\scriptsize]{c}
 static inline int w55fa92_gpio_configure(int group, int num) {
   /* ... */
@@ -354,6 +355,7 @@ static inline int w55fa92_gpio_configure(int group, int num) {
 \begin{frame}[fragile]{Code quality: driver model}
   \texttt{drivers/video/w55fa92\_fb.c}:
 
+  \linespread{0.9}
   \begin{minted}[fontsize=\scriptsize]{c}
 #ifdef  CONFIG_GIANTPLUS_GPM1006D0_320X240
 #include "w55fa92_GIANTPLUS_GPM1006D0.c"
@@ -380,6 +382,7 @@ static inline int w55fa92_gpio_configure(int group, int num) {
 \end{frame}
 
 \begin{frame}[fragile]{Code quality: H.264 codec memory allocation}
+  \linespread{1}
   \texttt{drivers/misc/codec264/favc\_module.c}:
 
   \begin{minted}[fontsize=\scriptsize]{c}
