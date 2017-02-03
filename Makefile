@@ -44,7 +44,12 @@ oop-c-kernel/oop-c-kernel.pdf: \
 	oop-c-kernel/images/inheritance.pdf \
 	oop-c-kernel/images/device-model.pdf
 
+terrible-bsp/beamerthememetropolis.sty:
+	make -C mtheme sty
+	cp mtheme/*.sty terrible-bsp/
+
 terrible-bsp/terrible-bsp.pdf: \
+	terrible-bsp/beamerthememetropolis.sty \
 	terrible-bsp/images/booting.pdf \
 	terrible-bsp/images/booting-on-fat.pdf \
 	terrible-bsp/images/booting-fat-ubi.pdf \
