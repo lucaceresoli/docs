@@ -624,19 +624,24 @@ void __init reserve_node_zero(pg_data_t *pgdat)
 \end{frame}
 
 \begin{frame}{Flashing tools}
-  \begin{itemize}
-  \item Tool provided to write memory
-  \item Quite flexible
+  \begin{columns}
+    \column{0.6\textwidth}
     \begin{itemize}
-    \item Can write NAND, SPI, SD, SDRAM (and execute)
-    \item Over USB
+    \item Tool provided to write memory
+    \item Quite flexible
+      \begin{itemize}
+      \item Can write NAND, SPI, SD, SDRAM (and execute)
+      \item Over USB
+      \end{itemize}
+    \item For Windows only
+    \item Proprietary
+    \item GUI, not scriptable
+    \item Protocol to Boot ROM not documented
+    \item[\textrightarrow] You're locked to it
     \end{itemize}
-  \item For Windows only
-  \item Proprietary
-  \item GUI, not scriptable
-  \item Protocol to Boot ROM not documented
-  \item[\textrightarrow] You're locked to it
-  \end{itemize}
+    \column{0.4\textwidth}
+  \includegraphics[width=\textwidth]{images/flashing-tool.pdf}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{NAND partition table}

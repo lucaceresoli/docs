@@ -55,6 +55,7 @@ terrible-bsp/terrible-bsp.pdf: \
 	terrible-bsp/images/booting-on-fat.pdf \
 	terrible-bsp/images/booting-fat-ubi.pdf \
 	terrible-bsp/images/booting-no-nvt-loader.pdf \
+	terrible-bsp/images/flashing-tool.pdf \
 	terrible-bsp/images/pseudo-partition-table.pdf \
 	terrible-bsp/images/ram-on-package.pdf
 
