@@ -249,123 +249,6 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Code quality /1}
-  Changes to \texttt{Makefile}:
-
-  \begin{minted}[fontsize=\scriptsize]{diff}
--ARCH?= $(SUBARCH)
--CROSS_COMPILE?=
--CROSS_COMPILE?= $(CONFIG_CROSS_COMPILE:''%''=%)
-+#ARCH?= $(SUBARCH)
-+ARCH= arm
-+#CROSS_COMPILE?=
-+#CROSS_COMPILE?= $(CONFIG_CROSS_COMPILE:''%''=%)
-+CROSS_COMPILE= arm-linux-
-  \end{minted}
-
-  \begin{itemize}
-  \item Prevents using toolchains with a different prefix
-  \item Any advantage?
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Code quality /2}
-  Changes to \texttt{arch/arm/boot/Makefile}:
-
-  \begin{minted}[fontsize=\scriptsize]{udiff}
- $(obj)/Image: vmlinux FORCE
-         $(call if_changed,objcopy)
-         @echo '  Kernel: $@ is ready'
-
-+ifeq ($(CONFIG_ARCH_W55FA92),y)
-+        cp $@   ../image/conprog.bin
-+endif
-  \end{minted}
-
-  \begin{itemize}
-  \item \texttt{../image/} does not make sense in any buildsystem
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Code quality /3}
-  \texttt{sound/soc/w55fa92/w55fa92\_spu.c}:
-
-  \begin{minted}[fontsize=\scriptsize]{c}
-    if (nChannels ==1)
-    {
-        DrvSPU_EnableInt(_u8Channel0, DRVSPU_ENDADDRESS_INT);
-        DrvSPU_EnableInt(_u8Channel0, DRVSPU_THADDRESS_INT);
-    }
-    else
-    {    /* just open one channel interrupt */
-        DrvSPU_EnableInt(_u8Channel0, DRVSPU_ENDADDRESS_INT);
-        DrvSPU_EnableInt(_u8Channel0, DRVSPU_THADDRESS_INT);
-    }
-  \end{minted}
-
-  \begin{itemize}
-  \item Find the differences between the {\em then} and the {\em else} branch
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Code quality /4}
-  \texttt{sound/soc/w55fa92/w55fa92\_spu.c}:
-
-  \linespread{0.5}
-  \begin{minted}[fontsize=\scriptsize]{c}
-static int DrvSPU_EnableInt(u32 u32Channel, u32 u32InterruptFlag)
-{
-  if ( (u32Channel >=eDRVSPU_CHANNEL_0) && (u32Channel <=eDRVSPU_CHANNEL_31) )
-  {
-    /* ... */
-    if (u32InterruptFlag & DRVSPU_USER_INT)
-    {
-      AUDIO_WRITE(REG_SPU_CH_EVENT, AUDIO_READ(REG_SPU_CH_EVENT) | EV_USR_EN);
-    }
-    if (u32InterruptFlag & DRVSPU_SILENT_INT)
-    {
-      AUDIO_WRITE(REG_SPU_CH_EVENT, AUDIO_READ(REG_SPU_CH_EVENT) | EV_SLN_EN);
-    }
-    /* ...a few more times... */
-
-    /* ... */
-    return E_SUCCESS;
-  }
-  else
-    return E_DRVSPU_WRONG_CHANNEL;
-}
-  \end{minted}
-\end{frame}
-
-\begin{frame}[fragile]{Code quality /5}
-  \texttt{arch/arm/mach-w55fa92/include/mach/w55fa92\_gpio.h}:
-
-  \linespread{1}
-  \begin{minted}[fontsize=\scriptsize]{c}
-static inline int w55fa92_gpio_configure(int group, int num) {
-  /* ... */
-    case GPIO_GROUP_B:
-      if(num <= 7)
-        writel(readl(REG_GPBFUN0) &~ (0xF << (num<<2)), REG_GPBFUN0);
-      else
-        writel(readl(REG_GPBFUN1) &~ (0xF << ((num%8)<<2)), REG_GPBFUN1);
-      break;
-
-    case GPIO_GROUP_C:
-      if(num <= 7)
-        writel(readl(REG_GPCFUN0) &~ (0xF << (num<<2)), REG_GPCFUN0);
-      else
-        writel(readl(REG_GPCFUN1) &~ (0xF << ((num%8)<<2)), REG_GPCFUN1);
-      break;
-  /* ...similarly fo other GPIO ports... */
-}
-  \end{minted}
-
-  \begin{itemize}
-  \item A little refactoring would help
-  \end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]{Code quality: driver model}
   \texttt{drivers/video/w55fa92\_fb.c}:
 
@@ -811,6 +694,123 @@ void __init reserve_node_zero(pg_data_t *pgdat)
   With gcc <= 4.8 fails building due to designated initializers not being implemented:
 
   \texttt{ error: expected primary-expression before '.' token}
+\end{frame}
+
+\begin{frame}[fragile]{Kernel code quality --- example 1}
+  Changes to \texttt{Makefile}:
+
+  \begin{minted}[fontsize=\scriptsize]{diff}
+-ARCH?= $(SUBARCH)
+-CROSS_COMPILE?=
+-CROSS_COMPILE?= $(CONFIG_CROSS_COMPILE:''%''=%)
++#ARCH?= $(SUBARCH)
++ARCH= arm
++#CROSS_COMPILE?=
++#CROSS_COMPILE?= $(CONFIG_CROSS_COMPILE:''%''=%)
++CROSS_COMPILE= arm-linux-
+  \end{minted}
+
+  \begin{itemize}
+  \item Prevents using toolchains with a different prefix
+  \item Any advantage?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Kernel code quality --- example 2}
+  Changes to \texttt{arch/arm/boot/Makefile}:
+
+  \begin{minted}[fontsize=\scriptsize]{udiff}
+ $(obj)/Image: vmlinux FORCE
+         $(call if_changed,objcopy)
+         @echo '  Kernel: $@ is ready'
+
++ifeq ($(CONFIG_ARCH_W55FA92),y)
++        cp $@   ../image/conprog.bin
++endif
+  \end{minted}
+
+  \begin{itemize}
+  \item \texttt{../image/} does not make sense in any buildsystem
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Kernel code quality --- example 3}
+  \texttt{sound/soc/w55fa92/w55fa92\_spu.c}:
+
+  \begin{minted}[fontsize=\scriptsize]{c}
+    if (nChannels ==1)
+    {
+        DrvSPU_EnableInt(_u8Channel0, DRVSPU_ENDADDRESS_INT);
+        DrvSPU_EnableInt(_u8Channel0, DRVSPU_THADDRESS_INT);
+    }
+    else
+    {    /* just open one channel interrupt */
+        DrvSPU_EnableInt(_u8Channel0, DRVSPU_ENDADDRESS_INT);
+        DrvSPU_EnableInt(_u8Channel0, DRVSPU_THADDRESS_INT);
+    }
+  \end{minted}
+
+  \begin{itemize}
+  \item Find the differences between the {\em then} and the {\em else} branch
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Kernel code quality --- example 4}
+  \texttt{sound/soc/w55fa92/w55fa92\_spu.c}:
+
+  \linespread{0.5}
+  \begin{minted}[fontsize=\scriptsize]{c}
+static int DrvSPU_EnableInt(u32 u32Channel, u32 u32InterruptFlag)
+{
+  if ( (u32Channel >=eDRVSPU_CHANNEL_0) && (u32Channel <=eDRVSPU_CHANNEL_31) )
+  {
+    /* ... */
+    if (u32InterruptFlag & DRVSPU_USER_INT)
+    {
+      AUDIO_WRITE(REG_SPU_CH_EVENT, AUDIO_READ(REG_SPU_CH_EVENT) | EV_USR_EN);
+    }
+    if (u32InterruptFlag & DRVSPU_SILENT_INT)
+    {
+      AUDIO_WRITE(REG_SPU_CH_EVENT, AUDIO_READ(REG_SPU_CH_EVENT) | EV_SLN_EN);
+    }
+    /* ...a few more times... */
+
+    /* ... */
+    return E_SUCCESS;
+  }
+  else
+    return E_DRVSPU_WRONG_CHANNEL;
+}
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Kernel code quality --- example 5}
+  \texttt{arch/arm/mach-w55fa92/include/mach/w55fa92\_gpio.h}:
+
+  \linespread{1}
+  \begin{minted}[fontsize=\scriptsize]{c}
+static inline int w55fa92_gpio_configure(int group, int num) {
+  /* ... */
+    case GPIO_GROUP_B:
+      if(num <= 7)
+        writel(readl(REG_GPBFUN0) &~ (0xF << (num<<2)), REG_GPBFUN0);
+      else
+        writel(readl(REG_GPBFUN1) &~ (0xF << ((num%8)<<2)), REG_GPBFUN1);
+      break;
+
+    case GPIO_GROUP_C:
+      if(num <= 7)
+        writel(readl(REG_GPCFUN0) &~ (0xF << (num<<2)), REG_GPCFUN0);
+      else
+        writel(readl(REG_GPCFUN1) &~ (0xF << ((num%8)<<2)), REG_GPCFUN1);
+      break;
+  /* ...similarly fo other GPIO ports... */
+}
+  \end{minted}
+
+  \begin{itemize}
+  \item A little refactoring would help
+  \end{itemize}
 \end{frame}
 
 \end{document}
