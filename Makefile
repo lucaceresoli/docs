@@ -50,6 +50,7 @@ terrible-bsp/beamerthememetropolis.sty:
 
 terrible-bsp/terrible-bsp.pdf: \
 	terrible-bsp/beamerthememetropolis.sty \
+	terrible-bsp/images/kernel-git.pdf \
 	terrible-bsp/images/booting.pdf \
 	terrible-bsp/images/booting-on-fat.pdf \
 	terrible-bsp/images/booting-fat-ubi.pdf \
