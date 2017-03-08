@@ -19,6 +19,9 @@ XELATEX_OPTS = -shell-escape -file-line-error -halt-on-error
 %.pdf: %.tex
 	( cd $(dir $(*)); $(XELATEX) $(XELATEX_OPTS) $(notdir $<) )
 
+mtheme/beamerthememetropolis.sty:
+	make -C mtheme sty
+
 embedded-linux-talk/embedded-linux-talk.pdf: \
 	embedded-linux-talk/images/embedded-systems-range.pdf \
 	embedded-linux-talk/images/system-architecture.pdf \
@@ -44,8 +47,7 @@ oop-c-kernel/oop-c-kernel.pdf: \
 	oop-c-kernel/images/inheritance.pdf \
 	oop-c-kernel/images/device-model.pdf
 
-terrible-bsp/beamerthememetropolis.sty:
-	make -C mtheme sty
+terrible-bsp/beamerthememetropolis.sty: mtheme/beamerthememetropolis.sty
 	cp mtheme/*.sty terrible-bsp/
 
 terrible-bsp/terrible-bsp.pdf: \
