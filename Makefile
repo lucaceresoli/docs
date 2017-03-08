@@ -39,7 +39,11 @@ scratch-gpio/scratch-gpio.pdf: \
 	scratch-gpio/images/semaphore-gpio.pdf \
 	scratch-gpio/images/semaphore-gpio-pir.pdf \
 
+text-processing-cmdline/beamerthememetropolis.sty: mtheme/beamerthememetropolis.sty
+	cp mtheme/*.sty text-processing-cmdline/
+
 text-processing-cmdline/text-processing-cmdline.pdf: \
+	text-processing-cmdline/beamerthememetropolis.sty \
 	text-processing-cmdline/images/process.pdf \
 	text-processing-cmdline/images/pipeline.pdf
 
