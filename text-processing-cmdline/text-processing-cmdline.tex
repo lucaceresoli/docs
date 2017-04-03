@@ -70,13 +70,44 @@
   \end{itemize}
 \end{frame}
 
+\section{grep}
+
 \begin{frame}
   \frametitle{grep}
   \begin{itemize}
   \item Filtra le righe, lasciando passare solo le linee che
     corrispondono a un criterio (pattern)
-  \item \texttt{grep {\bf -F} \emph{PATTERN}} --- Ricerca esatta
-  \item \texttt{grep {\bf -E} \emph{PATTERN}} --- Ricerca con espressioni regolari
+  \item Utilizzo base:
+    \begin{itemize}
+    \item \texttt{grep {\em PATTERN} file1 file2 file3}
+    \item \texttt{grep {\em PATTERN}}
+      \begin{itemize}
+        \item Filtra lo standard input
+      \end{itemize}
+    \end{itemize}
+  \item Demo!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{grep: varianti}
+  \begin{itemize}
+  \item Tipi di pattern:
+    \begin{itemize}
+    \item \texttt{grep {\bf -F} \emph{PATTERN}} --- Ricerca esatta
+    \item \texttt{grep {\bf -G} \emph{PATTERN}} --- Basic regular expressions
+    \item \texttt{grep {\bf -E} \emph{PATTERN}} --- Extended regular expressions
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{grep: opzioni aggiuntive}
+  \begin{itemize}
+  \item \texttt{-i}: case insentitive
+  \item \texttt{-w}: solo parole intere
+  \item \texttt{-v}: invert selection: mostra righe {\em non} corrispondenti
+  \item \texttt{-l}: mostra solo i nomi dei files corrispondenti
   \item Demo!
   \end{itemize}
 \end{frame}
