@@ -1,0 +1,7 @@
+
+###  Semplici elaborazioni con la pipeline  ###
+
+cat nomi.txt | sort
+cat nomi.txt | sort | uniq
+cat nomi.txt | sort | uniq | tr 'oalS' '0@15' # Es: Salvatore -> 5@1v@t0re
+                                              # "passwordification"
