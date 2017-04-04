@@ -149,16 +149,46 @@
   \end{itemize}
 \end{frame}
 
+\section{sed}
+
 \begin{frame}
-  \frametitle{sed}
-  \begin{itemize}
-  \item sed = the Stream EDitor
-  \item Esegue un "programma" formato da coppie pattern (facoltativo)
-    + comando
-  \item Per ogni riga di input:
+  \frametitle{sed = the Stream EDitor}
+  \begin{columns}
+    \column{0.6\textwidth}
+    Per ogni linea di input:
     \begin{itemize}
-    \item Se il pattern corrisponde, esegue il comando
-    \item Altrimenti lascia passare la riga senza modifiche
+    \item Memorizza la riga nel {\em pattern space}
+    \item Esegue il {\em sed script} che modifica il pattern space
+    \item emette il {\em pattern space}
+    \end{itemize}
+    \column{0.4\textwidth}
+    \begin{center}
+      \includegraphics[height=0.6\textheight]{images/sed1.pdf}
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{sed script}
+  Sed script = una o più terne:
+  \begin{itemize}
+  \item address (opzionale): se corrisponde, il comando viene eseguito
+  \item comando: una lettera
+  \item eventuali parametri del comando
+  \end{itemize}
+  \begin{center}
+    \includegraphics[height=0.6\textheight]{images/sed2.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{sed script}
+  \begin{itemize}
+  \item Address
+    \begin{itemize}
+    \item Numero di riga
+    \item Range di numeri di riga
+    \item \texttt{/{\em regexp}/}
     \end{itemize}
   \item Comandi principali
     \begin{itemize}

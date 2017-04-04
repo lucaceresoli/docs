@@ -45,7 +45,9 @@ text-processing-cmdline/beamerthememetropolis.sty: mtheme/beamerthememetropolis.
 text-processing-cmdline/text-processing-cmdline.pdf: \
 	text-processing-cmdline/beamerthememetropolis.sty \
 	text-processing-cmdline/images/process.pdf \
-	text-processing-cmdline/images/pipeline.pdf
+	text-processing-cmdline/images/pipeline.pdf \
+	text-processing-cmdline/images/sed1.pdf \
+	text-processing-cmdline/images/sed2.pdf \
 
 oop-c-kernel/oop-c-kernel.pdf: \
 	oop-c-kernel/images/inheritance.pdf \

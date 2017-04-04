@@ -5,3 +5,20 @@ cat nomi.txt | sort
 cat nomi.txt | sort | uniq
 cat nomi.txt | sort | uniq | tr 'oalS' '0@15' # Es: Salvatore -> 5@1v@t0re
                                               # "passwordification"
+
+###  sed  ###
+
+netstat -tap
+netstat -tap 2>/dev/null                                            # hide non-root warning
+netstat -tap 2>/dev/null | sed '1,2 d'                              # remove headers
+netstat -tap 2>/dev/null | sed '/dropbox/d'                         # sed delete
+netstat -tap 2>/dev/null | sed 's/dropbox/nextcloud/'               # sed substitute
+netstat -tap 2>/dev/null | sed '/LISTEN/s/dropbox/NEXTCLOUD/'       # sed conditional subst
+netstat -tap 2>/dev/null | sed -e '/LISTEN/s/dropbox/NEXTCLOUD/' \
+                               -e '/^tcp6/d'                        # sed multi cmd
+netstat -tap 2>/dev/null | sed -r 's![0-9]+/[[:alnum:]-]+!...!'     # regexp match
+netstat -tap 2>/dev/null | \
+        sed -r 's!([0-9]+)/([[:alnum:]-]+)!\2 with PID \1!'         # regexp replace
+
+# git-svn migration: create template authors file:
+svn log --xml --quiet | grep author | sort -u | sed -r 's/.*>(.*?)<.*/\1 = /'
