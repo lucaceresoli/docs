@@ -149,6 +149,144 @@
   \end{itemize}
 \end{frame}
 
+\section{Espressioni regolari}
+
+\begin{frame}
+  \frametitle{Espressioni regolari}
+  Espressioni regolari = Regular expressions = regexp
+  \begin{itemize}
+  \item Un potente linguaggio per descrivere un pattern
+  \item Usato da grep, sed e vari altri strumenti
+  \item Elabora una stringa (= sequenza di caratteri)
+    \begin{itemize}
+    \item Esito: match o non match
+    \end{itemize}
+  \item \texttt{grep -E '{\em regexp}'}: mostra righe corrispondenti a
+    una extended regular expression
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sottostringa}
+  \begin{itemize}
+  \item Sottostringa: regexp senza caratteri speciali
+    \begin{itemize}
+    \item Esempio: ``in''
+    \item Significato: tutte le stringhe contenenti ``in''
+    \item Match: ``{\bf in}'', ``L{\bf in}ux'', ``P{\bf in}guino''
+    \item No match: ``MacOS'', ``UNIX''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Qualsiasi carattere}
+  \begin{itemize}
+  \item Punto: qualsiasi carattere
+    \begin{itemize}
+    \item Esempio: ``.in.x''
+    \item Significato: tutte le stringhe contenentiun carattere
+      qualsiasi, poi ``in'', poi un carattere qualsiasi, poi ``x''
+    \item Match: ``{\bf Linux}'', ``{\bf Minix}'', ``GNU {\bf Linux}''
+    \item No match: ``inox'', ``Linoox''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Un carattere da un elenco}
+  \begin{itemize}
+  \item \texttt{[{\em caratteri}]}: un carattere da un elenco
+    \begin{itemize}
+    \item Esempio: ``\texttt{c[ao]sa}''
+    \item Match: ``{\bf casa}'', ``{\bf cosa}''
+    \item No match: ``cisa''
+    \end{itemize}
+  \item \texttt{[{\em x-y}]}: un range di caratteri
+    \begin{itemize}
+    \item Esempio: ``\texttt{casa[a-z]}''
+    \item Match: ``rin{\bf casar}e'', ``{\bf casal}e''
+    \item No match: ``casa''
+    \end{itemize}
+  \item \texttt{[\^{}{\em caratteri}]}: un carattere non nell'elenco
+    \begin{itemize}
+    \item Esempio: ``\texttt{casa[\^{}a-z]}''
+    \item Match: ``{\bf casa!}'', ``{\bf casa }dolce casa''
+    \item No match: ``casa'', ``casale''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Inizio e fine stringa}
+  \begin{itemize}
+  \item '\^{}': inizio stringa
+  \item '\${}': fine stringa
+    \begin{itemize}
+    \item Esempio: ``\^{}casa\${}''
+    \item Match: ``{\bf casa}''
+    \item No match: ``casale'', ``rincasa''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Stringa opzionale}
+  \begin{itemize}
+  \item '?': zero o una volta
+    \begin{itemize}
+    \item Esempio: ``https?://''
+    \item Match: ``{\bf http://}'', ``{\bf https://}''
+    \item No match: ``httpss://''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ripetizioni}
+  \begin{itemize}
+  \item '+': una o più volte
+    \begin{itemize}
+    \item Esempio: ``0*123''
+    \item Match: ``{\bf 123}'', ``{\bf 0123}'', ``{\bf 000123}'', ``0.{\bf 123}45''
+    \item No match: ``023'', ``000012''
+    \end{itemize}
+  \item '*': zero o più volte
+    \begin{itemize}
+    \item Esempio: ``0+123''
+    \item Match: ``{\bf 0123}'', ``{\bf 000123}'', ``0.{\bf 123}45''
+    \item No match: ``{\bf 123}'', ``023'', ``000012''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sottoespressione}
+  \begin{itemize}
+  \item '( )': sequenza di caratteri da considerarsi come un elemento
+    unico
+    \begin{itemize}
+    \item Esempio: ``http://(www.)?example.com''
+    \item Match: ``{\bf http://www.example.com}'', ``{\bf http://example.com}''
+    \item No match: ``http://ww.example.com''
+    \end{itemize}
+    \item Usato anche per la {\em substitution}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Alternativa}
+  \begin{itemize}
+  \item '|': una sequenze tra varie possibili
+    unico
+    \begin{itemize}
+    \item Esempio: ``www.example.(com|org|net)''
+    \item Match: ``http://{\bf www.example.com}'', ``{\bf www.example.org}''
+    \item No match: ``www.example.it''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \section{sed}
 
 \begin{frame}
