@@ -1,3 +1,15 @@
+###  Semplici elaborazioni  ###
+
+sort nomi.txt
+cut -d ',' -f 1 persone.csv
+cut -d ',' -f 2 persone.csv
+cut -d ',' -f 3 persone.csv
+
+###  grep  ###
+
+grep L nomi.txt                        # Nomi che iniziano per L (maiuscola)
+grep -i L nomi.txt                     # Nomi che contengono L
+grep -iw Luca nomi.txt                 # Luca, non Gianluca
 
 ###  Semplici elaborazioni con la pipeline  ###
 
