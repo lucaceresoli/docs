@@ -192,7 +192,7 @@
   \item Punto: qualsiasi carattere
     \begin{itemize}
     \item Esempio: ``.in.x''
-    \item Significato: tutte le stringhe contenentiun carattere
+    \item Significato: tutte le stringhe contenenti un carattere
       qualsiasi, poi ``in'', poi un carattere qualsiasi, poi ``x''
     \item Match: ``{\bf Linux}'', ``{\bf Minix}'', ``GNU {\bf Linux}''
     \item No match: ``inox'', ``Linoox''
@@ -252,17 +252,17 @@
 \begin{frame}
   \frametitle{Ripetizioni}
   \begin{itemize}
-  \item '+': una o più volte
+  \item '*': zero o più volte
     \begin{itemize}
     \item Esempio: ``0*123''
     \item Match: ``{\bf 123}'', ``{\bf 0123}'', ``{\bf 000123}'', ``0.{\bf 123}45''
     \item No match: ``023'', ``000012''
     \end{itemize}
-  \item '*': zero o più volte
+  \item '+': una o più volte
     \begin{itemize}
     \item Esempio: ``0+123''
     \item Match: ``{\bf 0123}'', ``{\bf 000123}'', ``0.{\bf 123}45''
-    \item No match: ``{\bf 123}'', ``023'', ``000012''
+    \item No match: ``123'', ``023'', ``000012''
     \end{itemize}
   \end{itemize}
 \end{frame}
