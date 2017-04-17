@@ -6,6 +6,7 @@
 \usepackage{color}
 \usepackage{setspace}
 \usepackage{listings}
+\usepackage{minted}
 
 \usetheme{metropolis}
 
@@ -344,15 +345,118 @@
   \end{itemize}
 \end{frame}
 
+\section{awk}
+
 \begin{frame}
   \frametitle{awk}
   \begin{itemize}
+  \item Linguaggio di programmazione progettato per estrarre ed
+    elaborare dati
   \item Struttura simile a \texttt{sed}: coppie pattern + comando
   \item Ma il comando è un vero programma
     \begin{itemize}
     \item linguaggio simile al C
     \end{itemize}
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Flusso di esecuzione}
+  \begin{columns}
+    \column{0.4\textwidth}
+    Per ogni linea di input:
+    \begin{itemize}
+    \item Memorizza la riga ({\em record})
+      \begin{itemize}
+      \item E i singoli campi
+      \end{itemize}
+    \item Esegue l'{\em awk script}
+    \end{itemize}
+    \column{0.6\textwidth}
+    \begin{center}
+      \includegraphics[height=0.4\textheight]{images/awk-flow.pdf}
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{awk script}
+  Sed script = una o più coppie:
+  \begin{minted}{awk}
+condizione { azione }
+  \end{minted}
+    \begin{center}
+      \includegraphics[height=0.4\textheight]{images/awk-script.pdf}
+    \end{center}
+    Se la condizione corrisponde, l'azione viene eseguita
+\end{frame}
+
+\begin{frame}
+  \frametitle{Azioni}
+  \begin{itemize}
+  \item Un'azione è programma, con sintassi simile al C
+  \item Possibilità:
+    \begin{itemize}
+    \item Operatori logici
+    \item Espressioni matematiche
+    \item Variabili
+    \item Array associativi
+    \item \texttt{if}, \texttt{for}, \dots
+    \item Chiamate a funzione
+    \item\dots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Condizioni}
+  \begin{itemize}
+  \item \texttt{/{\em regexp}/}
+  \item Qualsiasi espressione. Esempi:
+    \begin{itemize}
+    \item \texttt{counter == 10} --- valore di una variabile
+    \item \texttt{NR == 7} --- settima riga
+    \end{itemize}
+  \item \texttt{BEGIN}: l'azione sarà eseguita prima di leggere l'input
+  \item \texttt{END}: l'azione sarà eseguita dopo la fine dell'input
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Demo 1}
+  \begin{center}
+    Alcuni semplici programmi awk
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Field e record}
+  \begin{itemize}
+  \item awk spezza l'input in record
+    \begin{itemize}
+    \item normalmente record = riga
+    \item Il suo contenuto viene scritto nella variabile \texttt{\$0}
+    \item Il numero di record viene scritto in \texttt{NR}
+    \item Il record separator si può modificare scrivendo la
+      variabile \texttt{RS} (default: newline)
+    \end{itemize}
+  \item Spezza poi il record in field
+    \begin{itemize}
+    \item normalmente: testo delimitato da spazi
+    \item Ogni field viene scritto nelle variabili \texttt{\$1},
+      \texttt{\$2}, \texttt{\$3}, \dots
+    \item Il numero di field viene scritto in \texttt{NF}
+    \item Il field separator si può modificare scrivendo la variabile
+      \texttt{FS} (default: spazio)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Demo 2}
+  \begin{center}
+    Qualche esempio più complesso\dots
+  \end{center}
 \end{frame}
 
 \begin{frame}

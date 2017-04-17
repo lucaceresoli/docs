@@ -48,6 +48,8 @@ text-processing-cmdline/text-processing-cmdline.pdf: \
 	text-processing-cmdline/images/pipeline.pdf \
 	text-processing-cmdline/images/sed1.pdf \
 	text-processing-cmdline/images/sed2.pdf \
+	text-processing-cmdline/images/awk-flow.pdf \
+	text-processing-cmdline/images/awk-script.pdf \
 
 oop-c-kernel/oop-c-kernel.pdf: \
 	oop-c-kernel/images/inheritance.pdf \

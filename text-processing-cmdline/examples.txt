@@ -34,3 +34,52 @@ netstat -tap 2>/dev/null | \
 
 # git-svn migration: create template authors file:
 svn log --xml --quiet | grep author | sort -u | sed -r 's/.*>(.*?)<.*/\1 = /'
+
+###  awk  ###
+
+{ print }
+  # Manca la condizione -> match ogni riga
+  # Come 'cat'
+
+/^Linux/
+  # Manca l'azione -> azione di default: {print}
+  # Come grep
+
+/^Linux/ { count++ }
+BEGIN    { count = 0 }
+END      { print "Trovate " count " righe" }
+  # Conta le righe che iniziano con "Linux"
+  # Nota: l'ordine delle regole non è sequenziale
+
+{
+    for	(i = 0; i <= NF; i++)
+	print "$" i ": " $i
+}
+  # Mostra il record e i field
+
+{
+    for (i = 0; i <= NF; i++) {
+	print "$" i ": " $i \
+	    (i == 0 ? " (questo è il record)" : "")
+    }
+}
+  # piccola miglioria
+
+BEGIN    { count = 0 }
+         { count += NF }
+END      { print count }
+  # Conta le parole (come 'wc -w')
+
+BEGIN    { FS = "," }
+NF >= 3  { print $3 " " $2 }
+  # Da un elenco CSV, es: \texttt{123,Rossi,Mario}
+  # Estrae nome e cognome, es: \texttt{Mario Rossi}
+
+/#define DEBUG_HERE/ { do_skip = 1 }
+!do_skip
+/^$/                 { do_skip = 0 }
+  # Elimina sezioni di _3_ righe da file C (esempio: hello.c):
+  #   //#define DEBUG_HERE
+  #   undef DEBUG_HERE
+  #   (empty line)
+  # Nota: l'ordine delle regole conta!
