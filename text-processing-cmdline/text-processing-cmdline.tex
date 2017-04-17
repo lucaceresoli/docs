@@ -157,20 +157,11 @@
   Espressioni regolari = Regular expressions = regexp
   \begin{itemize}
   \item Un linguaggio per descrivere un pattern
-  \item Usato da grep, sed e vari altri strumenti
   \item Elabora una stringa (= sequenza di caratteri)
     \begin{itemize}
     \item Esito: match o non match
     \end{itemize}
-  \item Potenti, ma insidiose
-    \begin{itemize}
-    \item Da verificare sempre con cura
-      \begin{itemize}
-      \item \texttt{grep -E '{\em regexp}'}
-      \item strumenti online (es: \url{http://regexr.com/})
-      \item Attenzione a falsi positivi e falsi negativi
-      \end{itemize}
-    \end{itemize}
+  \item Usato da grep, sed e vari altri strumenti
   \end{itemize}
 \end{frame}
 
@@ -291,6 +282,19 @@
     \item Esempio: ``www.example.(com|org|net)''
     \item Match: ``http://{\bf www.example.com}'', ``{\bf www.example.org}''
     \item No match: ``www.example.it''
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Espressioni regolari: conclusioni}
+  \begin{itemize}
+  \item Sono uno strumento potente, ma insidioso
+  \item Da verificare sempre con cura
+    \begin{itemize}
+    \item \texttt{grep -E '{\em regexp}'}
+    \item strumenti online (es: \url{http://regexr.com/})
+    \item Attenzione a falsi positivi e falsi negativi
     \end{itemize}
   \end{itemize}
 \end{frame}
