@@ -1,0 +1,93 @@
+\documentclass[xetex,table]{beamer}
+
+\usepackage[autostyle]{csquotes}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{minted}
+
+\usetheme{metropolis}
+
+\usemintedstyle{perldoc}
+
+\title{Build Automation:\\Introduzione a Make, Autotools e CMake}
+\author{Luca Ceresoli\\
+  \href{mailto:luca@lucaceresoli.net}{luca@lucaceresoli.net}\\
+  \url{http://lucaceresoli.net}
+}
+\date{Linux Day 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduzione}
+
+\begin{frame}{Processo di build}
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{images/c-example.pdf}
+
+    \pause
+    \vspace{0.1\textheight}
+    \texttt{gcc -o hello hello.c utils.c}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Processo di build}
+  \begin{flushright}
+    \includegraphics[width=0.33\textwidth]{images/c-example.pdf}
+  \end{flushright}
+
+  Processo di build:
+  \begin{itemize}
+  \item Input: il lavoro di un umano
+  \item Output: un programma, una libreria, un documento, \dots
+  \end{itemize}
+
+  Esempi:
+  \begin{itemize}
+  \item Codice C / C++ \textrightarrow{} un eseguibile o una libreria
+  \item File di testo \textrightarrow{} Un documento PDF
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Dove andrà il tuo software domani?}
+  \begin{itemize}
+  \item Continuous integration / continuous delivery
+    \begin{itemize}
+    \item Jenkins, Travis CI...
+    \item Server locale o ``cloud''
+    \end{itemize}
+    \pause
+  \item Distribuzioni: dpkg, rpm...
+    \pause
+  \item Sistemi embedded
+    \begin{itemize}
+    \item Buildroot
+    \item Openembedded
+    \item OpenWRT
+    \end{itemize}
+    \pause
+  \item Windows, MacOS, Android, iOS
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Come vuoi compilare il tuo software?}
+  \begin{itemize}
+  \item Debug / Release
+  \item \texttt{-Wall -Werror}
+  \item Librerie: shared / static
+  \item \dots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Build automation: necessità}
+  \begin{itemize}
+  \item Da riga di comando
+  \item Deve funzionare in ambienti diversi
+  \item Non deve avere {\em policy} hard-coded
+  \end{itemize}
+\end{frame}
+
+\end{document}
