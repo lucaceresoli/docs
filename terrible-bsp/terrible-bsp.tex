@@ -1,4 +1,4 @@
-\documentclass[xetex,table]{beamer}
+\documentclass[xetex,table,aspectratio=169]{beamer}
 
 \usepackage{fontspec}
 \usepackage[autostyle]{csquotes}
@@ -13,7 +13,7 @@
 \usemintedstyle{perldoc}
 
 \title{How I survived to a SoC\\with a terrible Linux BSP}
-\subtitle{Working with jurassic vendor kernels, missing pieces\\and buggy code}
+\subtitle{Working with jurassic vendor kernels, missing pieces and buggy code}
 \author{Luca Ceresoli\\
   \href{mailto:luca@lucaceresoli.net}{luca@lucaceresoli.net}\\
   \url{http://lucaceresoli.net}
@@ -307,7 +307,7 @@ void __init reserve_node_zero(pg_data_t *pgdat)
 
 \begin{frame}{Vendor booting scheme (NAND)}
   \begin{center}
-    \includegraphics[width=1.0\textwidth]{images/booting.pdf}
+    \includegraphics[height=1.0\textheight]{images/booting.pdf}
   \end{center}
 \end{frame}
 
