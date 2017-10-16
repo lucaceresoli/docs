@@ -55,7 +55,7 @@
     \item All standard, open-source components
       \begin{itemize}
       \item Well known quality
-      \item Community and commercial support
+      \item Support
       \item Maintained (bugfixes!)
       \end{itemize}
     \item Reuse components
@@ -405,10 +405,6 @@ void __init reserve_node_zero(pg_data_t *pgdat)
   \item No more NVT Loader and FAT
   \item Kernel still on bare NAND and without cmdline
   \item Replacement for the U-Boot environment?
-  \item Safe kernel upgrade?
-    \begin{itemize}
-    \item kexec
-    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -527,32 +523,20 @@ void __init reserve_node_zero(pg_data_t *pgdat)
 \begin{frame}{The result}
   Comparison with a well-supported SoC
   \begin{itemize}
-  \item The product works
+  \item Higher development cost
+  \item Longer time-to-market
+  \item Final product quality is lower
     \begin{itemize}
-    \item Final quality is lower
     \item The hardware would allow to do better
-    \end{itemize}
-  \item Extra time spent
-    \begin{itemize}
-    \item Sometimes we supported ourselves
-    \item Look for stuff in the BSP
-    \item Fix bugs
-    \item Reinvent booting
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{What can I do to improve things?}
-  What can I do to make a better world?
   \begin{itemize}
   \item As an embedded Linux engineer
     \begin{itemize}
     \item Assess potential problems early while evaluating a SoC
-      \begin{itemize}
-      \item Obstacles to using standard tools
-      \item Device drivers
-      \item Booting
-      \end{itemize}
     \end{itemize}
   \item As a hobbyist or a hacker
     \begin{itemize}
@@ -572,12 +556,7 @@ void __init reserve_node_zero(pg_data_t *pgdat)
       \item And let people write the tools they want
       \end{itemize}
     \end{itemize}
-  \item Push your code to mainline\\
-    {\small (or outsource this to a specialized company)}
-    \begin{itemize}
-    \item Expensive, but rewarding
-    \item Somebody else will improve and support it
-    \end{itemize}
+  \item Push your code to mainline
   \item Leverage the community
     \begin{itemize}
     \item Let your engineers use mailing-lists, IRC etc
