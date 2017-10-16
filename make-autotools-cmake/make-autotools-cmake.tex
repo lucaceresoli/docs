@@ -213,4 +213,131 @@
   \end{itemize}
 \end{frame}
 
+\section{Autotools}
+
+\begin{frame}[fragile]
+  \begin{center}
+  \begin{verbatim}
+    ./configure
+    make
+    sudo make install
+  \end{verbatim}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Autotools: schema semplificato}
+  \center\includegraphics[height=0.7\textheight]{images/autotools.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Autoconf}
+  \begin{columns}
+    \column{0.7\textwidth}
+    \texttt{configure.ac}
+    \inputminted[bgcolor=codebackground,frame=single]{shell}{examples/3-autotools-1/configure.ac}
+
+    \begin{itemize}
+    \item È uno script di shell
+    \item Con l'aggiunta di macro \texttt{m4}
+    \end{itemize}
+
+    \column{0.3\textwidth}
+    \includegraphics[width=\textwidth]{images/autotools-autoconf.pdf}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Autoconf}
+  \small
+
+  \begin{columns}
+    \column{0.7\textwidth}
+    \texttt{configure.ac}
+    \inputminted[bgcolor=codebackground,frame=single]{shell}{examples/3-autotools-2/configure.ac}
+
+    \column{0.3\textwidth}
+    \includegraphics[width=\textwidth]{images/autotools-config-files.pdf}
+  \end{columns}
+
+  \texttt{Makefile.in}
+  \inputminted[bgcolor=codebackground,frame=single]{makefile}{examples/3-autotools-2/Makefile.in}
+\end{frame}
+
+\begin{frame}{Automake}
+  \begin{flushright}
+    \includegraphics[width=0.3\textwidth]{images/autotools-automake.pdf}
+  \end{flushright}
+
+  \texttt{Makefile.am}
+  \inputminted[bgcolor=codebackground,frame=single]{makefile}{examples/3-autotools-3/Makefile.am}
+
+  \begin{itemize}
+  \item È un normale Makefile
+  \item Con l'aggiunta di costrutti di \texttt{automake}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Automake: PSV e PLV}
+  \texttt{Makefile.am} si compone di:
+
+  \begin{itemize}
+  \item \mintinline{makefile}{bin_PROGRAMS = hello}
+    \begin{itemize}
+    \item Product List Variable (PLV)
+    \item Elenca i {\em prodotti} da generare
+    \end{itemize}
+  \end{itemize}
+
+  \begin{itemize}
+  \item \mintinline{makefile}{hello_SOURCES = hello.c utils.c utils.h}
+    \begin{itemize}
+    \item Product Source Variable (PSV)
+    \item Elenca i {\em sorgenti} necessari per generare un prodotto
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Autotools}
+  \center\includegraphics[height=0.7\textheight]{images/autotools.pdf}
+\end{frame}
+
+\begin{frame}{Autotools: vantaggi}
+  \begin{itemize}
+
+  \item Usato da moltissimi software
+  \item Compatibilità con ogni sistema UNIX-like
+  \item Moltissime macro già pronte
+  \item Usano shell e Make
+  \item Generano \texttt{Makefile}:
+    \begin{itemize}
+    \item Conformi agli standard UNIX
+    \item Completi (\texttt{make install},
+    \texttt{make clean},
+    \texttt{make dist}, \dots)
+    \end{itemize}
+
+  \item Vedi slide ``Cosa manca a Make'':
+    \begin{itemize}
+    \item Ricerca di librerie
+    \item Prefix (\texttt{--prefix=/usr})
+    \item Diverted installation (\texttt{DESTDIR})
+    \item Out of tree build
+    \item Cross-compilazione con strumenti standard
+    \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Autotools: svantaggi}
+  \begin{itemize}
+  \item Praticamente inutilizzabili su sistemi non UNIX-like
+  \item Usano shell e Make
+  \item Complesso da imparare inizialmente
+    \begin{itemize}
+    \item È facile scrivere codice ``sbagliato'' se non è chiaro il
+      come funzionano
+    \end{itemize}
+  \item \texttt{./configure} è lento (esecuzione sequenziale)
+  \end{itemize}
+\end{frame}
+
 \end{document}

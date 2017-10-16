@@ -1,0 +1,5 @@
+hello: hello.o utils.o
+	@CC@ -o hello hello.o utils.o
+
+%.o: %.c
+	@CC@ -c $<
