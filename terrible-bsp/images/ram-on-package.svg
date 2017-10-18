@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="ram-on-package.svg"
@@ -390,16 +391,16 @@
   <sodipodi:namedview
      showguides="true"
      inkscape:window-maximized="1"
-     inkscape:window-y="24"
-     inkscape:window-x="1969"
-     inkscape:window-height="1056"
-     inkscape:window-width="1871"
+     inkscape:window-y="0"
+     inkscape:window-x="1920"
+     inkscape:window-height="1055"
+     inkscape:window-width="1920"
      showgrid="true"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
-     inkscape:cy="242.71152"
-     inkscape:cx="626.74574"
-     inkscape:zoom="2"
+     inkscape:cy="422.27962"
+     inkscape:cx="756.76995"
+     inkscape:zoom="1.4142136"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -471,31 +472,34 @@
        id="path4355"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
-    <path
-       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 820,802.3622 -210,0 c -10,0 -20,-10.5 -20,-21 l 0,-63 c 0,-10.5 10,-21 20,-21 l 210,0 z"
-       id="path4353"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4355"
+       id="use4349"
+       transform="matrix(-1,0,0,1,1540,0)"
+       width="100%"
+       height="100%" />
     <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:10;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4357"
-       width="25"
-       height="140"
-       x="815"
-       y="687.36218"
-       ry="0" />
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:5.96460247;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4347"
+       width="360"
+       height="105.00002"
+       x="590"
+       y="697.36218"
+       ry="20.000025"
+       rx="20.000027" />
     <rect
        style="opacity:1;fill:#13a4ff;fill-opacity:1;stroke:none;stroke-width:10;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4359"
-       width="185"
+       width="280"
        height="30.000025"
        x="630"
        y="757.36218" />
     <rect
        style="opacity:1;fill:#13a4ff;fill-opacity:1;stroke:none;stroke-width:10;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4359-3"
-       width="135"
+       width="180"
        height="29.999975"
        x="680"
        y="717.36218" />
@@ -514,26 +518,42 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="756"
+       x="745.54932"
        y="781.46252"
        id="text4380"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4382"
-         x="756"
+         x="745.54932"
          y="781.46252"
          style="font-size:25px">SoC</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="735.5"
+       x="734.14185"
        y="741.63953"
        id="text4380-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4382-7"
-         x="735.5"
+         x="734.14185"
          y="741.63953"
          style="font-size:25px">DDR2</tspan></text>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4376"
+       id="use4351"
+       transform="matrix(-1,0,0,1,1540,0)"
+       width="100%"
+       height="100%" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4378"
+       id="use4353"
+       transform="matrix(-1,0,0,1,1540,0)"
+       width="100%"
+       height="100%" />
   </g>
 </svg>
