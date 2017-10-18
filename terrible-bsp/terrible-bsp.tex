@@ -14,7 +14,7 @@
 
 \title{How I survived to a SoC\\with a terrible Linux BSP}
 \subtitle{Working with jurassic vendor kernels, missing pieces and buggy code}
-\author{Luca Ceresoli\\
+\author{Luca Ceresoli --- AIM Sportline\\
   \href{mailto:luca@lucaceresoli.net}{luca@lucaceresoli.net}\\
   \url{http://lucaceresoli.net}
 }
@@ -25,18 +25,26 @@
 \maketitle
 
 \begin{frame}{About me}
-  \begin{itemize}
-  \item Open source enthusiast
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/aim-products.jpg}
+
+    \column{0.5\textwidth}
     \begin{itemize}
-    \item Contributor to Buildroot and a few other projects
+    \item Embedded Linux engineer\\
+      at AIM Sportline\\
+      {\footnotesize\url{http://www.aim-sportline.com/}}
+      \begin{itemize}
+      \item Develop real products on custom hardware
+      \item Kernel, bootloader, drivers
+      \item Integration, build system
+      \end{itemize}
+    \item Open source enthusiast
+      \begin{itemize}
+      \item Contributor to Buildroot and a few other projects
+      \end{itemize}
     \end{itemize}
-  \item Embedded Linux engineer
-    \begin{itemize}
-    \item Develop real products on custom hardware
-    \item Kernel, bootloader, drivers
-    \item Integration, build system
-    \end{itemize}
-  \end{itemize}
+  \end{columns}
 \end{frame}
 
 \section{Introduction}
