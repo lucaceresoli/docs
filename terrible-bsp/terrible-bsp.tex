@@ -76,22 +76,24 @@
 \end{frame}
 
 \begin{frame}{The System on Chip}
-  \begin{itemize}
-  \item Nuvoton N32926
+  \begin{columns}
+    \column{0.5\textwidth}
+    Nuvoton N32926
     \begin{itemize}
-    \item Cheap
     \item ARM926EJ-S @ 240 MHz
     \item Peripherals: H.264 en/decoder, Ethernet MAC, USB, CMOS
       sensor interface, video out, LCD controller, sound, \dots
     \item 64 MB DDR2 {\em on package}
     \item LQFP package
+    \item Ideal application: low cost IP camera
     \end{itemize}
-  \item{\tiny Source:
+
+    \column{0.5\textwidth}
+    \includegraphics[width=\textwidth]{images/ram-on-package.pdf}
+  \end{columns}
+
+  {\tiny Source:
     \url{https://www.nuvoton.com/hq/products/microprocessors/arm9-mpus/n3292-h.264-codec-series/n32926u1dn}}
-  \end{itemize}
-  \begin{center}
-    \includegraphics[height=0.2\textheight]{images/ram-on-package.pdf}
-  \end{center}
 \end{frame}
 
 \section{My Quest}
