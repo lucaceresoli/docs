@@ -67,7 +67,9 @@ terrible-bsp/terrible-bsp.pdf: \
 	terrible-bsp/images/booting-no-nvt-loader.pdf \
 	terrible-bsp/images/flashing-tool.pdf \
 	terrible-bsp/images/pseudo-partition-table.pdf \
-	terrible-bsp/images/ram-on-package.pdf
+	terrible-bsp/images/ram-on-package.pdf \
+	terrible-bsp/images/windows_10_compatible.pdf \
+	terrible-bsp/images/linux-mainline.pdf
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
