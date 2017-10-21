@@ -491,8 +491,11 @@ void __init reserve_node_zero(pg_data_t *pgdat)
 \begin{frame}{A real e-mail exchange (short form)}
   \begin{description}
   \item[Me] The proprietary tool doesn't work
+    \pause
   \item[CS] Works on my PC, see screenshot
+    \pause
   \item[Me] Not on mine; can it log errors so you can diagnose it?
+    \pause
   \item[CS] Adding logging would not be practical
   \end{description}
 \end{frame}
@@ -548,17 +551,21 @@ void __init reserve_node_zero(pg_data_t *pgdat)
   \center
   
   \vspace{0.15\textheight}
-  
-  \begin{columns}
-    \column{0.5\textheight}
-      \includegraphics[height=0.5\textheight]{images/windows_10_compatible.pdf}
 
-    \column{0.5\textheight}
-      \includegraphics[height=0.5\textheight]{images/linux-mainline.pdf}
-  \end{columns}
+    \begin{columns}
+      \column{0.5\textheight}
+      \onslide<2->{
+        \includegraphics[height=0.5\textheight]{images/windows_10_compatible.pdf}
+      }
 
-  \vspace{0.15\textheight}
-  \tiny All images are copyright of their respective owners ;)
+      \column{0.5\textheight}
+      \onslide<3->{
+        \includegraphics[height=0.5\textheight]{images/linux-mainline.pdf}
+      }
+    \end{columns}
+
+    \vspace{0.15\textheight}
+    \onslide<2->{\tiny All images are copyright of their respective owners ;)}
 \end{frame}
 
 \begin{frame}
