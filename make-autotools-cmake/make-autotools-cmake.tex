@@ -399,4 +399,68 @@
   \end{itemize}
 \end{frame}
 
+\section{Conclusioni}
+
+\begin{frame}{Conclusioni}
+  \begin{itemize}
+  \item Shell: non adatto
+  \item Make: ottimo strumento, ma scrivere un ottimo
+    \texttt{Makefile} è un lavoro enorme
+  \item Autotools e CMake: strumenti completi e standard
+    \begin{itemize}
+    \item Fanno molto più di quanto abbiamo visto
+    \item Esistono anche altri strumenti simili, meno diffusi
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Quale strumento utilizzare?}
+  Priorità di scelta {\em indicativa}
+  \begin{enumerate}
+  \item {\bf Autotools o CMake}: quello che si conosce già
+  \item {\bf CMake}:             se serve compilare su Windows, MacOS\dots
+  \item {\bf Autotools}:         librerie di basso livello (sistema, interazione con il kernel)
+  \item {\bf Make}:              se Autotools e CMake non sono adatti
+  \item {\bf Shell}:             se non basta neanche Make\dots
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Bibliografia}
+  \small
+  \begin{itemize}
+  \item GNU Make Manual (\url{https://www.gnu.org/software/make/manual/})
+  \item ``A Practitioner's Guide to GNU Autoconf, Automake, and Libtool'',
+    John Calcote (\url{https://www.nostarch.com/autotools.htm})
+  \item ``Autotools Mythbuster'', Diego Elio “Flameeyes” Pettenò
+    (\url{https://autotools.io/index.html})
+  \item ``Autotools: A Demystification Tutorial'', Thomas Petazzoni
+    (\url{https://elinux.org/images/4/43/Petazzoni.pdf},
+    \url{https://www.youtube.com/watch?v=_zX8LJ9Xjyk})
+  \item CMake Tutorial: \url{https://cmake.org/cmake-tutorial/}
+  \item CMake documentation: \url{https://cmake.org/documentation/}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grazie per l'attenzione!}
+
+  \begin{center}
+    {\Huge Domande?}
+
+    \vspace{0.1\textheight}
+
+    \href{mailto:luca@lucaceresoli.net}{luca@lucaceresoli.net}\\
+    \url{http://lucaceresoli.net}
+
+    \textcopyright{} Copyright 2017, Luca Ceresoli\\
+
+    \vspace{0.2\textheight}
+
+    \tiny
+    Materiale rilasciato sotto licenza\\
+    Creative Commons Attribution - Share Alike 3.0 \\
+    \url{https://creativecommons.org/licenses/by-sa/3.0/} \\
+\end{center}
+\end{frame}
+
 \end{document}
