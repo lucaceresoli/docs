@@ -90,4 +90,41 @@
   \end{itemize}
 \end{frame}
 
+\section{Shell script}
+
+\definecolor{codebackground}{rgb}{0.96,0.96,0.75}
+
+\begin{frame}[fragile]{Shell script semplice}
+  \begin{center}
+  \includegraphics[height=0.4\textheight]{images/shell.pdf}
+  \end{center}
+
+  \texttt{build.sh}:
+
+  \inputminted[bgcolor=codebackground,frame=single]{shell}{examples/1-shell-1/build.sh}
+\end{frame}
+
+\begin{frame}{Shell script semplice}
+  \begin{itemize}
+  \item[\checkmark] Funziona per casi molto semplici
+  \item[$\times$]   Ricompila tutto ogni volta (se ci sono 100 file sorgente?)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{File oggetto intermedi}
+  \center\includegraphics[height=0.5\textheight]{images/depend-graph.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{File oggetto intermedi}
+  \small\inputminted[bgcolor=codebackground,frame=single]{shell}{examples/1-shell-2/build.sh}
+\end{frame}
+
+\begin{frame}{File oggetto intermedi}
+  \begin{itemize}
+  \item[\checkmark] Più efficiente
+  \item[$\times$]   Scomodo da scrivere e mantenere
+  \item[$\times$]   Non sfrutta CPU multi core
+  \end{itemize}
+\end{frame}
+
 \end{document}
