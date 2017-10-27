@@ -127,4 +127,90 @@
   \end{itemize}
 \end{frame}
 
+\section{Make}
+
+\begin{frame}{Make}
+  \center\includegraphics[width=0.8\textwidth]{images/makefile.pdf}
+\end{frame}
+
+\begin{frame}{Makefile}
+  \texttt{Makefile} contiene {\em regole}:
+
+  \inputminted[bgcolor=codebackground,frame=single]{makefile}{examples/2-make-1/Makefile}
+\end{frame}
+
+\begin{frame}[fragile]{Regole}
+  \begin{minted}[autogobble]{makefile}
+    hello: hello.o utils.o
+            gcc -o hello hello.o utils.o
+  \end{minted}
+
+  \begin{itemize}
+  \item \texttt{hello} = target
+  \item \texttt{hello.o utils.o} = dipendenze
+  \item \texttt{gcc \dots} = comandi
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Grafo delle dipendenze}
+  \center\includegraphics[height=0.4\textheight]{images/depend-graph.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Uso di Make}
+  \begin{minted}[autogobble]{shell-session}
+    $ ls -tr
+    utils.h  utils.c  hello.c  Makefile
+    $ make
+    gcc -c hello.c
+    gcc -c utils.c
+    gcc -o hello hello.o utils.o
+    $ ls -tr
+    utils.h  utils.c  hello.c  Makefile  utils.o  hello.o  hello
+    $ touch utils.c
+    $ make
+    gcc -c utils.c
+    gcc -o hello hello.o utils.o
+    $
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Altre regole utili}
+  \begin{minted}[autogobble]{makefile}
+    install:
+        install -m 755 hello /usr/bin/
+
+    clean:
+        rm -f hello hello.o utils.o
+
+    dist:
+        tar czf hello.tar.gz utils.h utils.c hello.c Makefile
+  \end{minted}
+\end{frame}
+
+\begin{frame}{Alcuni vantaggi di Make}
+  \begin{itemize}
+  \item Scrittura delle regole
+    \begin{itemize}
+    \item Wildcard (\texttt{\%.o: \%.c})
+    \item Implicit rules: varie regole predefinite (C, C++, \dots)
+    \item \dots
+    \end{itemize}
+  \item Utilizzo
+    \begin{itemize}
+    \item Build in parallelo (\texttt{make -j<N>})
+    \item Build di un target specifico (\texttt{make utils.o})
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cosa manca a Make}
+  \begin{itemize}
+  \item Ricerca di librerie
+  \item Prefix (\texttt{/usr}, \texttt{/usr/bin}, \dots)
+  \item Diverted installation (\texttt{DESTDIR})
+  \item Out of tree build
+  \item Cross-compilazione (possibile ma scomoda)
+  \end{itemize}
+\end{frame}
+
 \end{document}

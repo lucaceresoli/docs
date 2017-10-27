@@ -78,6 +78,7 @@ make-autotools-cmake/make-autotools-cmake.pdf: \
 	make-autotools-cmake/images/c-example.pdf \
 	make-autotools-cmake/images/shell.pdf \
 	make-autotools-cmake/images/depend-graph.pdf \
+	make-autotools-cmake/images/makefile.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
