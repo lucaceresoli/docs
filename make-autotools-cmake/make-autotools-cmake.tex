@@ -340,4 +340,63 @@
   \end{itemize}
 \end{frame}
 
+\section{CMake}
+
+\begin{frame}[fragile]
+  \begin{center}
+  \begin{verbatim}
+    ccmake .
+    make
+    sudo make install
+  \end{verbatim}
+  \end{center}
+\end{frame}
+
+\begin{frame}{CMake}
+  \center\includegraphics[height=0.5\textheight]{images/cmake.pdf}
+\end{frame}
+
+\begin{frame}{\texttt{CMakeLists.txt} semplice}
+  \texttt{CMakeLists.txt}
+  \inputminted[bgcolor=codebackground,frame=single]{cmake}{examples/4-cmake-1/CMakeLists.txt}
+\end{frame}
+
+\begin{frame}{\texttt{ccmake}}
+  \center\includegraphics[height=0.4\textheight]{images/ccmake.png}
+\end{frame}
+
+\begin{frame}{Installazione}
+  \texttt{CMakeLists.txt}
+  \inputminted[bgcolor=codebackground,frame=single]{cmake}{examples/4-cmake-2/CMakeLists.txt}
+\end{frame}
+
+\begin{frame}{CMake: vantaggi}
+  \begin{itemize}
+
+  \item Funziona su Linux, Windows, MacOS\dots
+  \item Diffusione crescente
+  \item Apprendimento iniziale facile
+  \item \texttt{ccmake} e \texttt{cmake-gui} per configurazione interattiva
+  \item Genera \texttt{Makefile}, progetti Visual Studio, XCode\dots
+
+  \item Vedi slide ``Cosa manca a Make'':
+    \begin{itemize}
+    \item Ricerca di librerie
+    \item Prefix (\texttt{CMAKE\_INSTALL\_PREFIX})
+    \item Diverted installation (\texttt{DESTDIR})
+    \item Out of tree build
+    \item Cross-compilazione
+    \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{CMake: svantaggi}
+  \begin{itemize}
+  \item Sintassi ``non convenzionale''
+  \item Non è banale gestire software complessi in modo corretto
+  \item Minore diffusione
+  \end{itemize}
+\end{frame}
+
 \end{document}
