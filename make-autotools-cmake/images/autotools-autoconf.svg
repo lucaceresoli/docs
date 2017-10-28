@@ -533,10 +533,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7071068"
-     inkscape:cx="591.92172"
-     inkscape:cy="471.40339"
+     inkscape:cx="307.6648"
+     inkscape:cy="620.7792"
      inkscape:document-units="px"
-     inkscape:current-layer="g4499-3"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1855"
      inkscape:window-height="1056"
@@ -761,7 +761,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'DejaVu Sans Mono';-inkscape-font-specification:'DejaVu Sans Mono';text-align:start;text-anchor:start"
            y="951.44244"
            x="333.81116"
-           sodipodi:role="line">Makefile.am</tspan></text>
+           sodipodi:role="line">Makefile.in</tspan></text>
     </g>
     <g
        transform="translate(246.74308,20.499552)"
