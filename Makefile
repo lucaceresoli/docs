@@ -70,6 +70,8 @@ make-autotools-cmake/make-autotools-cmake.pdf: \
 	make-autotools-cmake/images/autotools-automake.pdf \
 	make-autotools-cmake/images/cmake.pdf \
 
+zynqmp-linux/zynqmp-linux.pdf: \
+
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
 	scratch-gpio/scratch-gpio.pdf \
@@ -77,3 +79,4 @@ all: \
 	oop-c-kernel/oop-c-kernel.pdf \
 	terrible-bsp/terrible-bsp.pdf \
 	make-autotools-cmake/make-autotools-cmake.pdf \
+	zynqmp-linux/zynqmp-linux.pdf \

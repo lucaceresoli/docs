@@ -1,0 +1,74 @@
+\documentclass[xetex,table]{beamer}
+
+\usepackage[autostyle]{csquotes}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{minted}
+
+\usetheme{metropolis}
+
+\usemintedstyle{perldoc}
+\definecolor{codebackground}{rgb}{0.96,0.96,0.75}
+
+\title{ARM64 + FPGA and more:\\Linux on the Xilinx ZynqMP}
+\subtitle{Opportunities and challenges from a powerful and complex chip}
+\author{Luca Ceresoli, AIM Sportline\\
+  \href{mailto:luca@lucaceresoli.net}{\tt luca@lucaceresoli.net}\\
+  \url{http://lucaceresoli.net}
+}
+\date{FOSDEM 2018}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{About me}
+  \begin{columns}
+    \column{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/aim-products.jpg}
+
+    \column{0.6\textwidth}
+    \begin{itemize}
+    \item Embedded Linux engineer\\
+      at AIM Sportline\\
+      {\footnotesize\url{http://www.aim-sportline.com/}}
+      \begin{itemize}
+      \item Develop real products on custom hardware
+      \item Kernel, bootloader, drivers
+      \item Integration, build system
+      \end{itemize}
+    \item Open source enthusiast
+      \begin{itemize}
+      \item Contributor to Buildroot and a few other projects
+      \end{itemize}
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    Thank you for your attention
+
+    \vspace{0.15\textheight}
+
+    {\Huge Questions?}
+
+    \vspace{0.15\textheight}
+
+    {\Large Luca Ceresoli}\\
+    \href{mailto:luca@lucaceresoli.net}{\tt luca@lucaceresoli.net}\\
+    \url{http://lucaceresoli.net}
+
+    \vspace{0.05\textheight}
+
+    \tiny
+    \textcopyright{} Copyright 2018, Luca Ceresoli.
+    Slides released under\\
+    Creative Commons Attribution - Share Alike 3.0 License \\
+    \url{https://creativecommons.org/licenses/by-sa/3.0/} \\
+  \end{center}
+\end{frame}
+
+\end{document}
