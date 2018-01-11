@@ -9,5 +9,3 @@
 *.eps
 *.vrb
 _minted*/
-pgfplotsthemetol.sty
-beamer*thememetropolis*.sty

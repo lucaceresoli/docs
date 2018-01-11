@@ -19,9 +19,6 @@ XELATEX_OPTS = -shell-escape -file-line-error -halt-on-error
 %.pdf: %.tex
 	( cd $(dir $(*)); $(XELATEX) $(XELATEX_OPTS) $(notdir $<) )
 
-mtheme/beamerthememetropolis.sty:
-	make -C mtheme sty
-
 embedded-linux-talk/embedded-linux-talk.pdf: \
 	embedded-linux-talk/images/embedded-systems-range.pdf \
 	embedded-linux-talk/images/system-architecture.pdf \
@@ -39,11 +36,7 @@ scratch-gpio/scratch-gpio.pdf: \
 	scratch-gpio/images/semaphore-gpio.pdf \
 	scratch-gpio/images/semaphore-gpio-pir.pdf \
 
-text-processing-cmdline/beamerthememetropolis.sty: mtheme/beamerthememetropolis.sty
-	cp mtheme/*.sty text-processing-cmdline/
-
 text-processing-cmdline/text-processing-cmdline.pdf: \
-	text-processing-cmdline/beamerthememetropolis.sty \
 	text-processing-cmdline/images/process.pdf \
 	text-processing-cmdline/images/pipeline.pdf \
 	text-processing-cmdline/images/sed1.pdf \
@@ -55,11 +48,7 @@ oop-c-kernel/oop-c-kernel.pdf: \
 	oop-c-kernel/images/inheritance.pdf \
 	oop-c-kernel/images/device-model.pdf
 
-terrible-bsp/beamerthememetropolis.sty: mtheme/beamerthememetropolis.sty
-	cp mtheme/*.sty terrible-bsp/
-
 terrible-bsp/terrible-bsp.pdf: \
-	terrible-bsp/beamerthememetropolis.sty \
 	terrible-bsp/images/booting.pdf \
 	terrible-bsp/images/booting-on-fat.pdf \
 	terrible-bsp/images/booting-fat-ubi.pdf \
@@ -70,11 +59,7 @@ terrible-bsp/terrible-bsp.pdf: \
 	terrible-bsp/images/windows_10_compatible.pdf \
 	terrible-bsp/images/linux-mainline.pdf
 
-make-autotools-cmake/beamerthememetropolis.sty: mtheme/beamerthememetropolis.sty
-	cp mtheme/*.sty terrible-bsp/
-
 make-autotools-cmake/make-autotools-cmake.pdf: \
-	make-autotools-cmake/beamerthememetropolis.sty \
 	make-autotools-cmake/images/c-example.pdf \
 	make-autotools-cmake/images/shell.pdf \
 	make-autotools-cmake/images/depend-graph.pdf \
