@@ -71,6 +71,7 @@ make-autotools-cmake/make-autotools-cmake.pdf: \
 	make-autotools-cmake/images/cmake.pdf \
 
 zynqmp-linux/zynqmp-linux.pdf: \
+	zynqmp-linux/images/block-diagram.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
