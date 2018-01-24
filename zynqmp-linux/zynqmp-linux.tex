@@ -221,6 +221,126 @@
   \end{itemize}
 \end{frame}
 
+\section{Linux on your FPGA design}
+
+\begin{frame}{Build your own SoC!}
+  \begin{itemize}
+  \item FPGA $\leftrightarrow$ CPU interface is AXI4
+  \item AXI = Advanced eXtensible Interface (part of AMBA)
+  \item Peripherals in FPGA are accessible on the physical address
+    space
+    \begin{itemize}
+    \item Like hard peripherals and traditional SoCs
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Typical workflow}
+  \begin{itemize}
+  \item Workflow with Vivado
+    \begin{enumerate}
+    \item IP integration
+    \item Address editor
+    \item Constraints
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+  Step 1: IP integration
+\end{frame}
+
+\begin{frame}{Vivado: block design}
+  \center\includegraphics[width=1.0\textwidth]{images/block-design.png}
+\end{frame}
+
+\begin{frame}{Vivado: customize the PS block}
+  \center\includegraphics[width=1.0\textwidth]{images/customize-ps.png}
+\end{frame}
+
+\begin{frame}{Vivado: customize an IP block}
+  \center\includegraphics[width=1.0\textwidth]{images/customize-gpio.png}
+\end{frame}
+
+\begin{frame}[fragile]{Linux: instantiate a device}
+  \begin{columns}
+    \column{0.4\textwidth}
+    \center\includegraphics[height=0.2\textheight]{images/block-design-gpio.png}
+
+    \column{0.6\textwidth}
+    Linux drivers for Xilinx IPs:
+    \href{http://www.wiki.xilinx.com/Linux+Drivers}{\tt wiki.xilinx.com/Linux+Drivers}
+  \end{columns}
+
+  \begin{minted}[bgcolor=codebackground,frame=single,autogobble,fontsize=\small]{perl}
+  gpio: gpio@a0000000 {
+    #gpio-cells = <2>;
+    compatible = "xlnx,xps-gpio-1.00.a";
+    gpio-controller;
+    xlnx,gpio-width = <3>;
+    xlnx,all-inputs = <1>;
+    /*...*/
+  };
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Vivado: interrupts}
+  \center\includegraphics[width=1.0\textwidth]{images/block-design-interrupt.png}
+\end{frame}
+
+\begin{frame}[fragile]{Linux: interrupts}
+  \begin{minted}[bgcolor=codebackground,frame=single,autogobble,fontsize=\small]{perl}
+  #include <dt-bindings/interrupt-controller/arm-gic.h>
+  #include "zynqmp-irqs.dtsh" // (*)
+
+  gpio: gpio@a0000000 {
+    #gpio-cells = <2>;
+    compatible = "xlnx,xps-gpio-1.00.a";
+    gpio-controller;
+    interrupt-parent = <&gic>;
+    interrupts = <GIC_SPI PL_PS_GRP0_IRQ_0
+                  IRQ_TYPE_LEVEL_HIGH>;
+    /*...*/
+  };
+  \end{minted}
+
+  \footnotesize (*) From
+  \href{https://github.com/xilinx/qemu-devicetrees/blob/master/zynqmp-irqs.dtsh}{\tt github.com/xilinx/qemu-devicetrees/blob/master/}
+\end{frame}
+
+\begin{frame}[standout]
+  Step 2: Address editor
+\end{frame}
+
+\begin{frame}{Vivado: Address editor}
+  \center\includegraphics[width=1.0\textwidth]{images/address-editor.png}
+\end{frame}
+
+\begin{frame}[fragile]{Linux: address map}
+  \begin{minted}[bgcolor=codebackground,frame=single,autogobble,fontsize=\small]{perl}
+  gpio: gpio@a0000000 {
+    #gpio-cells = <2>;
+    compatible = "xlnx,xps-gpio-1.00.a";
+    gpio-controller;
+    reg = <0x0 0xa0000000 0x0 0x10000>;
+    /*...*/
+  };
+  \end{minted}
+\end{frame}
+
+\begin{frame}[standout]
+  Step 3: Constraints
+\end{frame}
+
+\begin{frame}{Vivado: constraints}
+  \begin{itemize}
+  \item Connect nets to pins: placement, IO standard, pull-up/down\dots
+  \item No visible effect in Linux
+  \end{itemize}
+
+  \center\includegraphics[width=1.0\textwidth]{images/pin-assignment.png}
+\end{frame}
+
 \begin{frame}
   \begin{center}
     Thank you for your attention
