@@ -72,6 +72,11 @@ make-autotools-cmake/make-autotools-cmake.pdf: \
 
 zynqmp-linux/zynqmp-linux.pdf: \
 	zynqmp-linux/images/block-diagram.pdf \
+	zynqmp-linux/images/pm-layers.pdf \
+	zynqmp-linux/images/boot-sequence-fsbl.pdf \
+	zynqmp-linux/images/boot-sequence-spl.pdf \
+	zynqmp-linux/images/build-xilinx.pdf \
+	zynqmp-linux/images/build-community.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \

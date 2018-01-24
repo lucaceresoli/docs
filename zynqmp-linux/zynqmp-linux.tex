@@ -341,6 +341,208 @@
   \center\includegraphics[width=1.0\textwidth]{images/pin-assignment.png}
 \end{frame}
 
+\section{Booting}
+
+\begin{frame}{Simple ARM32 booting}
+  \begin{itemize}
+    \item Good old simple booting on ARM32:
+    \begin{enumerate}
+    \item Boot ROM loads SPL into internal RAM
+    \item SPL initializes SDRAM, loads U-Boot
+    \item U-Boot loads kernel
+    \end{enumerate}
+  \item But waking up in an ARM64 world is much more complex\dots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The Platform Management Unit (PMU)}
+  \begin{columns}
+    \column{0.55\textwidth}
+  \begin{itemize}
+  \item Duties:
+    \begin{itemize}
+    \item Power gates peripherals, power islands, power domains
+    \item Clock gates peripherals
+    \end{itemize}
+  \item Can't boot without it
+  \item Similar to other ARM64 boards
+    \begin{itemize}
+    \item E.g. the
+      \href{https://developer.arm.com/products/system-design/development-boards/juno-development-board}{ARM
+        Juno board}
+    \end{itemize}
+  \end{itemize}
+  \column{0.45\textwidth}
+    \includegraphics[width=\textwidth]{images/block-diagram.pdf}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{PMU firmware}
+  \begin{itemize}
+  \item PMU is a Microblaze core with 128 kB RAM
+  \item Executes a firmware that {\em can} be reprogrammed
+    \begin{itemize}
+    \item But the one in ROM is not enough, so it {\em must} be
+      reprogrammed
+    \item Source at \url{https://github.com/xilinx/embeddedsw}
+    \item {\tt meta-xilinx-bsp} {\tt master} can build it (not the
+      Xilinx branches)
+    \end{itemize}
+  \item The PMUFW needs a {\em configuration object}
+    \begin{itemize}
+    \item Tells which master (CPU) owns which slave (peripheral)
+    \item Depends on how the hardware is configured in Vivado
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ARM Trusted Firmware}
+  A secure monitor reference implementation
+
+   \begin{center}
+    \includegraphics[height=0.7\textheight]{images/pm-layers.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}[standout]
+   Booting --- The Xilinx workflow
+\end{frame}
+
+\begin{frame}{Boot sequence}
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/boot-sequence-fsbl.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Building the pieces}
+  \begin{center}
+    \includegraphics[height=0.9\textheight]{images/build-xilinx.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Pros and cons}
+    Pros
+    \begin{itemize}
+    \item The Xilinx tools make it easy
+    \item FSBL is easy to understand and debug
+    \end{itemize}
+
+    Cons
+    \begin{itemize}
+    \item FSBL is slow (\textasciitilde{}3 seconds to load a 4 MB FPGA
+        bitstream)
+    \item The Xilinx tools: big and heavy, hard to automate
+    \item Proprietary {\tt bootgen} tools needed to generate BOOT.BIN
+    \item Non-standard (w.r.t. other SoCs)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+   Booting --- The Community workflow
+\end{frame}
+
+\begin{frame}{FSBL \textrightarrow{} U-Boot SPL}
+  Can U-Boot SPL replace Xilinx FSBL?
+  \begin{itemize}
+  \pause\item SPL cannot load FPGA
+    \begin{itemize}
+    \item but U-Boot can (\textasciitilde{}10x faster)
+    \end{itemize}
+  \pause\item SPL loads U-Boot proper, not ATF!
+    \begin{itemize}
+    \item but there's a trick for that
+    \end{itemize}
+  \pause\item SPL cannot load PMUFW configuration object
+    \begin{itemize}
+    \item but there's a workaround for that
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{SPL: loading ATF}
+  \begin{itemize}
+  \item U-Boot SPL must load U-Boot proper
+  \item But ATF must be there {\em before} U-Boot
+    proper
+  \item The trick for SPL to load {\em both} is:
+  \end{itemize}
+
+  \pause
+  {\tt configs/xilinx\_zynqmp\_*\_defconfig}
+  \begin{minted}[bgcolor=codebackground,frame=single,autogobble,fontsize=\footnotesize]{c}
+    CONFIG_SPL_OS_BOOT=y // aka Falcon Mode
+  \end{minted}
+
+  \pause
+  {\tt include/configs/xilinx\_zynqmp.h}
+  \begin{minted}[bgcolor=codebackground,frame=single,autogobble,fontsize=\footnotesize]{c}
+    /* u-boot is like dtb */
+    #define CONFIG_SPL_FS_LOAD_ARGS_NAME    "u-boot.bin"
+    #define CONFIG_SYS_SPL_ARGS_ADDR        0x8000000
+
+    /* ATF is my kernel image */
+    #define CONFIG_SPL_FS_LOAD_KERNEL_NAME  "atf-uboot.ub"
+  \end{minted}
+\end{frame}
+
+\begin{frame}{Loading PMUFW configuration object}
+  \begin{itemize}
+  \item SPL cannot load PMUFW configuration object
+  \item The current best workaround is:
+    \begin{itemize}
+    \item Link {\tt pm\_cfg\_obj.c} in the PMUFW
+    \item Load it during PMUFW startup
+    \item Original patches on the
+      \href{https://github.com/topic-embedded-products/meta-topic/tree/0b923bdab78c0a9f6c763dab60ead63bd716bea4/recipes-bsp/pmu-firmware}{\tt meta-topic}
+      layer
+    \item
+      A trivial script to apply the patches and build PMUFW:
+      {\footnotesize\url{https://github.com/lucaceresoli/zynqmp-pmufw-builder}}
+    \end{itemize}
+  \item Pros: it works!
+  \item Cons: must rebuild PMUFW when configuration changes
+    \begin{itemize}
+    \item But in the Xilinx workflow you'd have to rebuild FSBL anyway
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Boot sequence}
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/boot-sequence-spl.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Peripheral initialization}
+  \begin{itemize}
+  \item Pinctrl and most peripherals must be configured by the
+    bootloader
+  \item To do this in U-Boot:
+    \begin{enumerate}
+    \item In Vivado: File \textrightarrow{} Export \textrightarrow{}
+      Export hardware...
+      \begin{itemize}
+      \item Generates a .HDF file, actually a ZIP file
+      \end{itemize}
+    \item Extract the HDF file, get\\
+      {\tt psu\_init\_gpl.c} and {\tt psu\_init\_gpl.h}
+    \item Put them in the U-Boot sources
+      \begin{itemize}
+      \item in {\tt board/xilinx/zynqmp/}
+      \item and make sure it's not using the bundled ones (see
+        \href{https://github.com/xilinx/u-boot-xlnx/tree/a703fb6e3c6c5a7f57321e258a58d241e2afdc45/board/xilinx/zynqmp}{the
+          source code})
+      \end{itemize}
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Building the pieces}
+  \begin{center}
+    \includegraphics[height=0.7\textheight]{images/build-community.pdf}
+  \end{center}
+\end{frame}
+
 \begin{frame}
   \begin{center}
     Thank you for your attention
