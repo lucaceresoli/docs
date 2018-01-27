@@ -543,6 +543,104 @@
   \end{center}
 \end{frame}
 
+\section{GPU}
+
+\begin{frame}{The GPU}
+  \begin{itemize}
+  \item ARM Mali-400 MP2
+  \item Official software support from ARM/Xilinx:
+    \begin{itemize}
+    \item Requires a binary blob
+    \item Lacks some features
+    \end{itemize}
+  \item Open source alternatives:
+    \begin{itemize}
+    \item \href{https://limadriver.org/}{\tt limadriver.org}: reverse
+      engineering, abandoned
+    \item \href{https://github.com/yuq/mesa-lima}{\tt
+      github.com/yuq/mesa-lima}: new Mesa driver in progress
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Official software support}
+  \begin{itemize}
+  \item A kernel module
+    \begin{itemize}
+    \item GPLv2
+    \item Not in mainline (perhaps never)
+    \end{itemize}
+  \item A userspace library
+    \begin{itemize}
+    \item Where the interesting stuff is done
+    \item Implements OpenGL ES APIs
+    \item Proprietary, binary only
+    \item SoC-specific
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{MALI kernel module}
+  \begin{itemize}
+  \item Yocto recipe on {\tt meta-xilinx-bsp}
+  \item Sources from ARM
+  \item + 10 patches
+    \begin{itemize}
+    \item ZynqMP customizations
+    \item Updates for recent kernels
+    \end{itemize}
+  \item Works fine
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{libmali-xlnx: find it}
+  \begin{itemize}
+  \item Yocto recipe in the Xilinx fork (GitHub)
+  \item {\em Not} in the ``official'' {\tt meta-xilinx-bsp}\\
+    ({\tt master} on {\tt yoctoproject.org})
+  \item To stay on the {\tt master} path:
+    \begin{itemize}
+    \item Copy the whole recipe from Xilinx's {\tt rel-v2017.4} in your layer
+     \end{itemize}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{libmali-xlnx: fetch the sources}
+  \begin{itemize}
+  \item The recipe fetches from {\tt gitenterprise.xilinx.com}
+    \begin{itemize}
+    \item[\textrightarrow] {\tt No address associated with hostname}
+    \item An internal Xilinx repo?
+    \end{itemize}
+  \item
+    \href{https://github.com/xilinx/meta-xilinx/blob/rel-v2017.4/docs/MALI-binaries}{\tt
+      docs/MALI-binaries} has the procedure:
+    \begin{enumerate}
+    \item Register on {\tt xilinx.com}
+    \item Download a tarball, extract it
+    \item Read the docs there, extract a 2nd tarball
+    \item Extract a 3rd tarball (oh, looks like a bare git repo)
+    \item Set {\tt SOURCE\_MIRROR\_URL} to that path
+    \end{enumerate}
+  \item Small improvement: extract the 3rd tarball in {\tt DL\_DIR}, skip step 5
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{libmali-xlnx: use it}
+   \begin{itemize}
+  \item Two versions to choose from:
+  \item fbdev fullscreen
+    \begin{itemize}
+    \item Enough for many embedded products
+    \item No multi-screen support
+    \end{itemize}
+  \item X11
+    \begin{itemize}
+    \item Multi-screen does not seem to work
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \begin{center}
     Thank you for your attention
