@@ -641,6 +641,77 @@
   \end{itemize}
 \end{frame}
 
+\section{Video Codec Unit}
+
+\begin{frame}{The VCU}
+  \begin{columns}
+    \column{0.7\textwidth}
+    \begin{itemize}
+    \item VCU = Video Codec Unit
+    \item H.264 and H.265 encoder and decoder in hardware
+    \item Floating in FPGA, not connected to the hard interonnects
+    \end{itemize}
+    \column{0.3\textwidth}
+    \includegraphics[height=0.7\textheight]{images/block-diagram-vcu.pdf}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Hardware/Software stack}
+  \center\includegraphics[height=0.7\textheight]{images/vcu-stack.pdf}
+\end{frame}
+
+\begin{frame}{Instantiate the VCU}
+  \begin{enumerate}
+  \item Instantiate in Vivado (pretend it's an IP block)
+  \item Devicetree in Linux (in the {\tt linux-xlnx} kernel)
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Software}
+  \begin{itemize}
+  \item All recipes on {\tt meta-petalinux}
+  \item Not usable in the Community workflow or with recent Yocto:
+    \begin{itemize}
+    \item forces gstreamer 1.8 (Yocto 2.4 has 1.12)
+    \item points to patches it does not ship
+      \begin{itemize}
+      \item some not in poky anymore
+      \item some don't apply on gstreamer 1.8
+      \end{itemize}
+    \end{itemize}
+  \item But easy to use manually, see next slide
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Shopping list}
+  \begin{enumerate}
+  \item Take Xilinx specific recipes as-is
+    \begin{itemize}
+    \item {\tt kernel-module-vcu\_git.bb}
+    \item {\tt vcu-firmware\_git.bb}
+    \item {\tt libvcu-xlnx\_git.bb}
+    \item {\tt libomxil-xlnx\_git.bb}
+    \end{itemize}
+  \item Take gstreamer-omx tweaks from Xilinx as-is
+    \begin{itemize}
+    \item {\tt gstreamer1.0-omx\_\%.bbappend}
+    \item Switches to Xilinx fork
+    \item Adds build flags
+    \end{itemize}
+  \item install {\tt gstreamer1.0-omx}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Use it}
+  \begin{minted}[bgcolor=codebackground,frame=single,autogobble,fontsize=\footnotesize]{shell}
+    gst-launch-1.0 -ve v4l2src device=/dev/video0 \
+      ! 'video/x-raw,format=NV12,
+         width=1920,height=1080,framerate=(fraction)60/1' \
+      ! omxh265enc \
+      ! filesink location=video.h265
+  \end{minted}
+\end{frame}
+
 \begin{frame}
   \begin{center}
     Thank you for your attention

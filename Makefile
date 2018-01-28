@@ -77,6 +77,8 @@ zynqmp-linux/zynqmp-linux.pdf: \
 	zynqmp-linux/images/boot-sequence-spl.pdf \
 	zynqmp-linux/images/build-xilinx.pdf \
 	zynqmp-linux/images/build-community.pdf \
+	zynqmp-linux/images/block-diagram-vcu.pdf \
+	zynqmp-linux/images/vcu-stack.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
