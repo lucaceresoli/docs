@@ -90,6 +90,8 @@ zynqmp-linux/zynqmp-linux.pdf: \
 	zynqmp-linux/images/block-diagram-vcu.pdf \
 	zynqmp-linux/images/vcu-stack.pdf \
 
+buildroot-yocto-daily/buildroot-yocto-daily.pdf: \
+
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
 	scratch-gpio/scratch-gpio.pdf \
@@ -98,3 +100,4 @@ all: \
 	terrible-bsp/terrible-bsp.pdf \
 	make-autotools-cmake/make-autotools-cmake.pdf \
 	zynqmp-linux/zynqmp-linux.pdf \
+	buildroot-yocto-daily/buildroot-yocto-daily.pdf \
