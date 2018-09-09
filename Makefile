@@ -1,23 +1,33 @@
+ifeq ("$(origin V)", "command line")
+  Q =
+else
+  Q = @
+endif
+
 all:
 .PHONY: all
 
 %.pdf: %.svg
-	@printf "%-15s %20s\n" INKSCAPE $(notdir $@)
-	inkscape -D -A $@ $<
+	@printf "%-12s %-20s\n" INKSCAPE $(notdir $@)
+	${Q}inkscape -D -A $@ $<
 
 %.pdf: %.eps
-	@printf "%-15s %s\n" EPSTOPDF $(notdir $@)
-	epstopdf --outfile=$@ $^
+	@printf "%-12s %s\n" EPSTOPDF $(notdir $@)
+	${Q}epstopdf --outfile=$@ $^
 
 %.eps: %.dia
-	@printf "%-15s %s\n" DIA $(notdir $@)
-	dia -e $@ -t eps $^
+	@printf "%-12s %s\n" DIA $(notdir $@)
+	${Q}dia -e $@ -t eps $^
 
 XELATEX = xelatex
 XELATEX_OPTS = -shell-escape -file-line-error -halt-on-error
 
 %.pdf: %.tex
-	( cd $(dir $(*)); $(XELATEX) $(XELATEX_OPTS) $(notdir $<) )
+	@printf "%-12s %s\n" XELATEX $(notdir $@)
+	${Q}(   cd $(dir $(*)); \
+		LOGFILE="$(basename $(notdir $<)).stdout" ; \
+		$(XELATEX) $(XELATEX_OPTS) $(notdir $<) >$$LOGFILE || \
+		(cat $$LOGFILE ; false) )
 
 embedded-linux-talk/embedded-linux-talk.pdf: \
 	embedded-linux-talk/images/embedded-systems-range.pdf \

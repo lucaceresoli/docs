@@ -9,3 +9,4 @@
 *.eps
 *.vrb
 _minted*/
+*.stdout
