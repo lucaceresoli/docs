@@ -1,0 +1,13 @@
+digraph G {
+avahi [label = "avahi"]
+avahi [color=lightblue,style=filled]
+avahi -> dbus [dir=forward]
+dbus [label = "dbus"]
+dbus [color=grey,style=filled]
+dbus -> expat [dir=forward]
+expat [label = "expat"]
+expat [color=grey,style=filled]
+avahi -> libdaemon [dir=forward]
+libdaemon [label = "libdaemon"]
+libdaemon [color=grey,style=filled]
+}

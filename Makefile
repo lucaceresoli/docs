@@ -11,6 +11,10 @@ all:
 	@printf "%-12s %-20s\n" INKSCAPE $(notdir $@)
 	${Q}inkscape -D -A $@ $<
 
+%.pdf: %.dot
+	@printf "%-12s %-20s\n" DOT $(notdir $@)
+	${Q}dot -Tpdf $< >$@
+
 %.pdf: %.eps
 	@printf "%-12s %s\n" EPSTOPDF $(notdir $@)
 	${Q}epstopdf --outfile=$@ $^
@@ -91,6 +95,20 @@ zynqmp-linux/zynqmp-linux.pdf: \
 	zynqmp-linux/images/vcu-stack.pdf \
 
 buildroot-yocto-daily/buildroot-yocto-daily.pdf: \
+	buildroot-yocto-daily/images/dependencies.pdf \
+	buildroot-yocto-daily/images/br-tools.pdf \
+	buildroot-yocto-daily/images/yocto-tools.pdf \
+	buildroot-yocto-daily/images/br-flow.pdf \
+	buildroot-yocto-daily/images/yocto-flow.pdf \
+	buildroot-yocto-daily/images/dependencies2.pdf \
+	buildroot-yocto-daily/images/br-steps.pdf \
+	buildroot-yocto-daily/images/yocto-tasks.pdf \
+	buildroot-yocto-daily/images/br-avahi-graph-depends.pdf \
+	buildroot-yocto-daily/images/br-graph-depends.pdf \
+	buildroot-yocto-daily/images/yocto-taskexp.png \
+	buildroot-yocto-daily/images/out-dirs-build.pdf \
+	buildroot-yocto-daily/images/out-dirs-rootfs.pdf \
+	buildroot-yocto-daily/images/out-dirs-images.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \

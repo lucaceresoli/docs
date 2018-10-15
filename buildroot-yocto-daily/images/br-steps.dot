@@ -1,0 +1,9 @@
+digraph steps {
+	graph [fontname = "Fira"];
+	node [fontname = "Fira"];
+	edge [fontname = "Fira"];
+	"install-target" -> build
+	"install-staging" -> build
+	"install-images" -> build
+	build -> configure -> patch -> extract -> source
+}
