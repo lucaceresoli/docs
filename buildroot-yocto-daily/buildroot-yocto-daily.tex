@@ -425,7 +425,7 @@
   \end{minted}
 
   \begin{itemize}
-  \item The list of your externals is saved in {\tt .config}
+  \item The list of your externals is saved internally ({\tt .output/.br-external.mk})
   \item The top-level Makefile will include each external Makefile
   \item The same for Config.in files
   \end{itemize}
@@ -586,8 +586,8 @@
       Package raw name      & {\tt <PKG>\_RAWNAME}           & {\tt BPN}\\
       Package version       & {\tt <PKG>\_VERSION}           & {\tt PV}\\
       \midrule
-      Source code dir       & {\tt @D}                       & {\tt S}\\
-      Build dir             & {\tt @D}                       & {\tt B}\\
+      Source code dir       & {\tt <PKG>\_SRCDIR}            & {\tt S}\\
+      Build dir             & {\tt <PKG>\_BUILDDIR}          & {\tt B}\\
       Install files in (*)  & {\tt TARGET\_DIR}              & {\tt D}\\
       Install images in (*) & {\tt BINARIES\_DIR}            & {\tt DEPLOYDIR}\\
       \bottomrule
@@ -923,6 +923,10 @@
   \item {\tt make -s VARS=BUSYBOX\_\% printvars}
     \begin{itemize}
     \item Only variables matching a pattern
+    \end{itemize}
+  \item {\tt make -s RAW\_VARS=YES printvars}
+    \begin{itemize}
+    \item Print unexpanded values
     \end{itemize}
   \item {\tt make -qp}
     \begin{itemize}
