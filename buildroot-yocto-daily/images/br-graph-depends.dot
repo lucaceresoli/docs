@@ -1,4 +1,5 @@
 digraph G {
+bgcolor = "transparent";
 all [label = "ALL"]
 all [color=lightblue,style=filled]
 all -> busybox [dir=forward]

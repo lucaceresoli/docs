@@ -2,6 +2,7 @@ digraph steps {
 	graph [fontname = "Fira"];
 	node [fontname = "Fira"];
 	edge [fontname = "Fira"];
+	bgcolor = "transparent";
 	install -> compile
 	deploy -> compile
 	compile -> configure -> patch -> unpack -> fetch

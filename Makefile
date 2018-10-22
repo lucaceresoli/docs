@@ -109,6 +109,7 @@ buildroot-yocto-daily/buildroot-yocto-daily.pdf: \
 	buildroot-yocto-daily/images/out-dirs-build.pdf \
 	buildroot-yocto-daily/images/out-dirs-rootfs.pdf \
 	buildroot-yocto-daily/images/out-dirs-images.pdf \
+	buildroot-yocto-daily/images/recipe-dirs-layout.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \

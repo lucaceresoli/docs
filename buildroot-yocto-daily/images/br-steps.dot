@@ -2,6 +2,7 @@ digraph steps {
 	graph [fontname = "Fira"];
 	node [fontname = "Fira"];
 	edge [fontname = "Fira"];
+	bgcolor = "transparent";
 	"install-target" -> build
 	"install-staging" -> build
 	"install-images" -> build

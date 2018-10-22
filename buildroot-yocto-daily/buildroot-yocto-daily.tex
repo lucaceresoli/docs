@@ -1,10 +1,5 @@
 \documentclass[xetex,table,aspectratio=169]{beamer}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% TODO: Agenda
-%% TODO stile riquardi? https://tex.stackexchange.com/questions/112559/box-around-minted-environment
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \usepackage[autostyle]{csquotes}
 \usepackage{hyperref}
 \usepackage{color}
@@ -63,20 +58,11 @@
 
 \section{Introduction}
 
-%%%% REMOVE THIS SLIDE???
-\begin{frame}{Motivation}
+\begin{frame}{This is not\dots}
   \begin{itemize}
-  \item Two different tools, similar goals
-  \item People from each community have a wrong idea about the other
-    tool
-  \item Goal: tell them how the daily tasks look like ``on the other
-    side''
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Comparison}
-  \begin{itemize}
-  \item This is not a comparison
+  \item This is not a tutorial
+  \pause
+  \item This is not a feature comparison, not a selection guide
   \pause
   \item If you need one:
     \begin{itemize}
@@ -99,7 +85,9 @@
 \begin{frame}{Similar\dots}
   \center\includegraphics[height=0.5\textheight]{images/dependencies.pdf}
 
-  In a nutshell: a dependency graph with actions to build each node.
+  In a nutshell:\\
+  a dependency graph\\
+  with actions to build each node.
 \end{frame}
 
 \begin{frame}{\dots but different --- based on different tools}
@@ -111,7 +99,6 @@
   \end{columns}
 \end{frame}
 
-%%%% ***NOTE***: Focus of this talk: embedded system, root filesystem generation
 \begin{frame}{\dots but different --- root filesystem VS distribution}
   \begin{columns}
     \column{0.5\textwidth}
@@ -122,6 +109,19 @@
 \end{frame}
 
 \nobg
+
+\begin{frame}{Topics}
+  \begin{itemize}
+  \item Bootstrapping
+  \item Naming
+  \item Writing recipes
+  \item Layers / external trees
+  \item Building
+  \item Understanding what's going on
+  \item Customizing the root filesystem
+  \item Tweaking recipes
+  \end{itemize}
+\end{frame}
 
 
 \section{Bootstrapping}
@@ -137,7 +137,6 @@
   \end{itemize}
 \end{frame}
 
-%%%%  [????? move ``layers can create problems'' later, after introducing Layers???? but where??? ]
 \bg{yocto}
 \begin{frame}{Ingredients}
   \begin{enumerate}
@@ -153,16 +152,6 @@
     \begin{itemize}
     \item SoC/board vendor BSP layer, additional software, \dots
     \item \url{http://layers.openembedded.org/layerindex/branch/master/layers/}
-    \end{itemize}
-  \item Layers can create problems
-    \begin{itemize}
-    \item Some SoC vendor layers augment the buildsystem, at times
-      creating problems
-    \item Conflict between layers (e.g. in gstreamer)
-    \item Suggestion: add layers one by one, bottom-up, test each time
-    \item Solution: fix the offending code bypass ({\tt .bbappend}) or disable it ({\tt PNBLACKLIST}) and provide an alternative
-    \item Extreme solution: don't use the layer, copy only what you
-      need
     \end{itemize}
   \end{enumerate}
 \end{frame}
@@ -196,33 +185,10 @@
 \begin{frame}[fragile]{Configure}
   \begin{itemize}
   \item {\tt . oe-init-build-env \ \ \ \ \ \# creates and enters the build/ dir}
-  \item Add layers to {\tt conf/bblayers.conf}
-  \end{itemize}
-
-  \begin{minted}[bgcolor=codebackground,frame=single,autogobble,fontsize=\small]{diff}
-   BBLAYERS ?= " \
-     /home/murray/devel/poky/meta \
-     /home/murray/devel/poky/meta-poky \
-     /home/murray/devel/poky/meta-yocto-bsp \
-  +  ${TOPDIR}/../meta-my-soc-vendor \
-  +  ${TOPDIR}/../meta-openembedded/meta-oe \
-     "
-  \end{minted}
-\end{frame}
-
-\begin{frame}{Configure}
-  \begin{itemize}
   \item Smooth start: find a defconfig for a similar board
     \begin{itemize}
     \item {\tt ls conf/machine/} in your SoC vendor layer
     \item Set {\tt MACHINE ?= "<similar\_machine>"} in {\tt conf/local.conf}
-    \end{itemize}
-  \item Later, add your top-level layer
-    \begin{itemize}
-    \item Your machine configuration
-    \item Your proprietary packages
-    \item {\tt .bbappends} and other files to modify the behaviour of
-      lower layers
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -255,81 +221,217 @@
   \center\includegraphics[height=0.7\textheight]{images/dependencies2.pdf}
 \end{frame}
 
-\begin{frame}{Buildroot packages}
-  ???? change: have 1 slide for package/recipe side-by-side, one for step/task side-by-side??????
-  \begin{itemize}
-  \item {\em package}: a single software with downloadable sources and
-    rules for building
+
+\bg{both}
+\begin{frame}{Package == Recipe}
+  \begin{center}
+    Rules to download and ``build'' a single program, library or other\\
+    (e.g. binutils, busybox, gcc, libxml2)
+  \end{center}
+
+  \begin{columns}
+    \column{0.5\textwidth}
     \begin{itemize}
-    \item Examples: binutils, busybox, gcc, libxml2, linux
-    \item Each package is a Make target
+    \item Each package is a Make target\\
+      and has a Kconfig on/off knob
     \item {\tt make libxml2}
     \item {\tt host-<PKG>}: the same package built for the development
       host (native build)
     \end{itemize}
-  \item Each package requires several steps to be built
+
+    \column{0.5\textwidth}
+    \begin{itemize}
+    \item Each package is a Bitbake target\\
+      {\ } % to keep bullets aligned
+    \item {\tt bitbake libxml2}
+    \item {\tt <PKG>-native}: the same package built for the
+      development host (native build)
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Step == Task}
+  \begin{center}
+    Each package requires several steps to be built
+  \end{center}
+
+  \begin{columns}
+    \column{0.5\textwidth}
     \begin{itemize}
     \item No formal name, usually called just {\em steps}
     \item {\tt source}, {\tt extract}, {\tt patch}, {\tt configure},
       {\tt build}, {\tt install}, \dots
     \item Each step is also a make target
-    \item {\tt make libxml2-configure busybox host-binutils-build}
+    \item The special {\tt <PKGNAME>} make target depends on all other normal
+      tasks required to 'build' a recipe
+    \item {\tt make libxml2-configure host-binutils-build busybox}
     \end{itemize}
-  \end{itemize}
-\end{frame}
 
-\begin{frame}{Buildroot package: default steps}
-  \center\includegraphics[height=0.95\textheight]{images/br-steps.pdf}
-\end{frame}
-
-\begin{frame}{Yocto recipes}
-  \begin{itemize}
-  \item {\em recipe}: a single software with downloadable sources and
-    rules for building
+    \column{0.5\textwidth}
     \begin{itemize}
-    \item Examples: binutils, busybox, gcc, libxml2
-    \item Each package is a Bitbake target
-    \item {\tt bitbake libxml2}
-    \item {\tt <PKG>-native}: the same package built for the
-      development host (native build)
-    \end{itemize}
-  \item Each package requires several steps to be built
-    \begin{itemize}
-    \item Called {\em tasks} (often prefixed with {\tt do\_})
+    \item Called {\em tasks}\\
+      (often prefixed with {\tt do\_})
     \item {\tt fetch}, {\tt unpack}, {\tt patch}, {\tt configure},
       {\tt compile}, {\tt install}, {\tt deploy}, \dots
+    \item First-class citizens in bitbake
     \item The special {\tt build} task depends on all other normal
       tasks required to 'build' a recipe
-    \item {\tt bitbake -c configure libxml2}
+    \item {\tt bitbake -c configure\\
+      libxml2 busybox}
     \end{itemize}
-  \end{itemize}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Yocto recipe: default tasks}
+\begin{frame}{Default steps/tasks}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \center\includegraphics[height=0.95\textheight]{images/br-steps.pdf}
+    \column{0.5\textwidth}
   \center\includegraphics[height=0.95\textheight]{images/yocto-tasks.pdf}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Naming side-by-side}
   \begin{table}
     \begin{tabular}{cc}
       \toprule
-      Buildroot & Yocto\\
-      \midrule
       Package & Recipe\\
       Package Step & Recipe Task\\
       {\tt host-<PKG>} & {\tt <PKG>-native}\\
       \midrule
       {\tt pkg-generic.mk} & {\tt base.bbclass}\\
       \midrule
-      source & fetch\\
-      extract & unpack\\
-      patch & patch\\
-      configure & configure\\
-      build & compile\\
+      source                      & fetch\\
+      extract                     & unpack\\
+      patch                       & patch\\
+      configure                   & configure\\
+      build                       & compile\\
+      install-\{target,staging\}  & install\\
+      install-images              & deploy\\
       \bottomrule
     \end{tabular}
   \end{table}
 \end{frame}
+
+\nobg
+
+
+\section{Layers / external trees}
+
+
+\bg{yocto}
+
+\bg{yocto}
+\begin{frame}[fragile]{Yocto: layers}
+  The preferred way to add features: layers
+  
+  {\tt conf/bblayers.conf}
+  \begin{minted}[frame=single,autogobble,fontsize=\small]{diff}
+   BBLAYERS ?= " \
+     /home/murray/devel/poky/meta \
+     /home/murray/devel/poky/meta-poky \
+     /home/murray/devel/poky/meta-yocto-bsp \
+     <...path to other layers...> \
+     "
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Yocto: adding layers}
+  \begin{minted}[frame=single,autogobble,fontsize=\small]{diff}
+   BBLAYERS ?= " \
+     /home/murray/devel/poky/meta \
+     /home/murray/devel/poky/meta-poky \
+     /home/murray/devel/poky/meta-yocto-bsp \
+  +  ${TOPDIR}/../meta-my-soc-vendor \
+  +  ${TOPDIR}/../meta-openembedded/meta-oe \
+     "
+  \end{minted}
+
+  \begin{itemize}
+  \item Suggestion: use relative paths
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Yocto: {\tt .bbappend}}
+  \begin{itemize}
+  \item {\tt .bbappend} files are appended to the {\tt .bb} file while
+    parsing
+    \begin{itemize}
+    \item Change variable values
+    \item Append/prepend to tasks
+    \end{itemize}
+  \item The resulting {\tt myrecipe} is a concatenation of:
+    \begin{itemize}
+    \item {\tt <LAYER1>/*/*/myrecipe.bb}
+    \item {\tt <LAYER2>/*/*/myrecipe.bbappend}
+    \item {\tt <LAYER3>/*/*/myrecipe.bbappend}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Yocto: issues with layers}
+  \begin{itemize}
+  \item Some SoC vendor layers augment the buildsystem, at times
+    creating problems
+  \item Conflict between layers (e.g. in gstreamer)
+  \item Suggestion: add layers one by one, bottom-up, test each time
+  \item Problems?
+    \begin{itemize}
+    \item Fix the offending code in your layer ({\tt .bbappend})
+    \item disable the recipe ({\tt PNBLACKLIST}) and provide an alternative
+    \item Don't use the layer, copy only what you need
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Yocto: your top-level layer}
+  \begin{itemize}
+  \item Add your top-level layer
+    \begin{itemize}
+    \item Your machine configuration
+    \item Your proprietary packages
+    \item {\tt .bbappends} and other files to modify the behaviour of
+      lower layers
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\bg{br}
+\begin{frame}{Buildroot: {\tt BR2\_EXTERNAL}}
+  \begin{itemize}
+  \item {\tt BR2\_EXTERNAL} is technically similar to Yocto layers,
+    but simpler
+  \item The goal is to add, not modify
+  \item Typical use: add your own product customizations
+    \begin{itemize}
+    \item packages
+    \item Kconfig options
+    \item defconfigs
+    \item boards
+    \item patches
+    \item \dots
+    \end{itemize}
+  \item Need to fix/improve a Buildroot package?
+    \begin{itemize}
+    \item Suggested policy: do it in the Buildroot code, then submit
+      your improvements upstream
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Buildroot: {\tt BR2\_EXTERNAL}}
+  \begin{minted}[frame=single,autogobble,fontsize=\small]{shell-session}
+    $ make BR2_EXTERNAL=~/devel/myext:~/devel/myext2 menuconfig
+  \end{minted}
+
+  \begin{itemize}
+  \item The list of your externals is saved in {\tt .config}
+  \item The top-level Makefile will include each external Makefile
+  \item The same for Config.in files
+  \end{itemize}
+\end{frame}
+
+\nobg
 
 
 \section{Writing recipes}
@@ -337,6 +439,7 @@
 
 \bg{yocto}
 \begin{frame}[fragile]{A simple Yocto package: the {\tt .bb} file}
+
   {\tt <MYLAYER>/recipes-app/corporate-apps/foo\_1.0.bb}
   \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{bash}
     SRC_URI = "http://www.foo.org/download/foo-${PV}.tar.xz"
@@ -347,13 +450,14 @@
     }
 
     do_install() {
-        install -D -m 0755 foo ${D}${bindir}/foo
+        install -D -m 0755 ${B}/foo ${D}${bindir}/foo
     }
   \end{minted}
 \end{frame}
 
 \bg{br}
 \begin{frame}[fragile]{A simple Buildroot package: the makefile}
+
   {\tt package/foo/foo.mk}
   \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{makefile}
     FOO_VERSION = 1.0
@@ -387,13 +491,8 @@
   \end{minted}
 \end{frame}
 
-\bg{both}
-%%%% *****NOTE**** add slide with variables PN/PV/B/S/D vs
-%%%%      BUILD\_DIR, TARGET\_DIR ETC??? and say {\tt install} installs in
-%%%%      a temp dir VS the target rootfs area????
-
 \bg{yocto}
-\begin{frame}[fragile]{Yocto: classes}
+\begin{frame}[fragile]{Yocto classes}
   \begin{itemize}
   \item {\em classes} implement common features for reuse in recipes
     \begin{itemize}
@@ -431,7 +530,7 @@
 \end{frame}
 
 \bg{yocto}
-\begin{frame}[fragile]{Yocto: classes}
+\begin{frame}[fragile]{Yocto classes}
   \begin{itemize}
   \item With classes the common {\tt do\_<TASK>} functions are already
     set
@@ -468,14 +567,39 @@
         define FOO_CREATE_CONF_FILE
             touch $(TARGET_DIR)/etc/foo.conf
         endef
-        FOO_POST_PATCH_HOOKS += FOO_CREATE_CONF_FILE
+        FOO_POST_INSTALL_HOOKS += FOO_CREATE_CONF_FILE
       \end{minted}
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \bg{both}
-%%%%  [remove???? expand to 3 slides?????]
+\begin{frame}{Predefined variables}
+  Lots of predefined variables can (and should) be user in rules. The
+  most widely used:
+  \begin{table}
+    \begin{tabular}{lll}
+      \toprule
+      & Buildroot & Yocto\\
+      \midrule
+      Package name          & {\tt <PKG>\_NAME}              & {\tt PN}\\
+      Package raw name      & {\tt <PKG>\_RAWNAME}           & {\tt BPN}\\
+      Package version       & {\tt <PKG>\_VERSION}           & {\tt PV}\\
+      \midrule
+      Source code dir       & {\tt @D}                       & {\tt S}\\
+      Build dir             & {\tt @D}                       & {\tt B}\\
+      Install files in (*)  & {\tt TARGET\_DIR}              & {\tt D}\\
+      Install images in (*) & {\tt BINARIES\_DIR}            & {\tt DEPLOYDIR}\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{itemize}
+  \item[*] The final dirs in Buildroot, temp dirs in Yocto.
+  \end{itemize}
+\end{frame}
+
+\bg{both}
+
 \begin{frame}{Adding patches}
   \begin{table}
     \begin{tabular}{cc}
@@ -492,6 +616,162 @@
   \item[*] Plus {\tt SRC\_URI += "file://foo.patch"} \\
     (and {\tt FILESEXTRAPATHS\_prepend = "<DIR>:"})
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Overall recipe directory layout}
+  \includegraphics[width=0.9\textwidth]{images/recipe-dirs-layout.pdf}
+\end{frame}
+
+\nobg
+
+
+\section{Building}
+
+
+\bg{both}
+\begin{frame}{Invoking}
+  \begin{table}
+    \begin{tabular}{ll}
+      \toprule
+      Buildroot & Yocto\\
+      \midrule
+      {\tt make} {\tt \textcolor{gray}{[all]}}
+                                     & {\tt bitbake <IMAGE>}\\
+      {\tt make busybox}             & {\tt bitbake busybox}\\
+      {\tt make busybox-configure}   & {\tt bitbake -c configure busybox}\\
+      \midrule
+      {\tt make busybox-reconfigure} & {\tt bitbake -C configure busybox}\\
+      \midrule
+      {\tt make clean}               & {\tt bitbake -c clean world}\\
+      {\tt make busybox-dirclean}    & {\tt bitbake -c clean busybox}\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Tuning resource usage}
+  \begin{table}
+    \begin{tabular}{ll}
+      \toprule
+      Buildroot & Yocto\\
+      \midrule
+      {\tt BR2\_JLEVEL=2 make}       & {\tt PARALLEL\_MAKE="-j 2" bitbake ...}\\
+      ---                            & {\tt BB\_NUMBER\_THREADS=2 bitbake ...}\\
+      {\tt Build options \textrightarrow{} Enable compiler cache} & ---\\
+      ---                            & {\tt SSTATE\_DIR ?= "~/.sstate-cache"}\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\bg{br}
+\begin{frame}{Buildroot: out-of-tree builds}
+  \begin{itemize}
+  \item {\tt make O=foo foo\_defconfig}
+  \item {\tt make O=bar bar\_defconfig}
+  \item {\tt cd foo; make}
+    \begin{itemize}
+    \item Build in {\tt foo/*} instead of {\tt output/*}
+    \end{itemize}
+  \pause
+  \item {\tt cd bar; make}
+    \begin{itemize}
+    \item Can run in parallel
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\bg{yocto}
+\begin{frame}{Yocto: multiple machines and images}
+  \begin{itemize}
+  \item {\tt bitbake core-image-minimal}
+  \item {\tt bitbake my-image-huge}
+    \begin{itemize}
+    \item Recycles common artifacts
+    \end{itemize}
+  \pause
+  \item {\tt MACHINE=another-board bitbake my-image-huge}
+    \begin{itemize}
+    \item Remember to use {\tt ?=} to set {\tt MACHINE} in your conf
+      file
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\bg{br}
+\begin{frame}{Buildroot dependency tracking: stamp files}
+  \begin{itemize}
+  \item Dependency tracking is at the core of Make
+    (program \textrightarrow{} .o \textrightarrow{} .c)
+    \begin{itemize}
+    \item Does not fit completely the needs of a buildsystem
+    \end{itemize}
+  \item Internally Buildroot touches a {\em stamp file} after
+    completing each step
+    \begin{itemize}
+    \item An empty file
+    \item Tracks successful step completion, not the rules that originated it
+    \item If the rules change, Buildroot is unaware
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Buildroot dependency tracking: stamp files}
+  \begin{itemize}
+  \item You need to manually trigger a rebuild when:
+    \begin{itemize}
+    \item You changed the configuation of the package or one of its dependencies
+    \item You're developing the package and changed the rules ({\tt .mk}, patches\dots)
+    \end{itemize}
+  \item How to rebuild
+    \begin{itemize}
+    \item The safe option: {\tt make clean; make}
+    \item If you know what you really need: {\tt make <PKG>-dirclean <PKG>}
+    \item Or {\tt make <PKG>-reconfigure} / {\tt make <PKG>-rebuild}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\bg{yocto}
+\begin{frame}{Yocto: recipe hash}
+  \begin{itemize}
+  \item Bitbake stores a hash for each task
+  \item Hash content:
+    \begin{itemize}
+    \item All the recipe variables and task code ({\tt bitbake -e})
+    \item Content of all files stored in {\tt SRC\_URI}
+    \end{itemize}
+  \item Automatically detect recipe changes and rebuilds what's needed
+  \item Result stores in the {\em sstate cache} for later reuse
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Yocto: recipe hash}
+  \begin{itemize}
+  \item Still want to force a task?
+    \begin{itemize}
+    \item {\tt bitbake -f -c configure <PKG>}
+    \item {\tt -f} forces to run tasks even when not needed
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\bg{standout}
+\begin{frame}[standout]
+  Where are my output files?
+\end{frame}
+
+\bg{both}
+\begin{frame}{Work directory layout}
+  \includegraphics[width=0.9\textwidth]{images/out-dirs-build.pdf}
+\end{frame}
+
+\begin{frame}{Root filesystem generation}
+  \includegraphics[width=0.9\textwidth]{images/out-dirs-rootfs.pdf}
+\end{frame}
+
+\begin{frame}{Output directory layout}
+  \includegraphics[width=0.9\textwidth]{images/out-dirs-images.pdf}
 \end{frame}
 
 \nobg
@@ -516,9 +796,9 @@
 
 \begin{frame}{Buildroot: {\tt graph-depends}}
   \begin{itemize}
+  \item Build a per-package graph: {\tt <PKG>-graph-depends}
   \item Set {\tt BR2\_GRAPH\_DEPS\_OPTS} in the environment to control
     the output
-  \item Build a per-package graph: {\tt <PKG>-graph-depends}
   \item {\tt BR2\_GRAPH\_DEPS\_OPTS="--exclude=host" make avahi-graph-depends}
   \item Produces {\tt output/graphs/avahi-graph-depends.pdf}
   \end{itemize}
@@ -575,8 +855,7 @@
   \end{minted}
   \begin{itemize}
   \item Adds step start time
-  \item The output of each step is discarded
-  \item Failure? Run plain {\tt make} to see the error messages
+  \item Verbose output saved in {\tt br.log}
   \end{itemize}
 \end{frame}
 
@@ -587,11 +866,11 @@
   \item Hides completed tasks
   \end{itemize}
   \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{shell-session}
-    Currently  4 running tasks (119 of 2503)   4\% |##                              |
-    0: glibc-initial-2.27-r0 do_fetch (pid 5216)  38\% |############        | 4.09M/s
+    Currently  4 running tasks (119 of 2503)   4% |##                              |
+    0: glibc-initial-2.27-r0 do_fetch (pid 5216)  38% |############        | 4.09M/s
     1: glibc-2.27-r0 do_fetch - 4s (pid 5261)
     2: ncurses-native-6.0+20171125-r0 do_fetch (pid 6147) |            <=>         |
-    3: elfutils-native-0.170-r0 do_fetch (pid 7143)  11\% |###              | 2.49M/s
+    3: elfutils-native-0.170-r0 do_fetch (pid 7143)  11% |###              | 2.49M/s
   \end{minted}
 \end{frame}
 
@@ -618,7 +897,7 @@
   \item Failure?
   \item For each task a log file is saved
     \begin{itemize}
-    \item in {\tt tmp/work/<ARCH>/<RECIPE>/<VERSION>/temp/log.do\_<TASK>}
+    \item in {\tt tmp/work/<TUPLE>/<RECIPE>/<VERSION>/temp/log.do\_<TASK>}
     \item e.g. {\tt tmp/work/x86\_64-linux/gmp-native/6.1.2-r0/temp/log.do\_configure}
     \end{itemize}
   \item Or re-run the failed task with verbose output to see its
@@ -635,13 +914,22 @@
 \end{frame}
 
 \bg{br}
-\begin{frame}{Buildroot: the power of Make}
+\begin{frame}{Buildroot: {\tt printvars}}
   \begin{itemize}
-  \item Buildroot uses plain Make to build
-  \item Call {\tt make -qp} to print the whole Make database
+  \item {\tt make -s printvars}
     \begin{itemize}
-    \item Variables and the file where they were set
-    \item Rules (target + prerequisites + actions)
+    \item Print all variables
+    \end{itemize}
+  \item {\tt make -s VARS=BUSYBOX\_\% printvars}
+    \begin{itemize}
+    \item Only variables matching a pattern
+    \end{itemize}
+  \item {\tt make -qp}
+    \begin{itemize}
+      \item Print the whole Make database
+      \item Variables (before expansion) and the file where they were
+        set
+      \item Rules (target + prerequisites + actions)
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -661,85 +949,6 @@
     \item Tasks actions
     \end{itemize}
   \end{itemize}
-\end{frame}
-
-\nobg
-
-
-\section{Building}
-
-
-\bg{br}
-\begin{frame}{Buildroot dependency tracking: stamp files}
-  \begin{itemize}
-  \item The standard Make dependency tracking
-    (program \textrightarrow{} .o \textrightarrow{} .c)
-    is not doable in a buildsystem
-  \item Internally Buildroot touches a {\em stamp file} after
-    completing each step
-    \begin{itemize}
-    \item An empty file
-    \item Tracks successful step completion, not the rules that originated it
-    \item If the rules change, Buildroot is unaware
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Buildroot dependency tracking: stamp files}
-  \begin{itemize}
-  \item You need to manually trigger a rebuild when:
-    \begin{itemize}
-    \item You changed the configuation of the package or one of its dependencies
-    \item You're developing the package and changed the rules ({\tt .mk}, patches\dots)
-    \end{itemize}
-  \item How to rebuild
-    \begin{itemize}
-    \item The safe option: {\tt make clean; make}
-    \item If you know what you really need: {\tt make <PKG>-dirclean <PKG>}
-    \item Or {\tt make <PKG>-reconfigure} / {\tt make <PKG>-rebuild}
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\bg{yocto}
-\begin{frame}{Yocto: recipe hash}
-  \begin{itemize}
-  \item Bitbake stores a hash for each task
-  \item Hash content:
-    \begin{itemize}
-    \item All the recipe variables and task code ({\tt bitbake -e})
-    \item Content of all files stored in {\tt SRC\_URI}
-    \end{itemize}
-  \item Automatically detect recipe changes and rebuilds what's needed
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Yocto: recipe hash}
-  \begin{itemize}
-  \item Still want to force a task?
-    \begin{itemize}
-    \item {\tt bitbake -f -c configure <PKG>}
-    \item {\tt -f} forces to run tasks even when not needed
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\bg{standout}
-\begin{frame}[standout]
-  Where are my output files?
-\end{frame}
-
-\bg{both}
-\begin{frame}{Work directory layout}
-  \includegraphics[width=0.9\textwidth]{images/out-dirs-build.pdf}
-\end{frame}
-
-\begin{frame}{Root filesystem generation}
-  \includegraphics[width=0.9\textwidth]{images/out-dirs-rootfs.pdf}
-\end{frame}
-
-\begin{frame}{Output directory layout}
-  \includegraphics[width=0.9\textwidth]{images/out-dirs-images.pdf}
 \end{frame}
 
 \nobg
@@ -766,8 +975,9 @@
   \item Your ``configuration'' is in several {\tt .bb} files.
   \item A common layout:
     \begin{itemize}
-    \item Build options, toolchain, {\tt MACHINE}: {\tt
-      build/conf/local.conf}
+    \item Build options, toolchain, {\tt MACHINE}: a conf file in your
+      top layer \\
+      (or {\tt build/conf/local.conf})
     \item Target options, kernel and bootloader selection: in your
       layer {\tt conf/machine/<MACHINE>.bb}
     \item System configuration: various recipes, other places
@@ -812,9 +1022,10 @@
       DESCRIPTION = "My own root filesystem"
       LICENSE = "MIT"
       IMAGE_FSTYPES = "tar.gz"
-      IMAGE_INSTALL += "htop packagegroup-media"
+      IMAGE_INSTALL += "htop packagegroup-debug"
     \end{minted}
-  \item Package groups ({\tt <MYLAYER>/recipes-*/packagegroups/packagegroup-*.bb})
+  \item Package groups ({\tt
+    <MYLAYER>/recipes-*/packagegroups/packagegroup-*.bb})
     \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{bash}
       inherit packagegroup
       RDEPENDS_${PN} = "gdb strace"
@@ -924,44 +1135,6 @@
 \end{frame}
 
 \bg{yocto}
-\begin{frame}{Yocto: layers and {\tt .bbappend}}
-  \begin{itemize}
-  \item The preferred way: layers
-    \begin{itemize}
-    \item {\tt <BASE\_LAYER>/recipes-xyz/foo/bar.bb}
-    \item {\tt <MY\_LAYER>/recipes-xyz/foo/bar.bbappend}
-    \end{itemize}
-  \item {\tt .bbappend} files are appended to the {\tt .bb} file while
-    parsing
-    \begin{itemize}
-    \item Change variable values
-    \item Append/prepend to tasks
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\bg{br}
-\begin{frame}{Buildroot: {\tt BR2\_EXTERNAL}}
-  \begin{itemize}
-  \item {\tt BR2\_EXTERNAL} is similar to Yocto layers, but simpler
-    \begin{itemize}
-    \item You can add entire new packages, configs, etc
-    \item Does generally not allow to change lower layer packages
-    \end{itemize}
-  \item You can set make variables
-    \begin{itemize}
-    \item In {\tt local.mk}
-    \item In {\tt .mk} files in your {\tt BR2\_EXTERNAL} tree
-    \item Works because the result is a large Makefile
-    \item Discouraged
-      \begin{itemize}
-      \item Preferred: fork Buildroot, then submit your improvements upstream
-      \end{itemize}
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\bg{yocto}
 \begin{frame}{Yocto: (re)assigning variables}
   \begin{itemize}
   \item Assignments
@@ -1021,7 +1194,6 @@
 \end{frame}
 
 \bg{yocto}
-%%%%  [*** SIMILAR TO CLASSES EXAMPLE IN ``WRITING RECIPES'' - REMOVE ONE????]
 \begin{frame}[fragile]{Yocto: changing task code}
   \begin{columns}
     \column{0.5\textwidth}
@@ -1046,13 +1218,12 @@
 \end{frame}
 
 \bg{br}
-%%%%  [*** SIMILAR TO CLASSES EXAMPLE IN ``WRITING RECIPES'' - REMOVE ONE????]
 \begin{frame}[fragile]{Buildroot: changing task code}
   \begin{columns}
     \column{0.5\textwidth}
     \begin{minted}[autogobble,fontsize=\footnotesize]{makefile}
       define FOO_ENABLE_ACS
-          echo CONFIG_ACS >>${D}/.config
+          echo CONFIG_ACS >>$(@D)/.config
       endef
       FOO_POST_CONFIGURE_HOOKS += FOO_ENABLE_ACS
 
@@ -1069,7 +1240,7 @@
   \end{columns}
 \end{frame}
 
-\nobg{}
+\nobg
 
 
 \section{Conclusions}
@@ -1081,6 +1252,18 @@
     \center
 
     {\Huge Questions?}
+
+    \vspace{0.05\textheight}
+
+    Ask now\dots
+
+    \vspace{0.05\textheight}
+
+    \dots{}or during my Office Hour\\
+    Wednesday, October 24\\
+    from 10:45 to 11:45\\
+    Level -2 Built-In Seating\\
+    (near Lennox)
 
     \column{0.6\textwidth}
     \center
@@ -1101,6 +1284,33 @@
     Creative Commons Attribution - Share Alike 3.0 License \\
     \url{https://creativecommons.org/licenses/by-sa/3.0/} \\
   \end{columns}
+\end{frame}
+
+\appendix
+
+\section{Extra slides}
+
+\begin{frame}{Working with local sources}
+  \begin{itemize}
+  \item Use sources from a local directory
+    \begin{itemize}
+    \item Not managed by the build system
+    \item Useful during application development
+    \end{itemize}
+  \item Buildroot
+    \begin{itemize}
+    \item {\tt <PKG>\_OVERRIDE\_SRCDIR=/my/src/tree make}
+    \item Skips {\tt source}, {\tt extract}, {\tt patch}
+    \item rsyncs from {\tt /my/src/tree} before building
+    \end{itemize}
+  \item Yocto
+    \begin{itemize}
+    \item {\tt inherit externalsrc}
+    \item {\tt EXTERNALSRC = "/my/src/tree"}
+    \item {\tt fetch}, {\tt unpack}, {\tt patch}
+    \item Points {S} to {\tt /my/src/tree}
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \end{document}
