@@ -111,6 +111,17 @@ buildroot-yocto-daily/buildroot-yocto-daily.pdf: \
 	buildroot-yocto-daily/images/out-dirs-images.pdf \
 	buildroot-yocto-daily/images/recipe-dirs-layout.pdf \
 
+buildroot-intro/buildroot-intro.pdf: \
+	buildroot-intro/images/embedded-systems-range.pdf \
+	buildroot-intro/images/operating-system.pdf \
+	buildroot-intro/images/host-target.pdf \
+	buildroot-intro/images/in-br-out.pdf \
+	buildroot-intro/images/br-tools.pdf \
+	buildroot-intro/images/br-tools-kconfig.pdf \
+	buildroot-intro/images/br-tools-make.pdf \
+	buildroot-intro/images/dependencies2.pdf \
+	buildroot-intro/images/Beaglebone_Black.jpg \
+
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
 	scratch-gpio/scratch-gpio.pdf \
@@ -120,3 +131,4 @@ all: \
 	make-autotools-cmake/make-autotools-cmake.pdf \
 	zynqmp-linux/zynqmp-linux.pdf \
 	buildroot-yocto-daily/buildroot-yocto-daily.pdf \
+	buildroot-intro/buildroot-intro.pdf \

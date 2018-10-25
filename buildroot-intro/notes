@@ -1,0 +1,26 @@
+
+- Introduzione
+
+* Demo: la prima build
+  * make help, list-defconfigs, make bbb_defc
+  * m-mc -> CCACHE + EXT_TOOLCH!!!
+  * time make
+
+(mentre compila ~10 m)
+
+- Buildroot
+
+* Demo: boot!
+  * leggere readme bbb
+  * analisi dei file prodotti (images, target?)
+  * flash it, boot: top
+
+* Demo: analisi dell'output
+  * make graphs
+
+- Packages
+
+* demo??? se avanza tempo
+  * add htop, sl
+  * make (~1 m)
+  * reflash
