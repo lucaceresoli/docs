@@ -849,7 +849,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Buildroot: concise output}
-  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{shell-session}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{text}
     $ ./utils/brmake
     ...
     2018-10-06T16:15:58 >>> host-zlib  Patching
@@ -871,7 +871,7 @@
   \item The default output shows the current status, no logs
   \item Hides completed tasks
   \end{itemize}
-  \begin{minted}[frame=single,autogobble,fontsize=\tiny]{shell-session}
+  \begin{minted}[frame=single,autogobble,fontsize=\tiny]{text}
     Currently  4 running tasks (119 of 2503)   4% |##                              |
     0: glibc-initial-2.27-r0 do_fetch (pid 5216)  38% |############        | 4.09M/s
     1: glibc-2.27-r0 do_fetch - 4s (pid 5261)
@@ -885,7 +885,7 @@
   \item To see the completed tasks:
   \item {\tt bitbake ... | cat}
   \end{itemize}
-  \begin{minted}[frame=single,autogobble,fontsize=\tiny]{shell-session}
+  \begin{minted}[frame=single,autogobble,fontsize=\tiny]{text}
     NOTE: Running task 119 of 2645 (.../binutils/binutils-cross_2.30.bb:do_unpack)
     NOTE: Running task 232 of 2645 (virtual:native:...lzo/lzo_2.10.bb:do_compile)
     NOTE: recipe binutils-cross-arm-2.30-r0: task do_unpack: Started
