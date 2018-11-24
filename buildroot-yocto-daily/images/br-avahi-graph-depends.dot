@@ -1,4 +1,5 @@
 digraph G {
+bgcolor = "transparent";
 avahi [label = "avahi"]
 avahi [color=lightblue,style=filled]
 avahi -> dbus [dir=forward]
