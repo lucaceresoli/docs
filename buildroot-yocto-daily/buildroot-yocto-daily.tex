@@ -1,4 +1,4 @@
-\documentclass[xetex,table,aspectratio=169]{beamer}
+\documentclass[xetex,table,aspectratio=43]{beamer}
 
 \usepackage[autostyle]{csquotes}
 \usepackage{hyperref}
@@ -161,7 +161,7 @@
   \begin{itemize}
   \item Smooth start: find a defconfig for a similar board
     \begin{itemize}
-    \item \texttt{make list-defconfigs \ \ \ \ \ \ \ \ \# minimal booting configs}
+    \item \texttt{make list-defconfigs \ \ \ \# minimal booting configs}
     \item \texttt{make similar\_board\_defconfig}
     \end{itemize}
   \item Or from scratch
@@ -178,13 +178,16 @@
 \end{frame}
 
 \begin{frame}
-  \center\includegraphics[height=1.0\textheight]{images/br-menuconfig-kernel.png}
+  \center\includegraphics[width=1.0\textwidth]{images/br-menuconfig-kernel.png}
 \end{frame}
 
 \bg{yocto}
 \begin{frame}[fragile]{Configure}
   \begin{itemize}
-  \item {\tt . oe-init-build-env \ \ \ \ \ \# creates and enters the build/ dir}
+  \item {\tt . oe-init-build-env}\\
+    \begin{itemize}
+      \item Creates and enters the {\tt build/} dir
+    \end{itemize}
   \item Smooth start: find a defconfig for a similar board
     \begin{itemize}
     \item {\tt ls conf/machine/} in your SoC vendor layer
@@ -218,7 +221,7 @@
 
 
 \begin{frame}{Building items}
-  \center\includegraphics[height=0.7\textheight]{images/dependencies2.pdf}
+  \center\includegraphics[width=0.9\textwidth]{images/dependencies2.pdf}
 \end{frame}
 
 
@@ -229,6 +232,7 @@
     (e.g. binutils, busybox, gcc, libxml2)
   \end{center}
 
+  \footnotesize
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
@@ -255,8 +259,9 @@
     Each package requires several steps to be built
   \end{center}
 
+  \footnotesize
   \begin{columns}
-    \column{0.5\textwidth}
+    \column{0.52\textwidth}
     \begin{itemize}
     \item No formal name, usually called just {\em steps}
     \item {\tt source}, {\tt extract}, {\tt patch}, {\tt configure},
@@ -267,7 +272,7 @@
     \item {\tt make libxml2-configure host-binutils-build busybox}
     \end{itemize}
 
-    \column{0.5\textwidth}
+    \column{0.52\textwidth}
     \begin{itemize}
     \item Called {\em tasks}\\
       (often prefixed with {\tt do\_})
@@ -285,9 +290,9 @@
 \begin{frame}{Default steps/tasks}
   \begin{columns}
     \column{0.5\textwidth}
-    \center\includegraphics[height=0.95\textheight]{images/br-steps.pdf}
+    \center\includegraphics[height=0.75\textheight]{images/br-steps.pdf}
     \column{0.5\textwidth}
-  \center\includegraphics[height=0.95\textheight]{images/yocto-tasks.pdf}
+    \center\includegraphics[height=0.75\textheight]{images/yocto-tasks.pdf}
   \end{columns}
 \end{frame}
 
@@ -421,7 +426,7 @@
 
 \begin{frame}[fragile]{Buildroot: {\tt BR2\_EXTERNAL}}
   \begin{minted}[frame=single,autogobble,fontsize=\small]{shell-session}
-    $ make BR2_EXTERNAL=~/devel/myext:~/devel/myext2 menuconfig
+    $ make BR2_EXTERNAL=~/myext:~/myext2 menuconfig
   \end{minted}
 
   \begin{itemize}
@@ -650,6 +655,7 @@
 \end{frame}
 
 \begin{frame}{Tuning resource usage}
+  \scriptsize
   \begin{table}
     \begin{tabular}{ll}
       \toprule
@@ -791,7 +797,7 @@
   \item {\tt make graph-depends}
   \item Produces {\tt output/graphs/graph-depends.pdf}
   \end{itemize}
-  \center\includegraphics[height=0.75\textheight]{images/br-graph-depends.pdf}
+  \center\includegraphics[height=0.70\textheight]{images/br-graph-depends.pdf}
 \end{frame}
 
 \begin{frame}{Buildroot: {\tt graph-depends}}
@@ -802,7 +808,7 @@
   \item {\tt BR2\_GRAPH\_DEPS\_OPTS="--exclude=host" make avahi-graph-depends}
   \item Produces {\tt output/graphs/avahi-graph-depends.pdf}
   \end{itemize}
-  \center\includegraphics[height=0.65\textheight]{images/br-avahi-graph-depends.pdf}
+  \center\includegraphics[height=0.55\textheight]{images/br-avahi-graph-depends.pdf}
 \end{frame}
 
 \bg{yocto}
@@ -824,7 +830,7 @@
 
 \bg{br}
 \begin{frame}[fragile]{Buildroot: default output}
-  \begin{minted}[frame=single,autogobble,fontsize=\small]{shell-session}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{shell-session}
     $ make
     ...
     >>> host-e2fsprogs 1.44.2 Extracting
@@ -843,7 +849,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Buildroot: concise output}
-  \begin{minted}[frame=single,autogobble,fontsize=\small]{shell-session}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{shell-session}
     $ ./utils/brmake
     ...
     2018-10-06T16:15:58 >>> host-zlib  Patching
@@ -865,7 +871,7 @@
   \item The default output shows the current status, no logs
   \item Hides completed tasks
   \end{itemize}
-  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{shell-session}
+  \begin{minted}[frame=single,autogobble,fontsize=\tiny]{shell-session}
     Currently  4 running tasks (119 of 2503)   4% |##                              |
     0: glibc-initial-2.27-r0 do_fetch (pid 5216)  38% |############        | 4.09M/s
     1: glibc-2.27-r0 do_fetch - 4s (pid 5261)
@@ -879,7 +885,7 @@
   \item To see the completed tasks:
   \item {\tt bitbake ... | cat}
   \end{itemize}
-  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{shell-session}
+  \begin{minted}[frame=single,autogobble,fontsize=\tiny]{shell-session}
     NOTE: Running task 119 of 2645 (.../binutils/binutils-cross_2.30.bb:do_unpack)
     NOTE: Running task 232 of 2645 (virtual:native:...lzo/lzo_2.10.bb:do_compile)
     NOTE: recipe binutils-cross-arm-2.30-r0: task do_unpack: Started
@@ -898,7 +904,7 @@
   \item For each task a log file is saved
     \begin{itemize}
     \item in {\tt tmp/work/<TUPLE>/<RECIPE>/<VERSION>/temp/log.do\_<TASK>}
-    \item e.g. {\tt tmp/work/x86\_64-linux/gmp-native/6.1.2-r0/temp/log.do\_configure}
+    \item e.g. {\scriptsize\tt tmp/work/x86\_64-linux/gmp-native/6.1.2-r0/temp/log.do\_configure}
     \end{itemize}
   \item Or re-run the failed task with verbose output to see its
     output on your terminal
@@ -1062,6 +1068,7 @@
 \end{frame}
 
 \begin{frame}{Some system settings, side-by-side}
+  \footnotesize
   \begin{table}
     \begin{tabular}{ll}
       \toprule
@@ -1122,7 +1129,7 @@
 \end{frame}
 
 \begin{frame}{Configuring Kconfig-based packages}
-  \small
+  \scriptsize
   \begin{table}
     \begin{tabular}{lll}
       \toprule
@@ -1199,9 +1206,7 @@
 
 \bg{yocto}
 \begin{frame}[fragile]{Yocto: changing task code}
-  \begin{columns}
-    \column{0.5\textwidth}
-    \begin{minted}[autogobble,fontsize=\footnotesize]{bash}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{bash}
       do_conf_append() {
           echo CONFIG_ACS >>${D}/.config
       }
@@ -1209,23 +1214,21 @@
       do_install_prepend() {
           mkdir -p ${D}${bindir}
       }
-    \end{minted}
-    \column{0.5\textwidth}
+  \end{minted}
+
+  \begin{itemize}
+  \item Append or prepend code
+  \item Final task code =\\
+    concatenation of prepends + base + appends
     \begin{itemize}
-    \item Append or prepend code
-    \item Final task code = concatenation of prepends + base + appends
-      \begin{itemize}
-      \item Don't mix Bash and Python
-      \end{itemize}
+    \item Don't mix Bash and Python
     \end{itemize}
-  \end{columns}
+  \end{itemize}
 \end{frame}
 
 \bg{br}
 \begin{frame}[fragile]{Buildroot: changing task code}
-  \begin{columns}
-    \column{0.5\textwidth}
-    \begin{minted}[autogobble,fontsize=\footnotesize]{makefile}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{makefile}
       define FOO_ENABLE_ACS
           echo CONFIG_ACS >>$(@D)/.config
       endef
@@ -1235,13 +1238,13 @@
           mkdir -p $(TARGET_DIR)/bin
       endef
       FOO_PRE_INSTALL_HOOKS += FOO_CREATE_BIN_DIR
-    \end{minted}
-    \column{0.5\textwidth}
-    \begin{itemize}
-    \item Append or prepend code
-    \item Final Make rule actions = concatenation of pre-hooks + base + post-hooks
-    \end{itemize}
-  \end{columns}
+  \end{minted}
+
+  \begin{itemize}
+  \item Append or prepend code
+  \item Final Make rule actions =\\
+    concatenation of pre-hooks + base + post-hooks
+  \end{itemize}
 \end{frame}
 
 \nobg
