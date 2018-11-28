@@ -265,9 +265,9 @@
     \item {\tt source}, {\tt extract}, {\tt patch}, {\tt configure},
       {\tt build}, {\tt install}, \dots
     \item Each step is also a make target
+    \item {\tt make libxml2-configure host-binutils-build busybox}
     \item The special {\tt <PKGNAME>} make target depends on all other normal
       tasks required to 'build' a recipe
-    \item {\tt make libxml2-configure host-binutils-build busybox}
     \end{itemize}
 
     \column{0.52\textwidth}
@@ -277,10 +277,10 @@
     \item {\tt fetch}, {\tt unpack}, {\tt patch}, {\tt configure},
       {\tt compile}, {\tt install}, {\tt deploy}, \dots
     \item First-class citizens in bitbake
-    \item The special {\tt build} task depends on all other normal
-      tasks required to 'build' a recipe
     \item {\tt bitbake -c configure\\
       libxml2 busybox}
+    \item The special {\tt build} task depends on all other normal
+      tasks required to 'build' a recipe
     \end{itemize}
   \end{columns}
 \end{frame}
