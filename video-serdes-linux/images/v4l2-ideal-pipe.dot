@@ -1,0 +1,29 @@
+digraph board {
+	bgcolor = "transparent";
+	rankdir=TB
+
+	n00000014 [label="{{} | sensor0 | {<port0> 0}}", shape=Mrecord, style=filled, fillcolor=green]
+	n00000014:port0 -> n00000012:port0
+	n00000114 [label="{{} | sensor1 | {<port0> 0}}", shape=Mrecord, style=filled, fillcolor=green]
+	n00000114:port0 -> n00000112:port0
+
+	n00000012 [label="{{<port0> 0} | ser0 1-003d | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
+	n00000012:port1 -> n00000011:port0
+	n00000112 [label="{{<port0> 0} | ser1 2-003d | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
+	n00000112:port1 -> n00000011:port1
+
+	n00000011 [label="{{<port0> 0 | <port1> 1} | des 0-0030 | {<port2> 2}}", shape=Mrecord, style=filled, fillcolor=green]
+	n00000011:port2 -> n00000005:port0
+
+	n00000005 [label="{{<port0> 0} | csirx | {<port1> 1 | <port2> 2}}", shape=Mrecord, style=filled, fillcolor=green]
+	n00000005:port1 -> n0000000e:port0
+	n00000005:port2 -> n0000010e:port0
+
+	n0000000e [label="{{<port0> 0} | scaler_0 | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
+	n0000000e:port1 -> n00000001
+	n0000010e [label="{{<port0> 0} | scaler_1 | {<port1> 1}}", shape=Mrecord, style=filled, fillcolor=green]
+	n0000010e:port1 -> n00000101
+
+	n00000001 [label="/dev/video0", shape=box, style=filled, fillcolor=yellow]
+	n00000101 [label="/dev/video1", shape=box, style=filled, fillcolor=yellow]
+}

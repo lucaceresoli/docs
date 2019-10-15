@@ -163,17 +163,97 @@
 \end{frame}
 
 
-\section{V4L2 issues}
+\section{Troubles and tribulations}
 
-% [Open issues: for typical use case]
-% stream multiplexing: status
-% reliability: handle faulty link/camera
+\begin{frame}{V4L2 troubles}
+  \begin{columns}
+    \column{0.7\textwidth}
+    \begin{flushright}
+      The ideal pipeline \textrightarrow
+    \end{flushright}
 
-% [Open issues: for hotplug]
-% Dynamic DT overlay
-% Modify a running pipeline
+    \vspace{0.2\textheight}
 
-% Workaround: sensors always instantiated
+    \begin{enumerate}
+    \item Stream multiplexing: no support in mainline yet
+    \item Reliability: pipe should work with some nodes disabled
+      \begin{itemize}
+      \item A sensor goes faulty
+      \end{itemize}
+    \item Dynamic pipe: remove some nodes, add different ones
+      \begin{itemize}
+      \item A sensor is removed, a different model added
+      \end{itemize}
+    \end{enumerate}
+
+    \column{0.3\textwidth}
+    \center\includegraphics[height=0.95\textheight]{images/v4l2-ideal-pipe.pdf}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Devicetree troubles}
+  \begin{columns}
+    \column{0.7\textwidth}
+    \begin{enumerate}
+    \item Runtime DT insertion/removal not in mainline yet
+    \item Video pipelines have bidirectional links between endpoints
+    \end{enumerate}
+
+    \begin{minted}[frame=single,autogobble,fontsize=\small]{text}
+        deser@30 {                               // base DT
+          ports {
+            port@0 {
+              deser_input: endpoint {
+                remote-endpoint = <&ser_output>;
+    \end{minted}
+
+    \begin{minted}[frame=single,autogobble,fontsize=\small]{text}
+        ser@3d {                              // DT overlay
+          ports {
+            port@1 {
+              ser_output: endpoint {
+                remote-endpoint = <&deser_input>;
+    \end{minted}
+
+    \column{0.3\textwidth}
+    \center\includegraphics[height=0.95\textheight]{images/v4l2-ideal-pipe.pdf}
+  \end{columns}
+\end{frame}
+
+
+\section{Way out}
+
+\begin{frame}{Work around main blockers}
+  \begin{itemize}
+  \item Main blockers for hotplug applications
+    \begin{itemize}
+    \item Non-modifiable pipeline
+    \item Runtime Device Tree overlays
+    \end{itemize}
+  \item Workaround: sensors always instantiated
+    \begin{itemize}
+    \item V4L2 is happy
+    \item Sensor driver becomes a hack
+    \end{itemize}
+  \item Goal: segregate workarounds, keep serdes drivers clean
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{I2C: ideal solution}
+  \center\includegraphics[width=0.80\textwidth]{images/i2c-ideal.pdf}
+\end{frame}
+
+\begin{frame}{I2C: proposed solution}
+  \center\includegraphics[width=0.80\textwidth]{images/i2c-real.pdf}
+\end{frame}
+
+\begin{frame}{Remote GPIO}
+  \center\includegraphics[height=0.85\textheight]{images/gpio-routing.pdf}
+\end{frame}
+
+\begin{frame}{Remote GPIO}
+  \center\includegraphics[width=0.80\textwidth]{images/gpio-real.pdf}
+\end{frame}
 
 
 \section{Remote I2C}
@@ -185,13 +265,7 @@
 % Maxim mux
 % Proposed implementation for mux: commonalities with alias map (pool)
 
-% Hotplug issues: adapter @ DES
 
-
-\section{Remote GPIO}
-
-% TI chips: GPIO routing scheme
-% Hotplug issues: adapter @ DES (as for I2C)
 
 \section{Conclusions}
 
