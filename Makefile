@@ -122,6 +122,8 @@ buildroot-intro/buildroot-intro.pdf: \
 	buildroot-intro/images/dependencies2.pdf \
 	buildroot-intro/images/Beaglebone_Black.jpg \
 
+video-serdes-linux/video-serdes-linux.pdf: \
+
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
 	scratch-gpio/scratch-gpio.pdf \
@@ -132,3 +134,4 @@ all: \
 	zynqmp-linux/zynqmp-linux.pdf \
 	buildroot-yocto-daily/buildroot-yocto-daily.pdf \
 	buildroot-intro/buildroot-intro.pdf \
+	video-serdes-linux/video-serdes-linux.pdf \
