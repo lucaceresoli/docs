@@ -57,12 +57,76 @@
 
 \section{Video serdes chips}
 
-% What is a serdes
-% Existing chips: TI, Maxim
+\begin{frame}{Serializer/deserializers chipset}
+  \center\includegraphics[height=0.30\textheight]{images/sensor-soc.pdf}
+  \pause
+  \center\includegraphics[height=0.30\textheight]{images/sensor-ser-des-soc.pdf}
+\end{frame}
 
-% Typical application
-% My application
-% BBB-like hotplug idea
+\begin{frame}{Available serdes chips}
+  \begin{itemize}
+  \item Main competitors
+    \begin{itemize}
+    \item Texas Instruments
+      \href{http://www.ti.com/interface/fpd-link-serdes/products.html}{FPD-Link}
+    \item Maxim
+      \href{https://www.maximintegrated.com/en/products/interface/high-speed-signaling/gmsl-serdes.html}{GMSL}
+    \end{itemize}
+  \item Camera or display
+  \item Video bus: MIPI CSI-2, Sub-LVDS, parallel
+  \item Robust link in high electrical noise environment
+  \item 1 to 4 inputs per serializer
+  \item Most have remote I2C, GPIO
+  \item Some have remote UART, audio
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Texas Instruments DS90UB954 and DS90UB953}
+  \center\includegraphics[height=0.80\textheight]{images/ti-2-cameras.pdf}
+\end{frame}
+
+\begin{frame}{Typical application}
+  \begin{itemize}
+  \item Typical use: automotive
+    \begin{itemize}
+    \item Autonomous driving (ADAS) cameras
+    \item Rear camera
+    \item Infotainment display
+    \end{itemize}
+  \item SoC-centric
+  \item Cameras/displays model well known in advance
+  \item Cameras/displays always connected
+  \item High electrical noise
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{My application}
+  \begin{itemize}
+  \item Action camera
+  \item Base module (SoC, processing, storage)
+  \item Two {\em hot-plug} camera modules
+    \begin{itemize}
+    \item Interchangeable
+    \item While recording from the other module
+    \item Possibly with a different model
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{My application: ideal implementation}
+  \begin{itemize}
+  \item I2C EEPROM on each camera (fixed slave address)
+  \item Detect link, read model in EEPROM, load DT overlay
+  \item A DT overlay for each model
+  \item Similar to BBB capes, RPi hats, but hot-plug
+  \item Problems:
+    \begin{itemize}
+    \item Dynamic DT overlays not yet in mainline
+    \item Bidirectional endpoint connections
+    \item V4L2 limitation (covered later)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
 
 
 \section{Existing patches}

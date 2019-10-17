@@ -123,6 +123,9 @@ buildroot-intro/buildroot-intro.pdf: \
 	buildroot-intro/images/Beaglebone_Black.jpg \
 
 video-serdes-linux/video-serdes-linux.pdf: \
+	video-serdes-linux/images/sensor-soc.pdf \
+	video-serdes-linux/images/sensor-ser-des-soc.pdf \
+	video-serdes-linux/images/ti-2-cameras.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
