@@ -113,24 +113,8 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{My application: ideal implementation}
-  \begin{itemize}
-  \item I2C EEPROM on each camera (fixed slave address)
-  \item Detect link, read model in EEPROM, load DT overlay
-  \item A DT overlay for each model
-  \item Similar to BBB capes, RPi hats, but hot-plug
-  \item Problems:
-    \begin{itemize}
-    \item Dynamic DT overlays not yet in mainline
-    \item Bidirectional endpoint connections
-    \item V4L2 limitation (covered later)
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
 
 \section{Linux support}
-
 
 \begin{frame}{Existing patches}
   \href{https://lore.kernel.org/linux-media/20181102154723.23662-1-kieran.bingham@ideasonboard.com/}
@@ -159,6 +143,22 @@
   \item By Luca Ceresoli
   \item For TI DS90Ux9xx chips
   \item See also: this talk :)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ideal implementation}
+  TODO picture ``I2C adapters @ DES'', (but without i2c adaps?)
+  \begin{itemize}
+  \item Similar to BBB capes, RPi hats, but hot-plug
+  \item I2C EEPROM on each camera (fixed slave address)
+  \item When a camera is connected
+    \begin{enumerate}
+    \item Add serializer
+    \item Add I2C EEPROM, read model ID
+    \item Insert model-specific device tree overlay
+    \item DTO adds sensor and other remote devices
+    \end{enumerate}
+  \item On disconnection, remove overlay
   \end{itemize}
 \end{frame}
 
