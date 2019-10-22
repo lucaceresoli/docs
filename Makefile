@@ -126,6 +126,7 @@ video-serdes-linux/video-serdes-linux.pdf: \
 	video-serdes-linux/images/sensor-soc.pdf \
 	video-serdes-linux/images/sensor-ser-des-soc.pdf \
 	video-serdes-linux/images/ti-2-cameras.pdf \
+	video-serdes-linux/images/implementation-ideal.pdf \
 	video-serdes-linux/images/v4l2-ideal-pipe.pdf \
 	video-serdes-linux/images/i2c-ideal.pdf \
 	video-serdes-linux/images/i2c-real.pdf \

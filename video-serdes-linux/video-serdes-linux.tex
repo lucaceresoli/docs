@@ -147,13 +147,16 @@
 \end{frame}
 
 \begin{frame}{Ideal implementation}
-  TODO picture ``I2C adapters @ DES'', (but without i2c adaps?)
+  \center\includegraphics[height=0.80\textheight]{images/implementation-ideal.pdf}
+\end{frame}
+
+\begin{frame}{Ideal implementation}
   \begin{itemize}
   \item Similar to BBB capes, RPi hats, but hot-plug
   \item I2C EEPROM on each camera (fixed slave address)
   \item When a camera is connected
     \begin{enumerate}
-    \item Add serializer
+    \item Add serializer, I2C adapter, GPIO chip
     \item Add I2C EEPROM, read model ID
     \item Insert model-specific device tree overlay
     \item DTO adds sensor and other remote devices
