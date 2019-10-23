@@ -132,6 +132,8 @@ video-serdes-linux/video-serdes-linux.pdf: \
 	video-serdes-linux/images/i2c-real.pdf \
 	video-serdes-linux/images/gpio-routing.pdf \
 	video-serdes-linux/images/gpio-real.pdf \
+	video-serdes-linux/images/i2c-maxim.pdf \
+	video-serdes-linux/images/i2c-ti.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \

@@ -3,10 +3,12 @@
 \usepackage[autostyle]{csquotes}
 \usepackage{hyperref}
 \usepackage{color}
+\usepackage{xcolor}
 \usepackage{setspace}
 \usepackage{listings}
 \usepackage{minted}
 \usepackage{booktabs}
+\usepackage{fancyvrb}
 
 \usetheme{metropolis}
 
@@ -236,6 +238,7 @@
   \item Workaround: sensors always instantiated
     \begin{itemize}
     \item V4L2 is happy
+    \item Device Tree is static
     \item Sensor driver becomes a hack
     \end{itemize}
   \item Goal: segregate workarounds, keep serdes drivers clean
@@ -261,13 +264,55 @@
 
 \section{Remote I2C}
 
-% Problem statement
-% TI alias map
-% Proposed implementation for alias map
-% ``Real'' remote I2C adapters
-% Maxim mux
-% Proposed implementation for mux: commonalities with alias map (pool)
+\begin{frame}{Remote I2C}
+  \begin{itemize}
+  \item Different between TI and Maxim chips
+  \item Discussed in {\tt linux-i2c}
+  \item BoF during Linux Plumbers Conference 2019
+    \begin{itemize}
+    \item \url{https://lucaceresoli.net/plumbers-i2c-bof}
+    \item \url{https://etherpad.openstack.org/p/2019-09-11-I2C-BoF}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
 
+\begin{frame}{Maxim GMSL: I2C switch}
+  \begin{center}
+    \includegraphics[width=0.90\textwidth]{images/i2c-maxim.pdf}
+  \end{center}
+
+  \begin{itemize}
+  \item SER+DES are equivalent to an I2C switch
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{TI FPD-Link III: Address Translation (ATR)}
+  \begin{center}
+    \includegraphics[width=0.90\textwidth]{images/i2c-ti.pdf}
+  \end{center}
+
+  \begin{itemize}
+  \item I2C transactions are replicated based on an alias table
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Address Translation (ATR)}
+  \begin{Verbatim}[commandchars=\\\{\}]
+# i2cdetect -l
+i2c-0    i2c           amba:camera-i2c@0                   I2C adapter
+i2c-4    i2c           i2c-0-atr-0                         I2C adapter
+i2c-5    i2c           i2c-0-atr-1                         I2C adapter
+# \pause{}echo eeprom \textcolor{red}{0x0a} > /sys/bus/i2c/devices/\textcolor{blue}{i2c-4}/new_device
+# \pause{}dmesg | tail -n2
+ds90ub954 0-0030: rx0: client \textcolor{red}{0x0a} mapped at alias \textcolor{green}{0x4b} (eeprom)
+i2c \textcolor{blue}{i2c-4}: new_device: Instantiated device eeprom at \textcolor{red}{0x0a}
+# \pause{}hexdump /sys/bus/i2c/devices/\textcolor{blue}{4}-\textcolor{red}{000a}/eeprom
+0000000 ffff ffff ffff ffff ffff ffff ffff ffff
+*
+0000100
+#
+  \end{Verbatim}
+\end{frame}
 
 
 \section{Conclusions}
