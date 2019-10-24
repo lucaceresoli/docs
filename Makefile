@@ -21,7 +21,7 @@ all:
 
 %.eps: %.dia
 	@printf "%-12s %s\n" DIA $(notdir $@)
-	${Q}dia -e $@ -t eps $^
+	${Q}( cd $(dir $^) ; dia -e $(notdir $@) -t eps $(notdir $^) )
 
 XELATEX = xelatex
 XELATEX_OPTS = -shell-escape -file-line-error -halt-on-error
