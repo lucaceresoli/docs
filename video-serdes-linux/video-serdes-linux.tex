@@ -317,8 +317,17 @@ i2c \textcolor{blue}{i2c-4}: new_device: Instantiated device eeprom at \textcolo
 
 \section{Conclusions}
 
-
 \begin{frame}{Conclusions}
+  \begin{itemize}
+  \item Video serdes are complex
+  \item Issues for proper implementation
+    \begin{itemize}
+    \item V4L2 limitations
+    \item Additional limitations for hotplug (V4L2, Device Tree overlays)
+    \item There's a workaround, implies some compromise
+    \end{itemize}
+  \item There is a plan for proper implementation of remote I2C (on TI chips)
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
