@@ -129,6 +129,7 @@
       2018 talk slides}
   \end{itemize}
 
+  \pause
   \href{https://lore.kernel.org/linux-media/20181008211205.2900-1-vz@mleia.com/}
        {\tt [PATCH 0/7] mfd/pinctrl: add initial support of TI DS90Ux9xx ICs}
   \begin{itemize}
@@ -139,6 +140,7 @@
            {ALS 2018 talk slides}
   \end{itemize}
 
+  \pause
   \href{https://lore.kernel.org/linux-media/20190723203723.11730-1-luca@lucaceresoli.net/}
        {\tt [RFC,v2 0/6] TI camera serdes and I2C address translation}
   \begin{itemize}
@@ -235,12 +237,14 @@
     \item Non-modifiable pipeline
     \item Runtime Device Tree overlays
     \end{itemize}
+    \pause
   \item Workaround: sensors always instantiated
     \begin{itemize}
     \item V4L2 is happy
     \item Device Tree is static
     \item Sensor driver becomes a hack
     \end{itemize}
+    \pause
   \item Goal: segregate workarounds, keep serdes drivers clean
   \end{itemize}
 \end{frame}
