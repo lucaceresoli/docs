@@ -9,6 +9,7 @@
 \usepackage{minted}
 \usepackage{booktabs}
 \usepackage{fancyvrb}
+\usepackage{fontawesome}
 
 \usetheme{metropolis}
 
@@ -16,6 +17,10 @@
 
 \usemintedstyle{perldoc}
 \definecolor{codebackground}{rgb}{0.96,0.96,0.75}
+
+\newcommand{\myhref}[2]{
+  \href{#1}{#2 {\tiny\faExternalLink{}}}
+}
 
 \title{Supporting Video (de)serializers in Linux:\\Challenges and Works in Progress}
 \author{Luca Ceresoli --- AIM Sportline\\
@@ -98,9 +103,9 @@
   \item Main competitors
     \begin{itemize}
     \item Texas Instruments
-      \href{http://www.ti.com/interface/fpd-link-serdes/products.html}{FPD-Link}
+      \myhref{http://www.ti.com/interface/fpd-link-serdes/products.html}{FPD-Link}
     \item Maxim
-      \href{https://www.maximintegrated.com/en/products/interface/high-speed-signaling/gmsl-serdes.html}{GMSL}
+      \myhref{https://www.maximintegrated.com/en/products/interface/high-speed-signaling/gmsl-serdes.html}{GMSL}
     \end{itemize}
   \item Camera or display
   \item Video bus: MIPI CSI-2, Sub-LVDS, parallel
@@ -119,30 +124,30 @@
 \section{Linux support}
 
 \begin{frame}{Existing patches}
-  \href{https://lore.kernel.org/linux-media/20181102154723.23662-1-kieran.bingham@ideasonboard.com/}
+  \myhref{https://lore.kernel.org/linux-media/20181102154723.23662-1-kieran.bingham@ideasonboard.com/}
          {\tt [PATCH v4 0/4] MAX9286 GMSL Support}
   \begin{itemize}
   \item By Kieran Bingham, Laurent Pinchart, Jacopo Mondi, Niklas Söderlund
   \item For Maxim GMSL chips
   \item See also the
-    \href{https://www.slideshare.net/KieranBingham/gmsl-in-linux} {ALS
-      2018 talk slides}
-  \end{itemize}
-
-  \pause
-  \href{https://lore.kernel.org/linux-media/20181008211205.2900-1-vz@mleia.com/}
-       {\tt [PATCH 0/7] mfd/pinctrl: add initial support of TI DS90Ux9xx ICs}
-  \begin{itemize}
-  \item By Vladimir Zapolskiy
-  \item For TI DS90Ux9xx chips
-  \item See also the
-    \href{https://schd.ws/hosted_files/ossalsjp18/8a/vzapolskiy_als2018.pdf}
+    \myhref{https://www.slideshare.net/KieranBingham/gmsl-in-linux}
            {ALS 2018 talk slides}
   \end{itemize}
 
   \pause
-  \href{https://lore.kernel.org/linux-media/20190723203723.11730-1-luca@lucaceresoli.net/}
-       {\tt [RFC,v2 0/6] TI camera serdes and I2C address translation}
+  \myhref{https://lore.kernel.org/linux-media/20181008211205.2900-1-vz@mleia.com/}
+         {\tt [PATCH 0/7] mfd/pinctrl: add initial support of TI DS90Ux9xx ICs}
+  \begin{itemize}
+  \item By Vladimir Zapolskiy
+  \item For TI DS90Ux9xx chips
+  \item See also the
+    \myhref{https://schd.ws/hosted_files/ossalsjp18/8a/vzapolskiy_als2018.pdf}
+           {ALS 2018 talk slides}
+  \end{itemize}
+
+  \pause
+  \myhref{https://lore.kernel.org/linux-media/20190723203723.11730-1-luca@lucaceresoli.net/}
+         {\tt [RFC,v2 0/6] TI camera serdes and I2C address translation}
   \begin{itemize}
   \item By Luca Ceresoli
   \item For TI DS90Ux9xx chips
