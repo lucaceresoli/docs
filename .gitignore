@@ -10,3 +10,4 @@
 *.vrb
 _minted*/
 *.stdout
+*.pdfpc
