@@ -1,0 +1,133 @@
+\documentclass[xetex,table]{beamer}
+
+\usepackage[autostyle]{csquotes}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{booktabs}
+\usepackage{fancyvrb}
+\usepackage{fontawesome}
+\usepackage{tikz}
+
+\usetheme{metropolis}
+
+\setbeamertemplate{section in toc}[circle]
+
+\usemintedstyle{perldoc}
+
+\newcommand{\myhref}[2]{
+  \href{#1}{#2 {\tiny\faExternalLink{}}}
+}
+
+\title{License compliance for embedded Linux devices with Buildroot}
+\author{Luca Ceresoli --- AIM Sportline\\
+  \href{mailto:luca@lucaceresoli.net}{\tt luca@lucaceresoli.net}\\
+  \url{https://lucaceresoli.net}
+}
+\date{\href{https://fosdem.org/2020/schedule/event/buildroot_license_compliance/}{FOSDEM 2020}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{About me}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[width=\textwidth]{../common/images/aim-products.jpg}
+
+    \column{0.5\textwidth}
+    \begin{itemize}
+    \item Embedded Linux engineer\\
+      at AIM Sportline\\
+      {\footnotesize\href{https://www.aim-sportline.com/}{www.aim-sportline.com}}
+      \begin{itemize}
+      \item Develop products on custom hardware
+      \item Kernel, drivers, bootloader, FPGA
+      \item Integration, build system
+      \end{itemize}
+    \item Open source enthusiast
+      \begin{itemize}
+      \item Contributor to the Linux kernel, U-Boot, Buildroot and others
+      \end{itemize}
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+
+\section{Buildroot}
+
+\begin{frame}{...}
+  \begin{itemize}
+  \item ...
+    \begin{itemize}
+    \item ...
+    \item ...
+    \end{itemize}
+  \item ...
+    \begin{itemize}
+    \item ...
+    \item ...
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\section{Open-source licensing}
+
+\begin{frame}{...}
+  \begin{itemize}
+  \item ...
+    \begin{itemize}
+    \item ...
+    \item ...
+    \end{itemize}
+  \item ...
+    \begin{itemize}
+    \item ...
+    \item ...
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\section{Compliance tools in Buildroot}
+
+
+\section[Implementing {\tt legal-info}\\in Buildroot packages]
+        {Implementing {\tt legal-info}  in Buildroot packages}
+
+
+\section{Conclusions}
+
+\begin{frame}
+  \begin{columns}
+    \column{0.4\textwidth}
+    \center
+
+    {\Huge Questions?}
+
+    \column{0.6\textwidth}
+    \center
+
+    {\Large Thank you for your attention!}
+
+    \vspace{0.15\textheight}
+
+    {\Large Luca Ceresoli}\\
+    \href{mailto:luca@lucaceresoli.net}{luca@lucaceresoli.net}\\
+    \url{https://lucaceresoli.net}
+
+    \vspace{0.05\textheight}
+
+    \tiny
+    \textcopyright{} Copyright 2020, Luca Ceresoli\\
+    Slides released under\\
+    Creative Commons Attribution - Share Alike 3.0 License \\
+    \url{https://creativecommons.org/licenses/by-sa/3.0/} \\
+\end{columns}
+\end{frame}
+
+\end{document}

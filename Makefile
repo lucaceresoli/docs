@@ -140,6 +140,8 @@ video-serdes-linux/video-serdes-linux.pdf: \
 	video-serdes-linux/images/i2c-maxim.pdf \
 	video-serdes-linux/images/i2c-ti.pdf \
 
+buildroot-legal-info/buildroot-legal-info.pdf: \
+
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
 	scratch-gpio/scratch-gpio.pdf \
@@ -151,3 +153,4 @@ all: \
 	buildroot-yocto-daily/buildroot-yocto-daily.pdf \
 	buildroot-intro/buildroot-intro.pdf \
 	video-serdes-linux/video-serdes-linux.pdf \
+	buildroot-legal-info/buildroot-legal-info.pdf \
