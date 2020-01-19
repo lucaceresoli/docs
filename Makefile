@@ -141,6 +141,7 @@ video-serdes-linux/video-serdes-linux.pdf: \
 	video-serdes-linux/images/i2c-ti.pdf \
 
 buildroot-legal-info/buildroot-legal-info.pdf: \
+	buildroot-legal-info/images/process-1.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
