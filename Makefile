@@ -142,6 +142,7 @@ video-serdes-linux/video-serdes-linux.pdf: \
 
 buildroot-legal-info/buildroot-legal-info.pdf: \
 	buildroot-legal-info/images/process-1.pdf \
+	buildroot-legal-info/images/process-full.pdf \
 
 all: \
 	embedded-linux-talk/embedded-linux-talk.pdf \
