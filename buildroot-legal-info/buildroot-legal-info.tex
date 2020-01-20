@@ -1,4 +1,4 @@
-\documentclass[xetex,table]{beamer}
+\documentclass[xetex,table,table]{beamer}
 
 \usepackage[autostyle]{csquotes}
 \usepackage{hyperref}
@@ -85,17 +85,49 @@
 
 \section{Open-source licensing}
 
-\begin{frame}{...}
+\begin{frame}{What's it all about?}
   \begin{itemize}
-  \item ...
+  \item Your embedded device contains a lot of open souce software
+  \item Open source is not ``grab and use''
+  \item You have rights and obligations
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Typical license families}
+  \begin{table}
+    \begin{tabular}{lllll}
+      \rotatebox{70}{\bf Public domain}
+                            & \rotatebox{70}{\bf Permissive}
+                                                   & \rotatebox{70}{\bf LGPL}
+                                                                             & \rotatebox{70}{\bf GPL} &\\
+      \checkmark            & \checkmark           & \checkmark              & \checkmark           & Can use, modify                \\
+      \checkmark            & \checkmark           & \checkmark              & \checkmark           & Can redistribute               \\
+                            & \faExclamationCircle & \faExclamationCircle    & \faExclamationCircle & Must provide license text      \\
+                            &                      & \faExclamationCircle    & \faExclamationCircle & Must provide source code       \\
+                            &                      &                         & \faExclamationCircle & Derived work becomes GPL       \\
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Caveats}
+  \begin{itemize}
+  \item There are many variations
+  \item License incompatibility
+  \item Info on websites etc might be inaccurate
+  \item[\textrightarrow] Check the license {\em in the souce code}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{So, what do I have to do?}
+  \begin{itemize}
+  \item Provide license text
+  \item Store source code archives (provide them on request)
     \begin{itemize}
-    \item ...
-    \item ...
-    \end{itemize}
-  \item ...
-    \begin{itemize}
-    \item ...
-    \item ...
+    \item Including the ``scripts used to control compilation and
+      installation''
+      \begin{itemize}
+      \item I.e. the entire buildsystem
+      \end{itemize}
     \end{itemize}
   \end{itemize}
 \end{frame}
