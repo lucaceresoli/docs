@@ -151,6 +151,52 @@
 \section[Implementing {\tt legal-info}\\in Buildroot packages]
         {Implementing {\tt legal-info}  in Buildroot packages}
 
+\begin{frame}[fragile]{Add license info to a package}
+
+  {\tt package/vlc/vlc.mk}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{makefile}
+    VLC_LICENSE = GPL-2.0+, LGPL-2.1+
+    VLC_LICENSE_FILES = COPYING COPYING.LIB
+  \end{minted}
+
+  {\tt package/vlc/vlc.hash}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{text}
+    sha256 8177f975...1b880643  COPYING
+    sha256 dc626520...032fe551  COPYING.LIB
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Your own closed source program}
+
+  {\tt package/myapp/myapp.mk}
+  \begin{minted}[frame=single,autogobble,fontsize=\footnotesize]{makefile}
+    MYAPP_LICENSE = Proprietary
+    MYAPP_REDISTRIBUTE = NO
+  \end{minted}
+\end{frame}
+
+\begin{frame}{Source from unusual locations}
+  \begin{itemize}
+  \item Source code is not saved when using
+    \begin{itemize}
+    \item {\tt <PKG>\_OVERRIDE\_SRCDIR}
+    \item {\tt <PKG>\_SITE\_METHOD = local}
+    \item[\textrightarrow] Avoid them when releasing
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\tt ACTUAL\_SOURCES}
+  \begin{itemize}
+  \item For some special packages:
+    \begin{itemize}
+    \item {\tt <PKG>\_SOURCE} contains binaries
+    \item {\tt <PKG>\_ACTUAL\_SOURCE} points to the tarball with the actual sources
+    \item Only used for pre-built external toolchains
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 
 \section{Conclusions}
 
