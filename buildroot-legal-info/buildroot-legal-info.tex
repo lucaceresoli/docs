@@ -94,19 +94,35 @@
 \end{frame}
 
 \begin{frame}{Typical license families}
-  \begin{table}
-    \begin{tabular}{lllll}
-      \rotatebox{70}{\bf Public domain}
-                            & \rotatebox{70}{\bf Permissive}
-                                                   & \rotatebox{70}{\bf LGPL}
-                                                                             & \rotatebox{70}{\bf GPL} &\\
-      \checkmark            & \checkmark           & \checkmark              & \checkmark           & Can use, modify                \\
-      \checkmark            & \checkmark           & \checkmark              & \checkmark           & Can redistribute               \\
-                            & \faExclamationCircle & \faExclamationCircle    & \faExclamationCircle & Must provide license text      \\
-                            &                      & \faExclamationCircle    & \faExclamationCircle & Must provide source code       \\
-                            &                      &                         & \faExclamationCircle & Derived work becomes GPL       \\
-    \end{tabular}
-  \end{table}
+  \begin{columns}
+
+    \column{0.5\textwidth}
+      \begin{center}
+        {\bf Permissive}\\
+        (BSD, MIT, X11\dots)\\
+      {\ }\\
+      \faCheckCircle\\
+      Use, modify, redistribute\\
+      {\ }\\
+      \faExclamationCircle\\
+      Provide license text \\
+      {\ }
+      \end{center}
+
+    \column{0.5\textwidth}
+      \begin{center}
+        {\bf Copyleft} \\
+        (GPL, LGPL, AGPL\dots)\\
+      {\ }\\
+      \faCheckCircle\\
+      Use, modify, redistribute\\
+      {\ }\\
+      \faExclamationCircle\\
+      Provide license text \\
+      Provide source code
+      \end{center}
+
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Caveats}
@@ -245,6 +261,27 @@
     Creative Commons Attribution - Share Alike 3.0 License \\
     \url{https://creativecommons.org/licenses/by-sa/3.0/} \\
 \end{columns}
+\end{frame}
+
+
+\appendix
+
+\section{Extra slides}
+
+\begin{frame}{Typical license families}
+  \begin{table}
+    \begin{tabular}{lllll}
+      \rotatebox{70}{\bf Public domain}
+                            & \rotatebox{70}{\bf Permissive}
+                                                   & \rotatebox{70}{\bf LGPL}
+                                                                             & \rotatebox{70}{\bf GPL} &\\
+      \checkmark            & \checkmark           & \checkmark              & \checkmark           & Can use, modify                \\
+      \checkmark            & \checkmark           & \checkmark              & \checkmark           & Can redistribute               \\
+                            & \faExclamationCircle & \faExclamationCircle    & \faExclamationCircle & Must provide license text      \\
+                            &                      & \faExclamationCircle    & \faExclamationCircle & Must provide source code       \\
+                            &                      &                         & \faExclamationCircle & Derived work becomes GPL       \\
+    \end{tabular}
+  \end{table}
 \end{frame}
 
 \end{document}
